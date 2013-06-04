@@ -726,8 +726,9 @@ TryStatement: function(node, st, c) {
     indentation += indentStep;
     c(node.block, st, "Statement");
     indentation = indentation.substring(indentationSpaces);
-    for (var i = 0; i < node.handlers.length; ++i) {
-      var handler = node.handlers[i], inner = new Scope(st),
+    if (node.handler) {
+      var handler = node.handler,
+          inner = new Scope(st),
           param = handler.param,
           name = param.name;
       inner.vars[name] = {type: "catch clause", node: param};

@@ -721,7 +721,7 @@ TryStatement: function(node, st, c) {
     if (generate) {
       buffer = compiler.jsBuffer;
       buffer.concat(indentation);
-      buffer.concat("try");
+      buffer.concat("try ");
     }
     indentation += indentStep;
     c(node.block, st, "Statement");
@@ -733,6 +733,7 @@ TryStatement: function(node, st, c) {
           name = param.name;
       inner.vars[name] = {type: "catch clause", node: param};
       if (generate) {
+        buffer.concat("\n");
         buffer.concat(indentation);
         buffer.concat("catch(");
         buffer.concat(name);
@@ -745,6 +746,7 @@ TryStatement: function(node, st, c) {
     }
     if (node.finalizer) {
       if (generate) {
+        buffer.concat("\n");
         buffer.concat(indentation);
         buffer.concat("finally ");
       }

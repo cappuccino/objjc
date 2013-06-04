@@ -1,0 +1,17 @@
+{
+    "name": "objj-compiler",
+    "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
+    "homepage": "http://github.com/mrcarlberg/ObjJAcornCompiler",
+    "main": "ObjJAcornCompiler.js",
+    "version": "0.1.00",
+    "engines": {"node": ">=0.4.0"},
+    "maintainers": [{"name": "Martin Carlberg",
+                     "email": "martin@carlberg.org",
+                     "web": "http://carlberg.org"}],
+    "repository": {"type": "git",
+                   "url": "http://github.com/mrcarlberg/ObjJAcornCompiler"},
+    "licenses": [{"type": "MIT",
+                  "url": "http://raw.github.com/mrcarlberg/ObjJAcornCompiler/master/LICENSE"}],
+    "dependencies": {"objj-acorn": "0.2"},
+    "bin": {"objjc": "./bin/objjc"}
+}

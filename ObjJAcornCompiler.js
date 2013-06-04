@@ -549,9 +549,13 @@ BlockStatement: function(node, st, c) {
         generate = compiler.generate,
         buffer;
     if (generate) {
+      var skipIndentation = st.skipIndentation;
       st.indentBlockLevel = typeof st.indentBlockLevel === "undefined" ? 0 : st.indentBlockLevel + 1;
       buffer = compiler.jsBuffer;
-      buffer.concat(indentation.substring(indentationSpaces));
+      if (skipIndentation)
+        delete st.skipIndentation;
+      else
+        buffer.concat(indentation.substring(indentationSpaces));
       buffer.concat("{\n");
     }
     for (var i = 0; i < node.body.length; ++i) {
@@ -560,7 +564,7 @@ BlockStatement: function(node, st, c) {
     if (generate) {
       buffer.concat(indentation.substring(indentationSpaces));
       buffer.concat("}");
-      if (st.isDecl || st.indentBlockLevel > 0)
+      if (!skipIndentation && (st.isDecl || st.indentBlockLevel > 0))
         buffer.concat("\n");
       st.indentBlockLevel--;
     }
@@ -724,6 +728,7 @@ TryStatement: function(node, st, c) {
       buffer.concat("try ");
     }
     indentation += indentStep;
+    st.skipIndentation = true;
     c(node.block, st, "Statement");
     indentation = indentation.substring(indentationSpaces);
     if (node.handler) {
@@ -740,6 +745,7 @@ TryStatement: function(node, st, c) {
         buffer.concat(") ");
       }
       indentation += indentStep;
+      inner.skipIndentation = true;
       c(handler.body, inner, "ScopeBody");
       indentation = indentation.substring(indentationSpaces);
       inner.copyAddedSelfToIvarsToParent();
@@ -751,9 +757,12 @@ TryStatement: function(node, st, c) {
         buffer.concat("finally ");
       }
       indentation += indentStep;
+      st.skipIndentation = true;
       c(node.finalizer, st, "Statement");
       indentation = indentation.substring(indentationSpaces);
     }
+    if (generate)
+        buffer.concat("\n");
 },
 WhileStatement: function(node, st, c) {
     var compiler = st.compiler,

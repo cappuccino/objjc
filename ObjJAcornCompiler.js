@@ -846,7 +846,7 @@ DebuggerStatement: function(node, st, c) {
 Function: function(node, st, c) {
   var compiler = st.compiler,
       generate = compiler.generate,
-      buffer = compiler.jsBuffer;
+      buffer = compiler.jsBuffer,
       inner = new Scope(st),
       decl = node.type == "FunctionDeclaration";
 

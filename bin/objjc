@@ -4,26 +4,79 @@ var path = require('path');
 var fs = require('fs');
 var compiler = require(path.join(path.dirname(fs.realpathSync(__filename)), "../ObjJAcornCompiler.js"));
 
-var infile, compiled, options = {}, silent = false, compact = false;
+var infile, compiled, options = {}, acornOptions = {}, silent = false, compact = false, code = true, map = false, ast = false;
 
 function help(status) {
-  console.log("usage: " + path.basename(process.argv[1]) + " infile [--ecma3|--ecma5] [--strictSemicolons]");
-  console.log("        [--trackComments] [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--compact] [--silent] [--help]");
+  console.log("usage: " + path.basename(process.argv[1]) + " infile [--ecma3|--ecma5] [--strictSemicolons] [--trackComments]");
+  console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--compact]");
+  console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>]");
+  console.log("        [-Dmacro[([p1, p2, ...])][=definition]] [--silent] [--help]");
   process.exit(status);
+}
+
+function isWhiteSpace(tok) {
+    return ((tok < 14 && tok > 8) || tok === 32 || tok === 160);
+}
+
+function defineMacro(macro) {
+  if (!options.macros)
+    options.macros = Object.create(null);
+
+  var split = macro.split('='),
+      nameAndArgs = split[0],
+      splitNameAndArgs = nameAndArgs.split('('),
+      name = splitNameAndArgs[0],
+      args = splitNameAndArgs[1],
+      definition = split[1];
+
+  if (args)
+  {
+    var pos = 0,
+        start,
+        token = args.charCodeAt(pos),
+        parameterNames = [];
+
+    // Skip whitespaces
+    while(!isNaN(token) && isWhiteSpace(token))
+      token = args.charCodeAt(++pos);
+    start = pos;
+    // Will go until end or ')'
+    while(!isNaN(token) && token !== 41) // ')'
+    {
+      // Will go until end, ')', comma or whitespace
+      while(!isNaN(token) && token !== 41 && token !== 44 && !isWhiteSpace(token)) // ')', ',' or whitespace
+      {
+        token = args.charCodeAt(++pos);
+      }
+      // Get parameter identifier
+      parameterNames.push(args.slice(start, pos));
+      // Skip whitespaces and comma
+      while(!isNaN(token) && (isWhiteSpace(token) || token === 44))
+        token = args.charCodeAt(++pos);
+      start = pos;
+    }
+  }
+  options.macros[name] = new compiler.acorn.Macro(name, definition, parameterNames);
 }
 
 for (var i = 2; i < process.argv.length; ++i) {
   var arg = process.argv[i];
-  if (arg == "--ecma3") options.ecmaVersion = 3;
-  else if (arg == "--ecma5") options.ecmaVersion = 5;
-  else if (arg == "--strictSemicolons") options.strictSemicolons = true;
-  else if (arg == "--trackComments") options.trackComments = true;
-  else if (arg == "--trackSpaces") options.trackSpaces = true;
-  else if (arg == "--locations") options.locations = true;
-  else if (arg == "--noobjj") options.objj = false;
-  else if (arg == "--nopreprocess") options.preprocess = false;
+  if (arg == "--ecma3") acornOptions.ecmaVersion = 3;
+  else if (arg == "--ecma5") acornOptions.ecmaVersion = 5;
+  else if (arg == "--strictSemicolons") acornOptions.strictSemicolons = true;
+  else if (arg == "--trackComments") acornOptions.trackComments = true;
+  else if (arg == "--trackSpaces") acornOptions.trackSpaces = true;
+  else if (arg == "--locations") acornOptions.locations = true;
+  else if (arg == "--noobjj") acornOptions.objj = false;
+  else if (arg == "--nopreprocess") acornOptions.preprocess = false;
   else if (arg == "--silent") silent = true;
   else if (arg == "--compact") compact = true;
+  else if (arg == "--nocode") code = false;
+  else if (arg == "--ast") ast = true;
+  else if (arg == "--map") map = true;
+  else if (arg == "--sourceMap") options.sourceMap = true;
+  else if (arg == "--indent") options.indentationSpaces = parseInt(process.argv[++i]);
+  else if (arg.substring(0, 2) == "-D") defineMacro(arg.substring(2));
   else if (arg == "--help") help(0);
   else if (arg[0] == "-") help(1);
   else infile = arg;
@@ -32,12 +85,20 @@ for (var i = 2; i < process.argv.length; ++i) {
 if (!infile) help(1);
 
 try {
-  var code = fs.readFileSync(infile, "utf8");
-  compiled = compiler.compile(code, infile, options);
+  var source = fs.readFileSync(infile, "utf8");
+  if (Object.keys(acornOptions).length !== 0)
+    options.acornOptions = acornOptions;
+  compiled = compiler.compile(source, infile, options);
 } catch(e) {
   console.log(e.message);
   process.exit(1);
 }
 
-if (!silent)
-  console.log(compiled);
+if (!silent) {
+  if (code)
+    console.log(compiled.code());
+  if (map)
+    console.log(compiled.map());
+  if (ast)
+    console.log(compiled.ast());
+}

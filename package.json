@@ -12,6 +12,7 @@
                    "url": "http://github.com/mrcarlberg/ObjJAcornCompiler"},
     "licenses": [{"type": "MIT",
                   "url": "http://raw.github.com/mrcarlberg/ObjJAcornCompiler/master/LICENSE"}],
-    "dependencies": {"objj-acorn": "0.2"},
+    "dependencies": {"objj-acorn": "0.2",
+                     "source-map": "0.1.22"},
     "bin": {"objjc": "./bin/objjc"}
 }

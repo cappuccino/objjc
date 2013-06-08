@@ -145,12 +145,16 @@ function StringBuffer(useSourceNode, file)
         this.concat = this.concatSourceNode;
         this.toString = this.toStringSourceNode;
         this.isEmpty = this.isEmptySourceNode;
+        this.appendStringBuffer = this.appendStringBufferSourceNode;
+        this.length = this.lengthSourceNode;
         this.file = file;
     } else {
         this.atoms = [];
         this.concat = this.concatString;
         this.toString = this.toStringString;
         this.isEmpty = this.isEmptyString;
+        this.appendStringBuffer = this.appendStringBufferString;
+        this.length = this.lengthString;
     }
 }
 
@@ -190,6 +194,26 @@ StringBuffer.prototype.isEmptySourceNode = function()
     return !this.notEmpty;
 }
 
+StringBuffer.prototype.appendStringBufferString = function(stringBuffer)
+{
+    this.atoms.push.apply(this.atoms, stringBuffer.atoms);
+}
+
+StringBuffer.prototype.appendStringBufferSourceNode = function(stringBuffer)
+{
+    this.rootNode.add(stringBuffer.rootNode);
+}
+
+StringBuffer.prototype.lengthString = function()
+{
+    return this.atoms.length;
+}
+
+StringBuffer.prototype.lengthSourceNode = function()
+{
+    return this.rootNode.children.length;
+}
+
 var reservedIdentifiers = acorn.makePredicate("self _cmd undefined localStorage arguments");
 
 var wordPrefixOperators = acorn.makePredicate("delete in instanceof new typeof void");
@@ -203,26 +227,35 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
   var defaultOptions = {
     // Acorn options. For more information check acorn
     acornOptions: Object.create(null),
+
     // Turn on `sourceMap` generate a source map for the compiler file.
     sourceMap: false,
+
     // The compiler can do different passes. 1: Parse and walk AST tree to collect file dependencies
     // 2: Parse and walk to generate code
     pass: 2,
+
     // Pass in class definitions of classes. New class definitions in source file will be added when compiling.
     classDefs: Object.create(null),
+
     // Turn off `generate` to make the compile copy (and replace needed parts) the code from the source file
     // instead of generate it from the AST tree. The preprocessor does not work if this is turn off as it alters
     // the AST tree and not the original source.
     generate: true,
+
     // Turn off `includeDebugSymbols` to remove function names on methods and remove type information on method
     // arguments.
     includeDebugSymbols: true,
+
     // Turn off `IncludeTypeSignatures` to remove type information on ivars.
     includeTypeSignatures: true,
+
     // Storage for macros.
     macros: Object.create(null),
+
     // How many spaces for indentation when generation code.
     indentationSpaces: 4,
+
     // There is a bug in Safari 2.0 that can't handle a named function declaration. See http://kangax.github.io/nfe/#safari-bug
     // Turn on `transformNamedFunctionDeclarationToAssignment` to make the compiler transform these.
     // We support this here as the old Objective-J compiler (Not a real compiler, Preprocessor.js) transformed
@@ -233,7 +266,7 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
 
   function setupOptions(opts) {
     var options = opts || Object.create(null);
-    for (var opt in defaultOptions) if (options.hasOwnProperty ? !options.hasOwnProperty(opt) : !options[opt])
+    for (var opt in defaultOptions) if (!Object.prototype.hasOwnProperty.call(options, opt))
       options[opt] = defaultOptions[opt];
     return options;
   }
@@ -1080,20 +1113,24 @@ VariableDeclaration: function(node, st, c) {
 },
 ThisExpression: function(node, st, c) {
     var compiler = st.compiler;
+
     if (compiler.generate) compiler.jsBuffer.concat("this", node);
 },
 ArrayExpression: function(node, st, c) {
-  var compiler = st.compiler,
-      generate = compiler.generate;
-  if (generate) compiler.jsBuffer.concat("[", node);
-    for (var i = 0; i < node.elements.length; ++i) {
-      var elt = node.elements[i];
-      if (i !== 0)
-          if (generate) compiler.jsBuffer.concat(", ");
+    var compiler = st.compiler,
+        generate = compiler.generate;
 
-      if (elt) c(elt, st, "Expression");
-    }
-  if (generate) compiler.jsBuffer.concat("]");
+        if (generate) compiler.jsBuffer.concat("[", node);
+
+        for (var i = 0; i < node.elements.length; ++i) {
+            var elt = node.elements[i];
+
+            if (i !== 0)
+                if (generate) compiler.jsBuffer.concat(", ");
+
+            if (elt) c(elt, st, "Expression");
+        }
+        if (generate) compiler.jsBuffer.concat("]");
 },
 ObjectExpression: function(node, st, c) {
     var compiler = st.compiler,
@@ -1339,7 +1376,7 @@ Identifier: function(node, st, c) {
                 } while (compiler.source.substr(nodeStart++, 1) === "(")
                 // Save the index in where the "self." string is stored and the node.
                 // These will be used if we find a variable declaration that is hoisting this identifier.
-                ((st.addedSelfToIvars || (st.addedSelfToIvars = Object.create(null)))[identifier] || (st.addedSelfToIvars[identifier] = [])).push({node: node, index: compiler.jsBuffer.atoms.length});
+                ((st.addedSelfToIvars || (st.addedSelfToIvars = Object.create(null)))[identifier] || (st.addedSelfToIvars[identifier] = [])).push({node: node, index: compiler.jsBuffer.length()});
                 compiler.jsBuffer.concat("self.", node);
             }
         } else if (!reservedIdentifiers(identifier)) {  // Don't check for warnings if it is a reserved word like self, localStorage, _cmd, etc...
@@ -1625,7 +1662,7 @@ ClassDeclarationStatement: function(node, st, c) {
     if (compiler.imBuffer.isEmpty())
     {
         saveJSBuffer.concat("class_addMethods(the_class, [");
-        saveJSBuffer.atoms.push.apply(saveJSBuffer.atoms, compiler.imBuffer.atoms); // FIXME: Move this append to StringBuffer
+        saveJSBuffer.appendStringBuffer(compiler.imBuffer);
         saveJSBuffer.concat("]);\n");
     }
 
@@ -1633,7 +1670,7 @@ ClassDeclarationStatement: function(node, st, c) {
     if (compiler.cmBuffer.isEmpty())
     {
         saveJSBuffer.concat("class_addMethods(meta_class, [");
-        saveJSBuffer.atoms.push.apply(saveJSBuffer.atoms, compiler.cmBuffer.atoms); // FIXME: Move this append to StringBuffer
+        saveJSBuffer.appendStringBuffer(compiler.cmBuffer);
         saveJSBuffer.concat("]);\n");
     }
 

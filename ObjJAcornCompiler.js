@@ -135,7 +135,7 @@ var GlobalVariableMaybeWarning = function(/* String */ aMessage, /* SpiderMonkey
 GlobalVariableMaybeWarning.prototype.checkIfWarning = function(/* Scope */ st)
 {
     var identifier = this.node.name;
-    return !st.getLvar(identifier) && typeof global[identifier] === "undefined" && typeof window[identifier] === "undefined" && !st.compiler.getClassDef(identifier);
+    return !st.getLvar(identifier) && typeof global[identifier] === "undefined" && (typeof window === 'undefined' || typeof window[identifier] === "undefined") && !st.compiler.getClassDef(identifier);
 }
 
 function StringBuffer(useSourceNode, file)
@@ -209,7 +209,7 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
     // 2: Parse and walk to generate code
     pass: 2,
     // Pass in class definitions of classes. New class definitions in source file will be added when compiling.
-    classDef: Object.create(null),
+    classDefs: Object.create(null),
     // Turn off `generate` to make the compile copy (and replace needed parts) the code from the source file
     // instead of generate it from the AST tree. The preprocessor does not work if this is turn off as it alters
     // the AST tree and not the original source.
@@ -223,6 +223,12 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
     macros: Object.create(null),
     // How many spaces for indentation when generation code.
     indentationSpaces: 4,
+    // There is a bug in Safari 2.0 that can't handle a named function declaration. See http://kangax.github.io/nfe/#safari-bug
+    // Turn on `transformNamedFunctionDeclarationToAssignment` to make the compiler transform these.
+    // We support this here as the old Objective-J compiler (Not a real compiler, Preprocessor.js) transformed
+    // named functions declarations to assignments.
+    // Example: 'function f(x) { return x }'' transform to: 'f = function(x) { return x }'
+    transformNamedFunctionDeclarationToAssignment: false,
   };
 
   function setupOptions(opts) {
@@ -243,6 +249,7 @@ var ObjJAcornCompiler = function(/*String*/ aString, /*CFURL*/ aURL, options)
     this.generate = options.generate;
     this.macroDefines = options.macros;
     this.createSourceMap = options.sourceMap;
+    this.transformNamedFunctionDeclarationToAssignment = options.transformNamedFunctionDeclarationToAssignment;
 	this.jsBuffer = new StringBuffer(this.createSourceMap, aURL);
     this.imBuffer = null;
     this.cmBuffer = null;
@@ -400,7 +407,7 @@ ObjJAcornCompiler.prototype.getClassDef = function(/* String */ aClassName)
 
 	if (c) return c;
 
-	if (objj_getClass)
+	if (typeof objj_getClass === 'function')
 	{
 		var aClass = objj_getClass(aClassName);
 		if (aClass)
@@ -677,7 +684,6 @@ BlockStatement: function(node, st, c) {
         buffer;
     if (generate) {
       var skipIndentation = st.skipIndentation;
-      st.indentBlockLevel = typeof st.indentBlockLevel === "undefined" ? 0 : st.indentBlockLevel + 1;
       buffer = compiler.jsBuffer;
       if (skipIndentation)
         delete st.skipIndentation;
@@ -691,7 +697,7 @@ BlockStatement: function(node, st, c) {
     if (generate) {
       buffer.concat(indentation.substring(indentationSpaces));
       buffer.concat("}");
-      if (!skipIndentation && (st.isDecl || st.indentBlockLevel > 0))
+      if (!skipIndentation && st.isDecl !== false)
         buffer.concat("\n");
       st.indentBlockLevel--;
     }
@@ -989,24 +995,33 @@ Function: function(node, st, c) {
       inner = new Scope(st),
       decl = node.type == "FunctionDeclaration";
 
-      inner.isDecl = decl;
+  inner.isDecl = decl;
   for (var i = 0; i < node.params.length; ++i)
     inner.vars[node.params[i].name] = {type: "argument", node: node.params[i]};
+  if (generate)
+    buffer.concat(indentation);
   if (node.id) {
-    (decl ? st : inner).vars[node.id.name] =
-      {type: decl ? "function" : "function name", node: node.id};
-    if (generate) {
-      buffer.concat(node.id.name);
-      buffer.concat(" = ");
-    } else {
-      buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
-      buffer.concat(node.id.name);
-      buffer.concat(" = function");
-      compiler.lastPos = node.id.end;
+    (decl ? st : inner).vars[node.id.name] = {type: decl ? "function" : "function name", node: node.id};
+    if (compiler.transformNamedFunctionDeclarationToAssignment) {
+      if (generate) {
+        buffer.concat(node.id.name);
+        buffer.concat(" = ");
+      } else {
+        buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
+        buffer.concat(node.id.name);
+        buffer.concat(" = function");
+        compiler.lastPos = node.id.end;
+      }
     }
   }
   if (generate) {
-    buffer.concat("function(", node);
+    buffer.concat("function", node);
+    if (!compiler.transformNamedFunctionDeclarationToAssignment && node.id)
+    {
+        buffer.concat(" ");
+        buffer.concat(node.id.name, node.id);
+    }
+    buffer.concat("(");
     for (var i = 0; i < node.params.length; ++i) {
       if (i)
         buffer.concat(", ");
@@ -1329,7 +1344,7 @@ Identifier: function(node, st, c) {
             }
         } else if (!reservedIdentifiers(identifier)) {  // Don't check for warnings if it is a reserved word like self, localStorage, _cmd, etc...
             var message,
-                classOrGlobal = typeof global[identifier] !== "undefined" || typeof window[identifier] !== "undefined" || compiler.getClassDef(identifier),
+                classOrGlobal = typeof global[identifier] !== "undefined" || (typeof window !== 'undefined' && typeof window[identifier] !== "undefined") || compiler.getClassDef(identifier),
                 globalVar = st.getLvar(identifier);
             if (classOrGlobal && (!globalVar || globalVar.type !== "class")) { // It can't be declared with a @class statement.
                 /* Turned off this warning as there are many many warnings when compiling the Cappuccino frameworks - Martin
@@ -1686,8 +1701,8 @@ MethodDeclarationStatement: function(node, st, c) {
     indentation = indentation.substring(indentationSpaces);
     if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.body.end));
 
-    compiler.jsBuffer.concat("\n");
-    if (compiler.options.IncludeDebugSymbols)
+    //compiler.jsBuffer.concat("\n");
+    if (compiler.options.includeDebugSymbols)
         compiler.jsBuffer.concat(","+JSON.stringify(types));
     compiler.jsBuffer.concat(")");
     compiler.jsBuffer = saveJSBuffer;
@@ -1817,7 +1832,7 @@ ClassStatement: function(node, st, c) {
     }
     var className = node.id.name;
     if (!compiler.getClassDef(className)) {
-        classDef = {"className": className};
+        var classDef = {"className": className};
         compiler.classDefs[className] = classDef;
     }
     st.vars[node.id.name] = {type: "class", node: node.id};

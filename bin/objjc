@@ -4,16 +4,18 @@ var path = require('path');
 var fs = require('fs');
 var compiler = require(path.join(path.dirname(fs.realpathSync(__filename)), "../ObjJAcornCompiler.js"));
 
-var infile, compiled, options = {}, acornOptions = {}, silent = false, compact = false, code = true, map = false, ast = false;
+var infile, compiled, options = {}, acornOptions = {}, silent = false, code = true, map = false, ast = false;
 
 function help(status) {
   console.log("usage: " + path.basename(process.argv[1]) + " infile [--ecma3|--ecma5] [--strictSemicolons] [--trackComments]");
-  console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--compact]");
+  console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--oldsafaribug]");
+  console.log("        [--dontIncludeDebugSymbols] [--dontIncludeTypeSignatures]");
   console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>]");
   console.log("        [-Dmacro[([p1, p2, ...])][=definition]] [--silent] [--help]");
   process.exit(status);
 }
 
+// We skip the high number unicode whitespaces and only allow regular extended ASCII codes
 function isWhiteSpace(tok) {
     return ((tok < 14 && tok > 8) || tok === 32 || tok === 160);
 }
@@ -25,7 +27,7 @@ function defineMacro(macro) {
   var split = macro.split('='),
       nameAndArgs = split[0],
       splitNameAndArgs = nameAndArgs.split('('),
-      name = splitNameAndArgs[0],
+      name = splitNameAndArgs[0].trim(),
       args = splitNameAndArgs[1],
       definition = split[1];
 
@@ -70,11 +72,13 @@ for (var i = 2; i < process.argv.length; ++i) {
   else if (arg == "--noobjj") acornOptions.objj = false;
   else if (arg == "--nopreprocess") acornOptions.preprocess = false;
   else if (arg == "--silent") silent = true;
-  else if (arg == "--compact") compact = true;
+  else if (arg == "--oldsafaribug") options.transformNamedFunctionDeclarationToAssignment = true;
   else if (arg == "--nocode") code = false;
   else if (arg == "--ast") ast = true;
   else if (arg == "--map") map = true;
   else if (arg == "--sourceMap") options.sourceMap = true;
+  else if (arg == "--dontIncludeDebugSymbols") options.includeDebugSymbols = false;
+  else if (arg == "--dontIncludeTypeSignatures") options.includeTypeSignatures = false;
   else if (arg == "--indent") options.indentationSpaces = parseInt(process.argv[++i]);
   else if (arg.substring(0, 2) == "-D") defineMacro(arg.substring(2));
   else if (arg == "--help") help(0);

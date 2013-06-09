@@ -225,30 +225,25 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
   // the compiler. These options are recognized:
 
   var defaultOptions = {
-    // Acorn options. For more information check acorn
+    // Acorn options. For more information check objj-acorn.
     acornOptions: Object.create(null),
 
     // Turn on `sourceMap` generate a source map for the compiler file.
     sourceMap: false,
 
-    // The compiler can do different passes. 1: Parse and walk AST tree to collect file dependencies
-    // 2: Parse and walk to generate code
+    // The compiler can do different passes.
+    // 1: Parse and walk AST tree to collect file dependencies.
+    // 2: Parse and walk to generate code.
+    // Pass one is only for when the Objective-J load and runtime.
     pass: 2,
 
     // Pass in class definitions of classes. New class definitions in source file will be added when compiling.
     classDefs: Object.create(null),
 
-    // Turn off `generate` to make the compile copy (and replace needed parts) the code from the source file
+    // Turn off `generate` to make the compile copy the code from the source file (and replace needed parts)
     // instead of generate it from the AST tree. The preprocessor does not work if this is turn off as it alters
-    // the AST tree and not the original source.
+    // the AST tree and not the original source. We should deprecate this in the future.
     generate: true,
-
-    // Turn off `includeDebugSymbols` to remove function names on methods and remove type information on method
-    // arguments.
-    includeDebugSymbols: true,
-
-    // Turn off `IncludeTypeSignatures` to remove type information on ivars.
-    includeTypeSignatures: true,
 
     // Storage for macros.
     macros: Object.create(null),
@@ -256,12 +251,24 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
     // How many spaces for indentation when generation code.
     indentationSpaces: 4,
 
+    // Include comments when generating code. This option will turn on the acorn options trackComments and trackCommentsIncludeLineBreak.
+    includeComments: false,
+
     // There is a bug in Safari 2.0 that can't handle a named function declaration. See http://kangax.github.io/nfe/#safari-bug
     // Turn on `transformNamedFunctionDeclarationToAssignment` to make the compiler transform these.
     // We support this here as the old Objective-J compiler (Not a real compiler, Preprocessor.js) transformed
-    // named functions declarations to assignments.
-    // Example: 'function f(x) { return x }'' transform to: 'f = function(x) { return x }'
+    // named function declarations to assignments.
+    // Example: 'function f(x) { return x }' transforms to: 'f = function(x) { return x }'
     transformNamedFunctionDeclarationToAssignment: false,
+
+    // Turn off `includeMethodFunctionNames` to remove function names on methods.
+    includeMethodFunctionNames: true,
+
+    // Turn off `includeMethodArgumentTypeSignatures` to remove type information on method arguments.
+    includeMethodArgumentTypeSignatures: true,
+
+    // Turn off `includeIvarTypeSignatures` to remove type information on ivars.
+    includeIvarTypeSignatures: true,
   };
 
   function setupOptions(opts) {
@@ -1561,7 +1568,7 @@ ClassDeclarationStatement: function(node, st, c) {
         else
             saveJSBuffer.concat(", ");
 
-        if (compiler.options.includeTypeSignatures)
+        if (compiler.options.includeIvarTypeSignatures)
             saveJSBuffer.concat("new objj_ivar(\"" + ivarName + "\", \"" + ivarType + "\")", node);
         else
             saveJSBuffer.concat("new objj_ivar(\"" + ivarName + "\")", node);
@@ -1711,7 +1718,7 @@ MethodDeclarationStatement: function(node, st, c) {
 
 //    this.currentSelector = selector;
 
-    if (compiler.options.includeDebugSymbols)
+    if (compiler.options.includeMethodFunctionNames)
     {
         compiler.jsBuffer.concat(" $" + st.currentClassName() + "__" + selector.replace(/:/g, "_"));
     }
@@ -1739,7 +1746,7 @@ MethodDeclarationStatement: function(node, st, c) {
     if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.body.end));
 
     //compiler.jsBuffer.concat("\n");
-    if (compiler.options.includeDebugSymbols)
+    if (compiler.options.includeMethodArgumentTypeSignatures)
         compiler.jsBuffer.concat(","+JSON.stringify(types));
     compiler.jsBuffer.concat(")");
     compiler.jsBuffer = saveJSBuffer;

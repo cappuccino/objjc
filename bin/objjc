@@ -8,6 +8,7 @@ var infile, compiled, options = {}, acornOptions = {}, silent = false, code = tr
 
 function help(status) {
   console.log("usage: " + path.basename(process.argv[1]) + " infile [--ecma3|--ecma5] [--strictSemicolons] [--trackComments]");
+  console.log("        [--dontTrackCommentsIncludeLineBreak]");
   console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--oldsafaribug]");
   console.log("        [--dontIncludeDebugSymbols] [--dontIncludeTypeSignatures]");
   console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>]");
@@ -67,6 +68,8 @@ for (var i = 2; i < process.argv.length; ++i) {
   else if (arg == "--ecma5") acornOptions.ecmaVersion = 5;
   else if (arg == "--strictSemicolons") acornOptions.strictSemicolons = true;
   else if (arg == "--trackComments") acornOptions.trackComments = true;
+  else if (arg == "--dontTrackCommentsIncludeLineBreak") acornOptions.trackCommentsIncludeLineBreak = false;
+  else if (arg == "--includeComments") options.includeComments = true, acornOptions.trackComments = true;
   else if (arg == "--trackSpaces") acornOptions.trackSpaces = true;
   else if (arg == "--locations") acornOptions.locations = true;
   else if (arg == "--noobjj") acornOptions.objj = false;

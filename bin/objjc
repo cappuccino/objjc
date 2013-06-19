@@ -8,7 +8,7 @@ var infile, compiled, options = {}, acornOptions = {}, silent = false, code = tr
 
 function help(status) {
   console.log("usage: " + path.basename(process.argv[1]) + " infile [--ecma3|--ecma5] [--strictSemicolons] [--trackComments]");
-  console.log("        [--dontTrackCommentsIncludeLineBreak]");
+  console.log("        [--formatDescription <pathToJSONFile>] [--dontTrackCommentsIncludeLineBreak]");
   console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--oldsafaribug]");
   console.log("        [--dontIncludeDebugSymbols] [--dontIncludeTypeSignatures]");
   console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>]");
@@ -83,6 +83,13 @@ for (var i = 2; i < process.argv.length; ++i) {
   else if (arg == "--dontIncludeDebugSymbols") options.includeDebugSymbols = false;
   else if (arg == "--dontIncludeTypeSignatures") options.includeTypeSignatures = false;
   else if (arg == "--indent") options.indentationSpaces = parseInt(process.argv[++i]);
+  else if (arg == "--formatDescription") {
+    var filePath = process.argv[++i],
+        relative = filePath.substring(0, 1) !== '/',
+        jsonFile = JSON.parse(require('fs').readFileSync(relative ? require('path').resolve(process.cwd(), filePath) : filePath,'utf8'));
+        //if (!jsonFile) console.log("Error: Can't read formatDescription at " + filePath), process.exit(1);
+        options.formatDescription = jsonFile;
+  }
   else if (arg.substring(0, 2) == "-D") defineMacro(arg.substring(2));
   else if (arg == "--help") help(0);
   else if (arg[0] == "-") help(1);

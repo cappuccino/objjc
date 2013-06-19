@@ -6,7 +6,7 @@
 	"BreakStatement": {"before": "\n", "after": ";"},
 	"ContinueStatement": {"before": "\n", "after": ";"},
 	"WithStatement": {"before": "\n"},
-	"SwitchStatement": {"before": "\n", "beforeCase": "\n", "beforeRightBrace": "\n"},
+	"SwitchStatement": {"before": "\n", "beforeCase": "\n", "afterCase": " ", "beforeRightBrace": "\n"},
 	"ReturnStatement": {"before": "\n", "after": ";", "beforeExpression": " "},
 	"ThrowStatement": {"before": "\n"},
 	"TryStatement": {"before": "\n"},

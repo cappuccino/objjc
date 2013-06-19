@@ -2,7 +2,7 @@
 	"BlockStatement": {"beforeRightBrace": "\n\\-1"},
 	"ExpressionStatement": {"before": "\n", "after": ";"},
 	"IfStatement": {"before": "\n"},
-	"LabeledStatement": {"before": "\n", "after": ";"},
+	"LabeledStatement": {"before": "\n"},
 	"BreakStatement": {"before": "\n", "after": ";"},
 	"ContinueStatement": {"before": "\n", "after": ";"},
 	"WithStatement": {"before": "\n"},

@@ -315,7 +315,7 @@ StringBuffer.prototype.concatFormat = function(aString)
                 }
                 var indentationNumber = parseInt(indent);
                 if (indentationNumber) {
-                    this.concat(indentationNumber > 0 ? indentation + Array(indentationNumber * indentationSpaces + 1).join(" ") : indentation.substring(indentationSpaces * -indentationNumber));
+                    this.concat(indentationNumber > 0 ? indentation + Array(indentationNumber * indentationSpaces + 1).join(indentType) : indentation.substring(indentationSize * -indentationNumber));
                 }
                 line = line.slice(1 + numberLength);
             } else {
@@ -398,6 +398,9 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
 
     // How many spaces for indentation when generation code.
     indentationSpaces: 4,
+
+    // The type of indentation. Default is space. Can be changed to tab or any other string.
+    indentationType: " ",
 
     // Include comments when generating code. This option will turn on the acorn options trackComments and trackCommentsIncludeLineBreak.
     includeComments: false,
@@ -881,8 +884,10 @@ ImportStatement: function(node, st, c) {
 }
 });
 
+var indentType = " ";
 var indentationSpaces = 4;
-var indentStep = Array(indentationSpaces + 1).join(" ");
+var indentationSize = indentationSpaces * indentType.length;
+var indentStep = Array(indentationSpaces + 1).join(indentType);
 var indentation = "";
 
 var pass2 = walk.make({
@@ -890,8 +895,10 @@ Program: function(node, st, c) {
     var compiler = st.compiler,
         generate = compiler.generate;
 
+    indentType = compiler.options.indentationType;
     indentationSpaces = compiler.options.indentationSpaces;
-    indentStep = Array(indentationSpaces + 1).join(" ");
+    indentationSize = indentationSpaces * indentType.length;
+    indentStep = Array(indentationSpaces + 1).join(indentType);
     indentation = "";
 
     for (var i = 0; i < node.body.length; ++i) {
@@ -922,7 +929,7 @@ BlockStatement: function(node, st, c, format) {
         if (skipIndentation)
           delete st.skipIndentation;
         else
-          buffer.concat(indentation.substring(indentationSpaces));
+          buffer.concat(indentation.substring(indentationSize));
         buffer.concat("{\n");
       }
     }
@@ -934,7 +941,7 @@ BlockStatement: function(node, st, c, format) {
         buffer.concatFormat(format.beforeRightBrace);
         buffer.concat("}");
       } else {
-        buffer.concat(indentation.substring(indentationSpaces));
+        buffer.concat(indentation.substring(indentationSize));
         buffer.concat("}");
         if (!skipIndentation && st.isDecl !== false)
             buffer.concat("\n");
@@ -979,7 +986,7 @@ IfStatement: function(node, st, c, format) {
     }
     indentation += indentStep;
     c(node.consequent, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
     var alternate = node.alternate;
     if (alternate) {
       var alternateNotIf = alternate.type !== "IfStatement";
@@ -999,7 +1006,7 @@ IfStatement: function(node, st, c, format) {
         st.superNodeIsElse = true;
 
       c(alternate, st, "Statement");
-      if (alternateNotIf) indentation = indentation.substring(indentationSpaces);
+      if (alternateNotIf) indentation = indentation.substring(indentationSize);
     }
 },
 LabeledStatement: function(node, st, c, format) {
@@ -1080,7 +1087,7 @@ WithStatement: function(node, st, c, format) {
       }
     indentation += indentStep;
     c(node.body, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
 },
 SwitchStatement: function(node, st, c, format) {
     var compiler = st.compiler,
@@ -1143,9 +1150,9 @@ SwitchStatement: function(node, st, c, format) {
       indentation += indentStep;
       for (var j = 0; j < cs.consequent.length; ++j)
         c(cs.consequent[j], st, "Statement");
-      indentation = indentation.substring(indentationSpaces);
+      indentation = indentation.substring(indentationSize);
     }
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
     if (generate) {
       if (format) {
         buffer.concatFormat(format.beforeRightBrace);
@@ -1197,7 +1204,7 @@ TryStatement: function(node, st, c, format) {
     indentation += indentStep;
     if (!format) st.skipIndentation = true;
     c(node.block, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
     if (node.handler) {
       var handler = node.handler,
           inner = new Scope(st),
@@ -1224,7 +1231,7 @@ TryStatement: function(node, st, c, format) {
       indentation += indentStep;
       inner.skipIndentation = true;
       c(handler.body, inner, "ScopeBody");
-      indentation = indentation.substring(indentationSpaces);
+      indentation = indentation.substring(indentationSize);
       inner.copyAddedSelfToIvarsToParent();
     }
     if (node.finalizer) {
@@ -1242,7 +1249,7 @@ TryStatement: function(node, st, c, format) {
       indentation += indentStep;
       st.skipIndentation = true;
       c(node.finalizer, st, "Statement");
-      indentation = indentation.substring(indentationSpaces);
+      indentation = indentation.substring(indentationSize);
     }
     if (generate && !format)
         buffer.concat("\n");
@@ -1274,7 +1281,7 @@ WhileStatement: function(node, st, c, format) {
       }
     indentation += indentStep;
     c(body, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
 },
 DoWhileStatement: function(node, st, c, format) {
     var compiler = st.compiler,
@@ -1292,7 +1299,7 @@ DoWhileStatement: function(node, st, c, format) {
     }
     indentation += indentStep;
     c(node.body, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
     if (generate) {
       if (format) {
         buffer.concat("while");
@@ -1337,7 +1344,7 @@ ForStatement: function(node, st, c, format) {
       }
     indentation += indentStep;
     c(body, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
 },
 ForInStatement: function(node, st, c, format) {
     var compiler = st.compiler,
@@ -1375,7 +1382,7 @@ ForInStatement: function(node, st, c, format) {
       }
     indentation += indentStep;
     c(body, st, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
 },
 ForInit: function(node, st, c) {
     var compiler = st.compiler,
@@ -1450,7 +1457,7 @@ Function: function(node, st, c, format) {
   }
   indentation += indentStep;
   c(node.body, inner, "ScopeBody");
-  indentation = indentation.substring(indentationSpaces);
+  indentation = indentation.substring(indentationSize);
   inner.copyAddedSelfToIvarsToParent();
 },
 VariableDeclaration: function(node, st, c, format) {
@@ -2198,7 +2205,7 @@ MethodDeclarationStatement: function(node, st, c) {
     if (!generate) compiler.lastPos = node.startOfBody;
     indentation += indentStep;
     c(node.body, methodScope, "Statement");
-    indentation = indentation.substring(indentationSpaces);
+    indentation = indentation.substring(indentationSize);
     if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.body.end));
 
     //compiler.jsBuffer.concat("\n");

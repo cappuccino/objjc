@@ -11,7 +11,7 @@ function help(status) {
   console.log("        [--formatDescription <pathToJSONFile>] [--dontTrackCommentsIncludeLineBreak]");
   console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--oldsafaribug]");
   console.log("        [--dontIncludeDebugSymbols] [--dontIncludeTypeSignatures]");
-  console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>]");
+  console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>] [--indentType <string>]");
   console.log("        [-Dmacro[([p1, p2, ...])][=definition]] [--silent] [--help]");
   process.exit(status);
 }
@@ -83,6 +83,7 @@ for (var i = 2; i < process.argv.length; ++i) {
   else if (arg == "--dontIncludeDebugSymbols") options.includeDebugSymbols = false;
   else if (arg == "--dontIncludeTypeSignatures") options.includeTypeSignatures = false;
   else if (arg == "--indent") options.indentationSpaces = parseInt(process.argv[++i]);
+  else if (arg == "--indentType") options.indentationType = process.argv[++i];
   else if (arg == "--formatDescription") {
     var filePath = process.argv[++i],
         relative = filePath.substring(0, 1) !== '/',

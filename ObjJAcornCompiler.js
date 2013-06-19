@@ -1017,9 +1017,9 @@ LabeledStatement: function(node, st, c, format) {
       c(node.label, st, "IdentifierName");
       if (format) {
         buffer.concat(":");
+        buffer.concatFormat(format.afterColon);
       } else {
         buffer.concat(": ");
-        buffer.concatFormat(format.afterColon);
       }
     }
     c(node.body, st, "Statement");

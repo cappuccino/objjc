@@ -12,6 +12,7 @@
                    "url": "http://github.com/mrcarlberg/ObjJAcornCompiler"},
     "licenses": [{"type": "MIT",
                   "url": "http://raw.github.com/mrcarlberg/ObjJAcornCompiler/master/LICENSE"}],
+    "keywords": ["source", "source code", "JavaScript", "ECMAScript", "Objective-J", "preprocessor", "pre-processor", "pre processor", "processor", "utility", "beautifier", "formatter"],
     "dependencies": {"objj-acorn": "0.2",
                      "source-map": "0.1.22"},
     "bin": {"objjc": "./bin/objjc"}

@@ -1,11 +1,13 @@
 ObjJAcornCompiler
 =================
 
-A tiny, fast JavaScript and Objective-J compiler with built in preprocessor. Written in JavaScript.
+A tiny, fast JavaScript and/or [Objective-J][objj] compiler with built in preprocessor. Written in JavaScript.
 
-It uses a parser extended from the Acorn JavaScript parser by Marijn Haverbeke.
+[objj]: http://www.cappuccino-project.org/learn/objective-j.html
 
-See http://github.com/mrcarlberg/acorn
+It uses a parser extended from the [Acorn][objj-acorn] JavaScript parser by Marijn Haverbeke.
+
+[objj-acorn]: https://github.com/mrcarlberg/acorn
 
 The parser has a built in C like preprocessor.
 
@@ -25,3 +27,4 @@ For more info see http://www.cappuccino-project.org/blog/2013/05/the-new-objecti
 Objective-J limitations:
 It can't compile Objective-J code that depends on other Objective-J files. The Objective-J load and
 runtime is needed for this. But it will work as long as you declare any superclass in the same file.
+This will be fixed when the Objective-J load and runtime will be a node module

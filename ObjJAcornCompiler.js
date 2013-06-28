@@ -318,7 +318,8 @@ StringBuffer.prototype.concatFormat = function(aString)
                     this.concat(indentationNumber > 0 ? indentation + Array(indentationNumber * indentationSpaces + 1).join(indentType) : indentation.substring(indentationSize * -indentationNumber));
                 }
                 line = line.slice(1 + numberLength);
-            } else {
+            } else if (line || i === size - 1) {
+                // Ident if there is something between line breaks or the last linebreak
                 this.concat(indentation);
             }
             if (line) this.concat(line);

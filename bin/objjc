@@ -8,10 +8,11 @@ var infile, compiled, options = {}, acornOptions = {}, silent = false, code = tr
 
 function help(status) {
   console.log("usage: " + path.basename(process.argv[1]) + " infile [--ecma3|--ecma5] [--strictSemicolons] [--trackComments]");
-  console.log("        [--formatDescription <pathToJSONFile>] [--dontTrackCommentsIncludeLineBreak]");
+  console.log("        [--includeComments] [--dontTrackCommentsIncludeLineBreak]");
+  console.log("        [--formatDescription <pathToJSONFile>] [--indent <n>] [--indentType <string>]");
   console.log("        [--trackSpaces] [--locations] [--noobjj] [--nopreprocess] [--oldsafaribug]");
   console.log("        [--dontIncludeDebugSymbols] [--dontIncludeTypeSignatures]");
-  console.log("        [--sourceMap] [--nocode] [--map] [--ast] [--indent <n>] [--indentType <string>]");
+  console.log("        [--sourceMap] [--nocode] [--map] [--ast]");
   console.log("        [-Dmacro[([p1, p2, ...])][=definition]] [--silent] [--help]");
   process.exit(status);
 }

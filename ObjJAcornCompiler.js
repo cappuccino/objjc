@@ -714,7 +714,7 @@ function compile(node, state, visitor) {
 };
 
 function compileWithFormat(node, state, visitor) {
-    var lastNode;
+    var lastNode, lastComment;
     function c(node, st, override) {
         var compiler = st.compiler,
             includeComments = compiler.includeComments,
@@ -723,8 +723,7 @@ function compileWithFormat(node, state, visitor) {
             sameNode = localLastNode === node;
         //console.log(override || node.type);
         lastNode = node;
-        if (includeComments && node !== localLastNode) {
-          if (node.commentsBefore)
+        if (includeComments && !sameNode && node.commentsBefore && node.commentsBefore !== lastComment) {
             for (var i = 0; i < node.commentsBefore.length; i++)
                 compiler.jsBuffer.concat(node.commentsBefore[i]);
         }
@@ -737,10 +736,12 @@ function compileWithFormat(node, state, visitor) {
         if (!sameNode && formatDescription && formatDescription.after)
             compiler.jsBuffer.concatFormat(formatDescription.after);
         st.popNode();
-        if (includeComments && node !== localLastNode) {
-          if (node.commentsAfter)
+        if (includeComments && !sameNode && node.commentsAfter) {
             for (var i = 0; i < node.commentsAfter.length; i++)
                 compiler.jsBuffer.concat(node.commentsAfter[i]);
+            lastComment = node.commentsAfter;
+        } else {
+            lastComment = null;
         }
     }
     c(node, state);

@@ -100,6 +100,11 @@ for (var i = 2; i < process.argv.length; ++i) {
 
 if (!infile) help(1);
 
+if (options.includeComments && !options.formatDescription) {
+  console.log("Must have '--formatDescription' when using '--includeComments'");
+  help(1);
+}
+
 try {
   var source = fs.readFileSync(infile, "utf8");
   if (Object.keys(acornOptions).length !== 0)

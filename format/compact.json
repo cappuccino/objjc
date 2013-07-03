@@ -8,7 +8,7 @@
 	"WithStatement": {"before": "\n", "parent": {"LabeledStatement": {}}},
 	"SwitchStatement": {"before": "\n", "beforeCase": "\n", "afterCase": " ", "beforeRightBrace": "\n", "parent": {"LabeledStatement": {"beforeCase": "\n", "afterCase": " ", "beforeRightBrace": "\n"}}},
 	"ReturnStatement": {"before": "\n", "after": ";", "beforeExpression": " ", "parent": {"LabeledStatement": {"after": ";"}}},
-	"ThrowStatement": {"before": "\n", "parent": {"LabeledStatement": {}}},
+	"ThrowStatement": {"before": "\n", "beforeExpression": " ", "parent": {"LabeledStatement": {}}},
 	"TryStatement": {"before": "\n", "parent": {"LabeledStatement": {}}},
 	"WhileStatement": {"before": "\n", "parent": {"LabeledStatement": {}}},
 	"DoWhileStatement": {"before": "\n", "after": ";", "parent": {"LabeledStatement": {"after": ";"}}},

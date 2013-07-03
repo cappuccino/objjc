@@ -9,6 +9,20 @@ It uses a parser extended from the [Acorn][objj-acorn] JavaScript parser by Mari
 
 [objj-acorn]: https://github.com/mrcarlberg/acorn
 
+## Format generated code
+
+The generated code can be formatted by providing a format description file with the '--formatDescription' option
+There are some example files in the format folder.
+
+It can also include comments with the '--includeComments' option.
+
+## Beautifier
+
+Objective-J is a superset of Javascript. If it compiles a pure Javascript file it will generate the same code back again.
+This allows the compiler to be used as a beautifier for Javascript.
+
+## Preprocessor
+
 The parser has a built in C like preprocessor.
 
 Example:
@@ -19,8 +33,8 @@ var m2 = MAX(14, 20);
 ```
 Will be compiled to:
 ```c
-var m1 = (a > b ? a : b);
-var m2 = (14 > 20 ? 14 : 20);
+var m1 = a > b ? a : b;
+var m2 = 14 > 20 ? 14 : 20;
 ```
 For more info see http://www.cappuccino-project.org/blog/2013/05/the-new-objective-j-2-0-compiler.html
 

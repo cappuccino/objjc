@@ -140,14 +140,23 @@ Scope.prototype.maybeWarnings = function()
 
 Scope.prototype.pushNode = function(node, overrideType)
 {
+    // Here we push 3 things to a stack. The node, override type and an array that can keep track of prior nodes on this level.
+    // The current node is also pushed to the last prior array.
+    // Special case when node is the same as the parent node. This happends when using an override type when walking the AST
+    // The same prior list is then used instead of a new empty one.
     var nodePriorStack = this.nodePriorStack,
-        length = nodePriorStack.length;
+        length = nodePriorStack.length,
+        lastPriorList = length ? nodePriorStack[length - 1] : null,
+        lastNode = length ? this.nodeStack[length - 1] : null;
     // First add this node to parent list of nodes, if it has one
-    if (length) {
-        var lastList = nodePriorStack[length - 1];
-        lastList.push(node);
+    if (lastPriorList) {
+        if (lastNode !== node) {
+            // If not the same node push the node
+            lastPriorList.push(node);
+        }
     }
-    nodePriorStack.push([]);
+    // Use the last prior list if it is the same node
+    nodePriorStack.push(lastNode === node ? lastPriorList : []);
     this.nodeStack.push(node);
     this.nodeStackOverrideType.push(overrideType);
 }

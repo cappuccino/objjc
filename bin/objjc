@@ -89,7 +89,7 @@ for (var i = 2; i < process.argv.length; ++i) {
     var filePath = process.argv[++i],
         relative = filePath.substring(0, 1) !== '/',
         jsonFile = JSON.parse(require('fs').readFileSync(relative ? require('path').resolve(process.cwd(), filePath) : filePath,'utf8'));
-        //if (!jsonFile) console.log("Error: Can't read formatDescription at " + filePath), process.exit(1);
+
         options.formatDescription = jsonFile;
   }
   else if (arg.substring(0, 2) == "-D") defineMacro(arg.substring(2));

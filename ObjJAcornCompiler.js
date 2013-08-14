@@ -2862,8 +2862,7 @@ ClassStatement: function(node, st, c) {
     }
     var className = node.id.name;
     if (!compiler.getClassDef(className)) {
-        classDef = new ClassDef(false, className);
-        compiler.classDefs[className] = classDef;
+        compiler.classDefs[className] = new ClassDef(false, className);
     }
     st.vars[node.id.name] = {type: "class", node: node.id};
 },

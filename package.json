@@ -3,7 +3,7 @@
     "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
     "homepage": "http://github.com/mrcarlberg/ObjJAcornCompiler",
     "main": "ObjJAcornCompiler.js",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "engines": {"node": ">=0.4.0"},
     "maintainers": [{"name": "Martin Carlberg",
                      "email": "martin@carlberg.org",

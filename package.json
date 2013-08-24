@@ -1,19 +1,45 @@
 {
     "name": "objj-compiler",
     "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
-    "homepage": "http://github.com/mrcarlberg/ObjJAcornCompiler",
-    "main": "ObjJAcornCompiler.js",
     "version": "0.3.3",
-    "engines": {"node": ">=0.4.0"},
-    "maintainers": [{"name": "Martin Carlberg",
-                     "email": "martin@carlberg.org",
-                     "web": "http://carlberg.org"}],
-    "repository": {"type": "git",
-                   "url": "http://github.com/mrcarlberg/ObjJAcornCompiler"},
-    "licenses": [{"type": "MIT",
-                  "url": "http://raw.github.com/mrcarlberg/ObjJAcornCompiler/master/LICENSE"}],
-    "keywords": ["source", "source code", "JavaScript", "ECMAScript", "Objective-J", "preprocessor", "pre-processor", "pre processor", "processor", "utility", "beautifier", "formatter"],
-    "dependencies": {"objj-acorn": ">=0.3.3-objj-2",
-                     "source-map": "0.1.x"},
-    "bin": {"objjc": "./bin/objjc"}
+    "homepage": "https://github.com/mrcarlberg/ObjJAcornCompiler",
+    "contributors": [
+        {
+            "name": "Martin Carlberg",
+            "email": "martin@carlberg.org",
+            "web": "http://carlberg.org"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mrcarlberg/ObjJAcornCompiler.git"
+    },
+    "bugs": "https://github.com/mrcarlberg/ObjJAcornCompiler/issues",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://raw.github.com/mrcarlberg/ObjJAcornCompiler/master/LICENSE"
+        }
+    ],
+    "main": "lib/ObjJAcornCompiler",
+    "bin": {
+        "objjc": "./bin/cli.js"
+    },
+    "preferGlobal": true,
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "dependencies": {
+        "objj-acorn": ">=0.3.3-objj-2",
+        "source-map": "0.1.x"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "grunt-jasmine-node": "~0.1.0"
+    },
+    "scripts": {
+        "test": "grunt test"
+    },
+    "keywords": ["source", "source code", "JavaScript", "ECMAScript", "Objective-J", "preprocessor", "pre-processor", "pre processor", "processor", "utility", "beautifier", "formatter"]
 }

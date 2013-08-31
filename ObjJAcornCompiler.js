@@ -2510,7 +2510,7 @@ ProtocolDeclarationStatement: function(node, st, c) {
 
     if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
 
-    buffer.concat("{var the_protocol = objc_allocateProtocol(\"" + protocolName + "\");", node);
+    buffer.concat("{var the_protocol = objj_allocateProtocol(\"" + protocolName + "\");", node);
 
     if (protocols) for (var i = 0, size = protocols.length; i < size; i++)
     {
@@ -2548,7 +2548,7 @@ ProtocolDeclarationStatement: function(node, st, c) {
         }
     }
 
-    buffer.concat("\nobjc_registerProtocol(the_protocol);\n");
+    buffer.concat("\nobjj_registerProtocol(the_protocol);\n");
 
     // Add instance methods
     if (compiler.imBuffer.isEmpty())

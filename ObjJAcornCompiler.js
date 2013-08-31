@@ -617,6 +617,10 @@ var isInInstanceof = acorn.makePredicate("in instanceof");
     // the AST tree and not the original source. We should deprecate this in the future.
     generate: true,
 
+    // Turn on `generateObjJ` to generate Objecitve-J code instead of Javascript code. This can be used to beautify
+    // the code.
+    generateObjJ: false,
+
     // Storage for macros.
     macros: function() { return Object.create(null) },
 
@@ -888,22 +892,22 @@ ObjJAcornCompiler.prototype.getProtocolDef = function(/* String */ aProtocolName
         var aProtocol = objj_getProtocol(aProtocolName);
         if (aProtocol)
         {
-            var protocol = protocols[i],
-                protocolName = protocol_getName(protocol),
-                requiredInstanceMethods = protocol_copyMethodDescriptionList(protocol, true, true),
+            var protocolName = protocol_getName(aProtocol),
+                requiredInstanceMethods = protocol_copyMethodDescriptionList(aProtocol, true, true),
                 requiredInstanceMethodDefs = ObjJAcornCompiler.methodDefsFromMethodList(requiredInstanceMethods),
-                requiredClassMethods = protocol_copyMethodDescriptionList(protocol, true, false),
+                requiredClassMethods = protocol_copyMethodDescriptionList(aProtocol, true, false),
                 requiredClassMethodDefs = ObjJAcornCompiler.methodDefsFromMethodList(requiredClassMethods),
-                protocols = protocol.protocols,
+                protocols = aProtocol.protocols,
                 inheritFromProtocols = [];
 
-            for (var i = 0, size = protocols.length; i < size; i++)
-                inheritFromProtocols.push(compiler.getProtocolDef(protocols[i].name));
+            if (protocols)
+                for (var i = 0, size = protocols.length; i < size; i++)
+                    inheritFromProtocols.push(compiler.getProtocolDef(protocols[i].name));
 
             p = new ProtocolDef(protocolName, inheritFromProtocols, requiredInstanceMethodDefs, requiredClassMethodDefs);
 
             this.protocolDefs[aProtocolName] = p;
-            return c;
+            return p;
         }
     }
 
@@ -1793,6 +1797,8 @@ VariableDeclaration: function(node, st, c, format) {
       c(decl.init, st, "Expression");
     }
     // FIXME: Extract to function
+    // Here we check back if a ivar with the same name exists and if we have prefixed 'self.' on previous uses.
+    // If this is the case we have to remove the prefixes and issue a warning that the variable hides the ivar.
     if (st.addedSelfToIvars) {
       var addedSelfToIvar = st.addedSelfToIvars[identifier];
       if (addedSelfToIvar) {
@@ -2089,7 +2095,7 @@ CallExpression: function(node, st, c, format) {
     if (nodeArguments) {
       for (var i = 0, size = nodeArguments.length; i < size; ++i) {
         if (i && generate)
-          buffer.concatFormat(format ? "," : ", ");
+          buffer.concat(format ? "," : ", ");
         c(nodeArguments[i], st, "Expression");
       }
     }
@@ -2180,62 +2186,84 @@ Literal: function(node, st, c) {
 },
 ArrayLiteral: function(node, st, c) {
     var compiler = st.compiler,
-        generate = compiler.generate;
+        generate = compiler.generate,
+        buffer = compiler.jsBuffer,
+        generateObjJ = compiler.options.generateObjJ,
+        elementLength = node.elements.length;
     if (!generate) {
-        compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.start));
+        buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         compiler.lastPos = node.start;
     }
 
     if (!generate) buffer.concat(" "); // Add an extra space if it looks something like this: "return(<expression>)". No space between return and expression.
-    if (!node.elements.length) {
-        compiler.jsBuffer.concat("objj_msgSend(objj_msgSend(CPArray, \"alloc\"), \"init\")", node);
+    if (generateObjJ) {
+        buffer.concat("@[");
+    } else if (!elementLength) {
+        buffer.concat("objj_msgSend(objj_msgSend(CPArray, \"alloc\"), \"init\")", node);
     } else {
-        compiler.jsBuffer.concat("objj_msgSend(objj_msgSend(CPArray, \"alloc\"), \"initWithObjects:count:\", [", node);
-        for (var i = 0; i < node.elements.length; i++) {
+        buffer.concat("objj_msgSend(objj_msgSend(CPArray, \"alloc\"), \"initWithObjects:count:\", [", node);
+    }
+    if (elementLength) {
+        for (var i = 0; i < elementLength; i++) {
             var elt = node.elements[i];
 
             if (i)
-                compiler.jsBuffer.concat(", ");
+                buffer.concat(", ");
 
             if (!generate) compiler.lastPos = elt.start;
             c(elt, st, "Expression");
-            if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, elt.end));
+            if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, elt.end));
         }
-        compiler.jsBuffer.concat("], " + node.elements.length + ")");
+        if (!generateObjJ) buffer.concat("], " + elementLength + ")");
     }
+
+    if (generateObjJ)
+        buffer.concat("]");
 
     if (!generate) compiler.lastPos = node.end;
 },
 DictionaryLiteral: function(node, st, c) {
     var compiler = st.compiler,
-        generate = compiler.generate;
+        generate = compiler.generate,
+        buffer = compiler.jsBuffer,
+        generateObjJ = compiler.options.generateObjJ,
+        keyLength = node.keys.length;
     if (!generate) {
-        compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.start));
+        buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         compiler.lastPos = node.start;
     }
 
     if (!generate) buffer.concat(" "); // Add an extra space if it looks something like this: "return(<expression>)". No space between return and expression.
-    if (!node.keys.length) {
-        compiler.jsBuffer.concat("objj_msgSend(objj_msgSend(CPDictionary, \"alloc\"), \"init\")", node);
+    if (generateObjJ) {
+        buffer.concat("@{");
+        for (var i = 0; i < keyLength; i++) {
+            if (i !== 0) buffer.concat(",");
+            c(node.keys[i], st, "Expression");
+            buffer.concat(":");
+            c(node.values[i], st, "Expression");
+        }
+        buffer.concat("}");
+    } else if (!keyLength) {
+        buffer.concat("objj_msgSend(objj_msgSend(CPDictionary, \"alloc\"), \"init\")", node);
     } else {
-        compiler.jsBuffer.concat("objj_msgSend(objj_msgSend(CPDictionary, \"alloc\"), \"initWithObjectsAndKeys:\"", node);
-        for (var i = 0; i < node.keys.length; i++) {
+        buffer.concat("objj_msgSend(objj_msgSend(CPDictionary, \"alloc\"), \"initWithObjectsAndKeys:\"", node);
+        for (var i = 0; i < keyLength; i++) {
             var key = node.keys[i],
                 value = node.values[i];
 
-            compiler.jsBuffer.concat(", ");
+            buffer.concat(", ");
 
             if (!generate) compiler.lastPos = value.start;
             c(value, st, "Expression");
-            if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, value.end));
+            if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, value.end));
 
-            compiler.jsBuffer.concat(", ");
+            buffer.concat(", ");
 
             if (!generate) compiler.lastPos = key.start;
             c(key, st, "Expression");
-            if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, key.end));
+            if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, key.end));
         }
-        compiler.jsBuffer.concat(")");
+        buffer.concat(")");
     }
 
     if (!generate) compiler.lastPos = node.end;
@@ -2243,15 +2271,24 @@ DictionaryLiteral: function(node, st, c) {
 ImportStatement: function(node, st, c) {
     var compiler = st.compiler,
         generate = compiler.generate,
-        buffer = compiler.jsBuffer;
+        buffer = compiler.jsBuffer,
+        localfilepath = node.localfilepath,
+        generateObjJ = compiler.options.generateObjJ;
 
     if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
-    buffer.concat("objj_executeFile(\"", node);
-    buffer.concat(node.filename.value);
-    buffer.concat(node.localfilepath ? "\", YES);" : "\", NO);");
+    if (generateObjJ) {
+        buffer.concat("@import ");
+        buffer.concat(localfilepath ? "\"" : "<");
+        buffer.concat(node.filename.value);
+        buffer.concat(localfilepath ? "\"" : ">");
+    } else {
+        buffer.concat("objj_executeFile(\"", node);
+        buffer.concat(node.filename.value);
+        buffer.concat(localfilepath ? "\", YES);" : "\", NO);");
+    }
     if (!generate) compiler.lastPos = node.end;
 },
-ClassDeclarationStatement: function(node, st, c) {
+ClassDeclarationStatement: function(node, st, c, format) {
     var compiler = st.compiler,
         generate = compiler.generate,
         saveJSBuffer = compiler.jsBuffer,
@@ -2259,7 +2296,8 @@ ClassDeclarationStatement: function(node, st, c) {
         classDef = compiler.getClassDef(className),
         classScope = new Scope(st),
         isInterfaceDeclaration = node.type === "InterfaceDeclarationStatement",
-        protocols = node.protocols;
+        protocols = node.protocols,
+        generateObjJ = compiler.options.generateObjJ;
 
     compiler.imBuffer = new StringBuffer(compiler.createSourceMap, compiler.URL);
     compiler.cmBuffer = new StringBuffer(compiler.createSourceMap), compiler.URL;
@@ -2292,7 +2330,7 @@ ClassDeclarationStatement: function(node, st, c) {
 
         classDef = new ClassDef(!isInterfaceDeclaration, className, superClassDef, Object.create(null));
 
-        saveJSBuffer.concat("{var the_class = objj_allocateClassPair(" + node.superclassname.name + ", \"" + className + "\"),\nmeta_class = the_class.isa;", node);
+        if (!generateObjJ) saveJSBuffer.concat("{var the_class = objj_allocateClassPair(" + node.superclassname.name + ", \"" + className + "\"),\nmeta_class = the_class.isa;", node);
     }
     else if (node.categoryname)
     {
@@ -2300,22 +2338,48 @@ ClassDeclarationStatement: function(node, st, c) {
         if (!classDef)
             throw compiler.error_message("Class " + className + " not found ", node.classname);
 
-        saveJSBuffer.concat("{\nvar the_class = objj_getClass(\"" + className + "\")\n", node);
-        saveJSBuffer.concat("if(!the_class) throw new SyntaxError(\"*** Could not find definition for class \\\"" + className + "\\\"\");\n");
-        saveJSBuffer.concat("var meta_class = the_class.isa;");
+        if (!generateObjJ) {
+            saveJSBuffer.concat("{\nvar the_class = objj_getClass(\"" + className + "\")\n", node);
+            saveJSBuffer.concat("if(!the_class) throw new SyntaxError(\"*** Could not find definition for class \\\"" + className + "\\\"\");\n");
+            saveJSBuffer.concat("var meta_class = the_class.isa;");
+        }
     }
     else
     {
         classDef = new ClassDef(!isInterfaceDeclaration, className, null, Object.create(null));
 
-        saveJSBuffer.concat("{var the_class = objj_allocateClassPair(Nil, \"" + className + "\"),\nmeta_class = the_class.isa;", node);
+        if (!generateObjJ)
+            saveJSBuffer.concat("{var the_class = objj_allocateClassPair(Nil, \"" + className + "\"),\nmeta_class = the_class.isa;", node);
+    }
+
+    if (generateObjJ) {
+        saveJSBuffer.concat(isInterfaceDeclaration ? "@interface " : "@implementation ");
+        saveJSBuffer.concat(className);
+        if (node.superclassname) {
+            saveJSBuffer.concat(" : ");
+            c(node.superclassname, st, "IdentifierName");
+        } else if (node.categoryname) {
+            saveJSBuffer.concat(" (");
+            c(node.categoryname, st, "IdentifierName");
+            saveJSBuffer.concat(")");
+        }
     }
 
     if (protocols) for (var i = 0, size = protocols.length; i < size; i++)
     {
-        saveJSBuffer.concat("\nvar aProtocol = objj_getProtocol(\"" + protocols[i].name + "\");", protocols[i]);
-        saveJSBuffer.concat("\nif (!aProtocol) throw new SyntaxError(\"*** Could not find definition for protocol \\\"" + protocols[i].name + "\\\"\");");
-        saveJSBuffer.concat("\nclass_addProtocol(the_class, aProtocol);");
+        if (generateObjJ) {
+            if (i)
+                saveJSBuffer.concat(", ");
+            else
+                saveJSBuffer.concat(" <");
+            c(protocols[i], st, "IdentifierName");
+            if (i === size - 1)
+                saveJSBuffer.concat(">");
+        } else {
+            saveJSBuffer.concat("\nvar aProtocol = objj_getProtocol(\"" + protocols[i].name + "\");", protocols[i]);
+            saveJSBuffer.concat("\nif (!aProtocol) throw new SyntaxError(\"*** Could not find definition for protocol \\\"" + protocols[i].name + "\\\"\");");
+            saveJSBuffer.concat("\nclass_addProtocol(the_class, aProtocol);");
+        }
     }
 /*
     if (isInterfaceDeclaration)
@@ -2329,46 +2393,60 @@ ClassDeclarationStatement: function(node, st, c) {
         hasAccessors = false;
 
     // Then we add all ivars
-    if (node.ivardeclarations) for (var i = 0; i < node.ivardeclarations.length; ++i)
-    {
-        var ivarDecl = node.ivardeclarations[i],
-            ivarType = ivarDecl.ivartype ? ivarDecl.ivartype.name : null,
-            ivarName = ivarDecl.id.name,
-            ivars = classDef.ivars,
-            ivar = {"type": ivarType, "name": ivarName};
-
-        if (ivars[ivarName])
-            throw compiler.error_message("Instance variable '" + ivarName + "'is already declared for class " + className, ivarDecl.id);
-
-        if (firstIvarDeclaration)
-        {
-            firstIvarDeclaration = false;
-            saveJSBuffer.concat("class_addIvars(the_class, [");
+    if (node.ivardeclarations) {
+        if (generateObjJ) {
+            saveJSBuffer.concat("{");
+            indentation += indentStep;
         }
-        else
-            saveJSBuffer.concat(", ");
 
-        if (compiler.options.includeIvarTypeSignatures)
-            saveJSBuffer.concat("new objj_ivar(\"" + ivarName + "\", \"" + ivarType + "\")", node);
-        else
-            saveJSBuffer.concat("new objj_ivar(\"" + ivarName + "\")", node);
+        for (var i = 0; i < node.ivardeclarations.length; ++i)
+        {
+            var ivarDecl = node.ivardeclarations[i],
+                ivarType = ivarDecl.ivartype ? ivarDecl.ivartype.name : null,
+                ivarIdentifier = ivarDecl.id,
+                ivarName = ivarIdentifier.name,
+                ivars = classDef.ivars,
+                ivar = {"type": ivarType, "name": ivarName};
 
-        if (ivarDecl.outlet)
-            ivar.outlet = true;
-        ivars[ivarName] = ivar;
-        if (!classScope.ivars)
-            classScope.ivars = Object.create(null);
-        classScope.ivars[ivarName] = {type: "ivar", name: ivarName, node: ivarDecl.id, ivar: ivar};
+            if (ivars[ivarName])
+                throw compiler.error_message("Instance variable '" + ivarName + "'is already declared for class " + className, ivarIdentifier);
 
-        if (!hasAccessors && ivarDecl.accessors)
-            hasAccessors = true;
+            if (generateObjJ) {
+                c(ivarDecl, st, "IvarDeclaration");
+            } else {
+                if (firstIvarDeclaration)
+                {
+                    firstIvarDeclaration = false;
+                    saveJSBuffer.concat("class_addIvars(the_class, [");
+                }
+                else
+                    saveJSBuffer.concat(", ");
+
+                if (compiler.options.includeIvarTypeSignatures)
+                    saveJSBuffer.concat("new objj_ivar(\"" + ivarName + "\", \"" + ivarType + "\")", node);
+                else
+                    saveJSBuffer.concat("new objj_ivar(\"" + ivarName + "\")", node);
+            }
+
+            if (ivarDecl.outlet)
+                ivar.outlet = true;
+            ivars[ivarName] = ivar;
+            if (!classScope.ivars)
+                classScope.ivars = Object.create(null);
+            classScope.ivars[ivarName] = {type: "ivar", name: ivarName, node: ivarIdentifier, ivar: ivar};
+
+            if (!hasAccessors && ivarDecl.accessors)
+                hasAccessors = true;
+        }
     }
-
-    if (!firstIvarDeclaration)
+    if (generateObjJ) {
+        indentation = indentation.substring(indentationSize);
+        saveJSBuffer.concatFormat("\n}");
+    } else if (!firstIvarDeclaration)
         saveJSBuffer.concat("]);");
 
     // If we have accessors add get and set methods for them
-    if (!isInterfaceDeclaration && hasAccessors)
+    if (!generateObjJ && !isInterfaceDeclaration && hasAccessors)
     {
         var getterSetterBuffer = new StringBuffer(compiler.createSourceMap, compiler.URL);
 
@@ -2444,12 +2522,12 @@ ClassDeclarationStatement: function(node, st, c) {
     }
 
     // We must make a new class object for our class definition if it's not a category
-    if (!isInterfaceDeclaration && !node.categoryname) {
+    if (!generateObjJ && !isInterfaceDeclaration && !node.categoryname) {
         saveJSBuffer.concat("objj_registerClassPair(the_class);\n");
     }
 
     // Add instance methods
-    if (compiler.imBuffer.isEmpty())
+    if (!generateObjJ && compiler.imBuffer.isEmpty())
     {
         saveJSBuffer.concat("class_addMethods(the_class, [");
         saveJSBuffer.appendStringBuffer(compiler.imBuffer);
@@ -2457,19 +2535,22 @@ ClassDeclarationStatement: function(node, st, c) {
     }
 
     // Add class methods
-    if (compiler.cmBuffer.isEmpty())
+    if (!generateObjJ && compiler.cmBuffer.isEmpty())
     {
         saveJSBuffer.concat("class_addMethods(meta_class, [");
         saveJSBuffer.appendStringBuffer(compiler.cmBuffer);
         saveJSBuffer.concat("]);\n");
     }
 
-    saveJSBuffer.concat("}");
+    if (!generateObjJ) saveJSBuffer.concat("}");
 
     compiler.jsBuffer = saveJSBuffer;
 
     // Skip the "@end"
     if (!generate) compiler.lastPos = node.end;
+
+    if (generateObjJ)
+        saveJSBuffer.concat("\n@end");
 
     // If the class conforms to protocols check that all required methods are implemented
     if (protocols)
@@ -2500,31 +2581,53 @@ ProtocolDeclarationStatement: function(node, st, c) {
         protocolDef = compiler.getProtocolDef(protocolName),
         protocols = node.protocols,
         protocolScope = new Scope(st),
-        inheritFromProtocols = [];
+        inheritFromProtocols = [],
+        generateObjJ = compiler.options.generateObjJ;
 
     if (protocolDef)
-        throw compiler.error_message("Duplicate protocol " + protocolName, node.protocolName);
+        throw compiler.error_message("Duplicate protocol " + protocolName, node.protocolname);
 
     compiler.imBuffer = new StringBuffer();
     compiler.cmBuffer = new StringBuffer();
 
     if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
 
+    if (generateObjJ) {
+        buffer.concat("@protocol ");
+        c(node.protocolname, st, "IdentifierName");
+    } else {
     buffer.concat("{var the_protocol = objj_allocateProtocol(\"" + protocolName + "\");", node);
+    }
 
-    if (protocols) for (var i = 0, size = protocols.length; i < size; i++)
-    {
-        var protocol = protocols[i],
-            inheritFromProtocolName = protocol.name;
-            inheritProtocolDef = compiler.getProtocolDef(inheritFromProtocolName);
+    if (protocols) {
+        if (generateObjJ)
+            buffer.concat(" <");
 
-        if (!inheritProtocolDef)
-            throw compiler.error_message("Can't find protocol " + inheritFromProtocolName, protocol);
+        for (var i = 0, size = protocols.length; i < size; i++)
+        {
+            var protocol = protocols[i],
+                inheritFromProtocolName = protocol.name,
+                inheritProtocolDef = compiler.getProtocolDef(inheritFromProtocolName);
 
-        buffer.concat("\nvar aProtocol = objj_getProtocol(\"" + inheritFromProtocolName + "\");", node);
-        buffer.concat("\nif (!aProtocol) throw new SyntaxError(\"*** Could not find definition for protocol \\\"" + protocolName + "\\\"\");", node);
-        buffer.concat("\nprotocol_addProtocol(the_protocol, aProtocol);", node);
-        inheritFromProtocols.push(inheritProtocolDef);
+            if (!inheritProtocolDef)
+                throw compiler.error_message("Can't find protocol " + inheritFromProtocolName, protocol);
+
+            if (generateObjJ) {
+                if (i)
+                    buffer.concat(", ");
+
+                c(protocol, st, "IdentifierName");
+            } else {
+                buffer.concat("\nvar aProtocol = objj_getProtocol(\"" + inheritFromProtocolName + "\");", node);
+                buffer.concat("\nif (!aProtocol) throw new SyntaxError(\"*** Could not find definition for protocol \\\"" + protocolName + "\\\"\");", node);
+                buffer.concat("\nprotocol_addProtocol(the_protocol, aProtocol);", node);
+            }
+
+            inheritFromProtocols.push(inheritProtocolDef);
+        }
+
+        if (generateObjJ)
+            buffer.concat(">");
     }
 
     protocolDef = new ProtocolDef(protocolName, inheritFromProtocols);
@@ -2548,30 +2651,46 @@ ProtocolDeclarationStatement: function(node, st, c) {
         }
     }
 
-    buffer.concat("\nobjj_registerProtocol(the_protocol);\n");
+    if (generateObjJ) {
+        buffer.concatFormat("\n@end");
+    } else {
+        buffer.concat("\nobjj_registerProtocol(the_protocol);\n");
 
-    // Add instance methods
-    if (compiler.imBuffer.isEmpty())
-    {
-        buffer.concat("protocol_addMethodDescriptions(the_protocol, [");
-        buffer.atoms.push.apply(buffer.atoms, compiler.imBuffer.atoms); // FIXME: Move this append to StringBuffer
-        buffer.concat("], true, false);\n");
+        // Add instance methods
+        if (compiler.imBuffer.isEmpty())
+        {
+            buffer.concat("protocol_addMethodDescriptions(the_protocol, [");
+            buffer.atoms.push.apply(buffer.atoms, compiler.imBuffer.atoms); // FIXME: Move this append to StringBuffer
+            buffer.concat("], true, true);\n");
+        }
+
+        // Add class methods
+        if (compiler.cmBuffer.isEmpty())
+        {
+            buffer.concat("protocol_addMethodDescriptions(the_protocol, [");
+            buffer.atoms.push.apply(buffer.atoms, compiler.cmBuffer.atoms); // FIXME: Move this append to StringBuffer
+            buffer.concat("], true, false);\n");
+        }
+
+        buffer.concat("}");
     }
-
-    // Add class methods
-    if (compiler.cmBuffer.isEmpty())
-    {
-        buffer.concat("protocol_addMethodDescriptions(the_protocol, [");
-        buffer.atoms.push.apply(buffer.atoms, compiler.cmBuffer.atoms); // FIXME: Move this append to StringBuffer
-        buffer.concat("], true, true);\n");
-    }
-
-    buffer.concat("}");
 
     compiler.jsBuffer = buffer;
 
     // Skip the "@end"
     if (!generate) compiler.lastPos = node.end;
+},
+IvarDeclaration: function(node, st, c, format) {
+    var compiler = st.compiler,
+        buffer = compiler.jsBuffer;
+
+        if (node.outlet)
+            buffer.concat("@outlet ");
+        c(node.ivartype, st, "IdentifierName");
+        buffer.concat(" ");
+        c(node.id, st, "IdentifierName");
+        if (node.accessors)
+            buffer.concat(" @accessors");
 },
 MethodDeclarationStatement: function(node, st, c) {
     var compiler = st.compiler,
@@ -2582,9 +2701,10 @@ MethodDeclarationStatement: function(node, st, c) {
         selectors = node.selectors,
         nodeArguments = node.arguments,
         returnType = node.returntype,
-        types = [returnType ? returnType.name : (node.action ? "void" : "id")],
+        types = [returnType ? returnType.name : (node.action ? "void" : "id")], // Return type is 'id' as default except if it is an action declared method, then it's 'void'
         returnTypeProtocols = returnType ? returnType.protocols : null,
-        selector = selectors[0].name;    // There is always at least one selector
+        selector = selectors[0].name,    // There is always at least one selector
+        generateObjJ = compiler.options.generateObjJ;
 
     if (returnTypeProtocols) for (var i = 0, size = returnTypeProtocols.length; i < size; i++) {
         var returnTypeProtocol = returnTypeProtocols[i];
@@ -2595,46 +2715,95 @@ MethodDeclarationStatement: function(node, st, c) {
 
     if (!generate) saveJSBuffer.concat(compiler.source.substring(compiler.lastPos, node.start));
 
-    compiler.jsBuffer = isInstanceMethodType ? compiler.imBuffer : compiler.cmBuffer;
-
-    // Put together the selector. Maybe this should be done in the parser...
-    for (var i = 0; i < nodeArguments.length; i++) {
-        var argument = nodeArguments[i],
-            argumentType = argument.type,
-            argumentTypeName = argumentType ? argumentType.name : "id",
-            argumentProtocols = argumentType ? argumentType.protocols : null;
-
-        types.push(argumentType ? argumentType.name : "id");
-
-        if (argumentProtocols) for (var i = 0, size = argumentProtocols.length; i < size; i++) {
-            var argumentProtocol = argumentProtocols[i];
-            if (!compiler.getProtocolDef(argumentProtocol.name)) {
-                compiler.addWarning(createMessage("Cannot find protocol declaration for '" + argumentProtocol.name + "'", argumentProtocol, compiler.source));
-            }
-        }
-
-        if (i === 0)
-            selector += ":";
-        else
-            selector += (selectors[i] ? selectors[i].name : "") + ":";
+    // If we are generating objective-J code write everything directly to the regular buffer
+    // Otherwise we have one for instance methods and one for class methods.
+    if (generateObjJ) {
+        compiler.jsBuffer.concat(isInstanceMethodType ? "- (" : "+ (");
+        compiler.jsBuffer.concat(types[0]);
+        compiler.jsBuffer.concat(")");
+    } else {
+        compiler.jsBuffer = isInstanceMethodType ? compiler.imBuffer : compiler.cmBuffer;
     }
 
-    if (compiler.jsBuffer.isEmpty())           // Add comma separator if this is not first method in this buffer
-        compiler.jsBuffer.concat(", ");
+    // Put together the selector. Maybe this should be done in the parser...
+    // Or maybe we should do it here as when genereting Objective-J code it's kind of handy
+    var size = nodeArguments.length;
+    if (size > 0) {
+        for (var i = 0; i < nodeArguments.length; i++) {
+            var argument = nodeArguments[i],
+                argumentType = argument.type,
+                argumentTypeName = argumentType ? argumentType.name : "id",
+                argumentProtocols = argumentType ? argumentType.protocols : null;
 
-    compiler.jsBuffer.concat("new objj_method(sel_getUid(\"", node);
-    compiler.jsBuffer.concat(selector);
-    compiler.jsBuffer.concat("\"), ");
+            types.push(argumentTypeName);
+
+            if (i === 0)
+                selector += ":";
+            else
+                selector += (selectors[i] ? selectors[i].name : "") + ":";
+
+            if (argumentProtocols) for (var j = 0, size = argumentProtocols.length; j < size; j++) {
+                var argumentProtocol = argumentProtocols[j];
+                if (!compiler.getProtocolDef(argumentProtocol.name)) {
+                    compiler.addWarning(createMessage("Cannot find protocol declaration for '" + argumentProtocol.name + "'", argumentProtocol, compiler.source));
+                }
+            }
+
+            if (generateObjJ) {
+                var aSelector = selectors[i];
+
+                if (i)
+                    compiler.jsBuffer.concat(" ");
+
+                compiler.jsBuffer.concat((aSelector ? aSelector.name : "") + ":");
+                compiler.jsBuffer.concat("(");
+                compiler.jsBuffer.concat(argumentTypeName);
+                if (argumentProtocols) {
+                    compiler.jsBuffer.concat(" <");
+                    for (var j = 0, size = argumentProtocols.length; j < size; j++) {
+                        var argumentProtocol = argumentProtocols[j];
+
+                        if (j)
+                            compiler.jsBuffer.concat(", ");
+
+                        compiler.jsBuffer.concat(argumentProtocol.name);
+                    }
+
+                    compiler.jsBuffer.concat(">");
+                }
+                compiler.jsBuffer.concat(")");
+                c(argument.identifier, st, "IdentifierName");
+            }
+        }
+    } else if (generateObjJ) {
+        var selector = selectors[0];
+        compiler.jsBuffer.concat(selector.name, selector);
+    }
+
+    if (generateObjJ) {
+        if (node.parameters) {
+            compiler.jsBuffer.concat(", ...");
+        }
+    } else {
+        if (compiler.jsBuffer.isEmpty())           // Add comma separator if this is not first method in this buffer
+            compiler.jsBuffer.concat(", ");
+
+        compiler.jsBuffer.concat("new objj_method(sel_getUid(\"", node);
+        compiler.jsBuffer.concat(selector);
+        compiler.jsBuffer.concat("\"), ");
+    }
 
     if (node.body) {
-        compiler.jsBuffer.concat("function");
+        if (!generateObjJ) {
+            compiler.jsBuffer.concat("function");
 
-        if (compiler.options.includeMethodFunctionNames)
-        {
-            compiler.jsBuffer.concat(" $" + st.currentClassName() + "__" + selector.replace(/:/g, "_"));
+            if (compiler.options.includeMethodFunctionNames)
+            {
+                compiler.jsBuffer.concat(" $" + st.currentClassName() + "__" + selector.replace(/:/g, "_"));
+            }
+
+            compiler.jsBuffer.concat("(self, _cmd");
         }
-
-        compiler.jsBuffer.concat("(self, _cmd");
 
         methodScope.methodType = node.methodtype;
         if (nodeArguments) for (var i = 0; i < nodeArguments.length; i++)
@@ -2642,12 +2811,15 @@ MethodDeclarationStatement: function(node, st, c) {
             var argument = nodeArguments[i],
                 argumentName = argument.identifier.name;
 
-            compiler.jsBuffer.concat(", ");
-            compiler.jsBuffer.concat(argumentName, argument.identifier);
+            if (!generateObjJ) {
+                compiler.jsBuffer.concat(", ");
+                compiler.jsBuffer.concat(argumentName, argument.identifier);
+            }
             methodScope.vars[argumentName] = {type: "method argument", node: argument};
         }
 
-        compiler.jsBuffer.concat(")\n");
+        if (!generateObjJ)
+            compiler.jsBuffer.concat(")\n");
 
         if (!generate) compiler.lastPos = node.startOfBody;
         indentation += indentStep;
@@ -2655,15 +2827,22 @@ MethodDeclarationStatement: function(node, st, c) {
         indentation = indentation.substring(indentationSize);
         if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.body.end));
 
-        compiler.jsBuffer.concat("\n");
+        if (!generateObjJ)
+            compiler.jsBuffer.concat("\n");
     } else { // It is a interface or protocol declatartion and we don't have a method implementation
-        compiler.jsBuffer.concat("Nil\n");
+        if (generateObjJ)
+            compiler.jsBuffer.concat(";");
+        else
+            compiler.jsBuffer.concat("Nil\n");
     }
 
-    if (compiler.options.includeMethodArgumentTypeSignatures)
-        compiler.jsBuffer.concat(","+JSON.stringify(types));
-    compiler.jsBuffer.concat(")");
-    compiler.jsBuffer = saveJSBuffer;
+    if (!generateObjJ) {
+        if (compiler.options.includeMethodArgumentTypeSignatures)
+            compiler.jsBuffer.concat(","+JSON.stringify(types));
+        compiler.jsBuffer.concat(")");
+        compiler.jsBuffer = saveJSBuffer;
+    }
+
     if (!generate) compiler.lastPos = node.end;
 
     // Add the method to the class or protocol definition
@@ -2729,7 +2908,9 @@ MethodDeclarationStatement: function(node, st, c) {
 MessageSendExpression: function(node, st, c) {
     var compiler = st.compiler,
         generate = compiler.generate,
-        buffer = compiler.jsBuffer;
+        buffer = compiler.jsBuffer,
+        generateObjJ = compiler.options.generateObjJ;
+
     if (!generate) {
         buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         compiler.lastPos = node.object ? node.object.start : node.arguments.length ? node.arguments[0].start : node.end;
@@ -2737,129 +2918,193 @@ MessageSendExpression: function(node, st, c) {
     if (node.superObject)
     {
         if (!generate) buffer.concat(" "); // Add an extra space if it looks something like this: "return(<expression>)". No space between return and expression.
-        buffer.concat("objj_msgSendSuper(", node);
-        buffer.concat("{ receiver:self, super_class:" + (st.currentMethodType() === "+" ? compiler.currentSuperMetaClass : compiler.currentSuperClass ) + " }");
+        if (generateObjJ) {
+            buffer.concat("[super ");
+        } else {
+            buffer.concat("objj_msgSendSuper(", node);
+            buffer.concat("{ receiver:self, super_class:" + (st.currentMethodType() === "+" ? compiler.currentSuperMetaClass : compiler.currentSuperClass ) + " }");
+        }
     }
     else
     {
         if (!generate) buffer.concat(" "); // Add an extra space if it looks something like this: "return(<expression>)". No space between return and expression.
-        buffer.concat("objj_msgSend(", node);
+        if (generateObjJ) {
+            buffer.concat("[", node);
+        } else {
+            buffer.concat("objj_msgSend(", node);
+        }
+
         c(node.object, st, "Expression");
+
         if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, node.object.end));
     }
 
     var selectors = node.selectors,
         nodeArguments = node.arguments,
         firstSelector = selectors[0],
-        selector = firstSelector ? firstSelector.name : "";    // There is always at least one selector
+        selector = firstSelector ? firstSelector.name : "",    // There is always at least one selector
+        parameters = node.parameters;
 
-    // Put together the selector. Maybe this should be done in the parser...
-    for (var i = 0; i < nodeArguments.length; i++)
-        if (i === 0)
-            selector += ":";
-        else
-            selector += (selectors[i] ? selectors[i].name : "") + ":";
+    if (generateObjJ) {
+        var size = nodeArguments.length;
+        for (var i = 0; i < size || (size === 0 && i === 0); i++) {
+            var selector = selectors[i];
 
-    buffer.concat(", \"");
-    buffer.concat(selector); // FIXME: sel_getUid(selector + "") ? This FIXME is from the old preprocessor compiler
-    buffer.concat("\"");
+            buffer.concat(" ");
+            buffer.concat(selector ? selector.name : "");
 
-    if (nodeArguments) for (var i = 0; i < nodeArguments.length; i++)
-    {
-        var argument = nodeArguments[i];
+            if (size > 0) {
+                var argument = nodeArguments[i];
 
-        buffer.concat(", ");
-        if (!generate)
-            compiler.lastPos = argument.start;
-        c(argument, st, "Expression");
-        if (!generate) {
-            buffer.concat(compiler.source.substring(compiler.lastPos, argument.end));
-            compiler.lastPos = argument.end;
+                buffer.concat(":");
+                c(argument, st, "Expression");
+            }
         }
+
+        if (parameters) for (var i = 0, size = parameters.length; i < size; ++i)
+        {
+            var parameter = parameters[i];
+
+            buffer.concat(", ");
+            c(parameter, st, "Expression");
+        }
+        buffer.concat("]");
+    } else {
+        // Put together the selector. Maybe this should be done in the parser...
+        for (var i = 0; i < nodeArguments.length; i++)
+            if (i === 0)
+                selector += ":";
+            else
+                selector += (selectors[i] ? selectors[i].name : "") + ":";
+
+        buffer.concat(", \"");
+        buffer.concat(selector); // FIXME: sel_getUid(selector + "") ? This FIXME is from the old preprocessor compiler
+        buffer.concat("\"");
+
+        if (nodeArguments) for (var i = 0; i < nodeArguments.length; i++)
+        {
+            var argument = nodeArguments[i];
+
+            buffer.concat(", ");
+            if (!generate)
+                compiler.lastPos = argument.start;
+            c(argument, st, "Expression");
+            if (!generate) {
+                buffer.concat(compiler.source.substring(compiler.lastPos, argument.end));
+                compiler.lastPos = argument.end;
+            }
+        }
+
+        if (parameters) for (var i = 0; i < parameters.length; ++i)
+        {
+            var parameter = parameters[i];
+
+            buffer.concat(", ");
+            if (!generate)
+                compiler.lastPos = parameter.start;
+            c(parameter, st, "Expression");
+            if (!generate) {
+                buffer.concat(compiler.source.substring(compiler.lastPos, parameter.end));
+                compiler.lastPos = parameter.end;
+            }
+        }
+        buffer.concat(")");
     }
 
-    // TODO: Move this 'if' with body up inside the node.argument 'if'
-    if (node.parameters) for (var i = 0; i < node.parameters.length; ++i)
-    {
-        var parameter = node.parameters[i];
-
-        buffer.concat(", ");
-        if (!generate)
-            compiler.lastPos = parameter.start;
-        c(parameter, st, "Expression");
-        if (!generate) {
-            buffer.concat(compiler.source.substring(compiler.lastPos, parameter.end));
-            compiler.lastPos = parameter.end;
-        }
-    }
-
-    buffer.concat(")");
     if (!generate) compiler.lastPos = node.end;
 },
 SelectorLiteralExpression: function(node, st, c) {
     var compiler = st.compiler,
         buffer = compiler.jsBuffer,
-        generate = compiler.generate;
+        generate = compiler.generate,
+        generateObjJ = compiler.options.generateObjJ;
+
     if (!generate) {
         buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         buffer.concat(" "); // Add an extra space if it looks something like this: "return(@selector(a:))". No space between return and expression.
     }
-    buffer.concat("sel_getUid(\"", node);
+
+    buffer.concat(generateObjJ ? "@selector(" : "sel_getUid(\"", node);
     buffer.concat(node.selector);
-    buffer.concat("\")");
+    buffer.concat(generateObjJ ?  ")" : "\")");
+
     if (!generate) compiler.lastPos = node.end;
 },
 ProtocolLiteralExpression: function(node, st, c) {
     var compiler = st.compiler,
         buffer = compiler.jsBuffer,
-        generate = compiler.generate;
+        generate = compiler.generate,
+        generateObjJ = compiler.options.generateObjJ;
+
     if (!generate) {
         buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         buffer.concat(" "); // Add an extra space if it looks something like this: "return(@protocol(a))". No space between return and expression.
     }
-    buffer.concat("objj_getProtocol(\"", node);
+    buffer.concat(generateObjJ ? "@protocol(" : "objj_getProtocol(\"", node);
     c(node.id, st, "IdentifierName");
-    buffer.concat("\")");
+    buffer.concat(generateObjJ ?  ")" : "\")");
     if (!generate) compiler.lastPos = node.end;
 },
 Reference: function(node, st, c) {
     var compiler = st.compiler,
         buffer = compiler.jsBuffer,
-        generate = compiler.generate;
+        generate = compiler.generate,
+        generateObjJ = compiler.options.generateObjJ;
+
     if (!generate) {
         buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         buffer.concat(" "); // Add an extra space if it looks something like this: "return(<expression>)". No space between return and expression.
     }
-    buffer.concat("function(__input) { if (arguments.length) return ", node);
-    buffer.concat(node.element.name);
-    buffer.concat(" = __input; return ");
-    buffer.concat(node.element.name);
-    buffer.concat("; }");
+    if (generateObjJ) {
+        buffer.concat("@ref(", node);
+        buffer.concat(node.element.name, node.element);
+        buffer.concat(")", node);
+    } else {
+        buffer.concat("function(__input) { if (arguments.length) return ", node);
+        buffer.concat(node.element.name);
+        buffer.concat(" = __input; return ");
+        buffer.concat(node.element.name);
+        buffer.concat("; }");
+    }
+
     if (!generate) compiler.lastPos = node.end;
 },
 Dereference: function(node, st, c) {
     var compiler = st.compiler,
-        generate = compiler.generate;
+        buffer = compiler.jsBuffer,
+        generate = compiler.generate,
+        generateObjJ = compiler.options.generateObjJ;
 
     checkCanDereference(st, node.expr);
 
     // @deref(y) -> y()
     // @deref(@deref(y)) -> y()()
     if (!generate) {
-        compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.start));
+        buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         compiler.lastPos = node.expr.start;
     }
+    if (generateObjJ)
+        buffer.concat("@deref(");
     c(node.expr, st, "Expression");
-    if (!generate) compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.expr.end));
-    compiler.jsBuffer.concat("()");
+    if (!generate) buffer.concat(compiler.source.substring(compiler.lastPos, node.expr.end));
+    if (generateObjJ)
+        buffer.concat(")");
+    else
+        buffer.concat("()");
     if (!generate) compiler.lastPos = node.end;
 },
 ClassStatement: function(node, st, c) {
-    var compiler = st.compiler;
+    var compiler = st.compiler,
+        buffer = compiler.jsBuffer,
+        generateObjJ = compiler.options.generateObjJ;
     if (!compiler.generate) {
-        compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.start));
+        buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         compiler.lastPos = node.start;
-        compiler.jsBuffer.concat("//");
+        buffer.concat("//");
+    }
+    if (generateObjJ) {
+        buffer.concat("@class ");
+        c(node.id, st, "IdentifierName");
     }
     var className = node.id.name;
     if (!compiler.getClassDef(className)) {
@@ -2868,11 +3113,17 @@ ClassStatement: function(node, st, c) {
     st.vars[node.id.name] = {type: "class", node: node.id};
 },
 GlobalStatement: function(node, st, c) {
-    var compiler = st.compiler;
+    var compiler = st.compiler,
+        buffer = compiler.jsBuffer,
+        generateObjJ = compiler.options.generateObjJ;
     if (!compiler.generate) {
-        compiler.jsBuffer.concat(compiler.source.substring(compiler.lastPos, node.start));
+        buffer.concat(compiler.source.substring(compiler.lastPos, node.start));
         compiler.lastPos = node.start;
-        compiler.jsBuffer.concat("//");
+        buffer.concat("//");
+    }
+    if (generateObjJ) {
+        buffer.concat("@global ");
+        c(node.id, st, "IdentifierName");
     }
     st.rootScope().vars[node.id.name] = {type: "global", node: node.id};
 },

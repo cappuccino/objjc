@@ -11,8 +11,8 @@ function help(status) {
   console.log("        [--include-comments] [--include-comment-line-break] [(-o | --output) <path>");
   console.log("        [--formatter <path>]  [--indent-tab] [--indent-width <n>] [--indent-string <string>]");
   console.log("        [--track-spaces] [--track-locations] [--no-objj] [--no-preprocess] [--old-safari-bug]");
-  console.log("        [--no-debug-symbols] [--no-type-signatures]");
-  console.log("        [--source-map] [--ast]  [--no-code]");
+  console.log("        [--no-debug-symbols] [--no-type-signatures] [--generate-objj]");
+  console.log("        [--source-map] [--ast] [--no-code]");
   console.log("        [-Dmacro[([p1, p2, ...])][=definition]] [--silent] [--help]");
   process.exit(status);
 }
@@ -75,6 +75,7 @@ for (var i = 2; i < process.argv.length; ++i) {
   else if (arg == "--track-locations") acornOptions.locations = true;
   else if (arg == "--no-objj") acornOptions.objj = false;
   else if (arg == "--no-preprocess") acornOptions.preprocess = false;
+  else if (arg == "--generate-objj") options.generateObjJ = true;
   else if (arg == "--silent") silent = true;
   else if (arg == "--old-safari-bug") options.transformNamedFunctionDeclarationToAssignment = true;
   else if (arg == "--no-code") code = false;
@@ -117,6 +118,10 @@ if (!infile) help(1);
 
 if (options.includeComments && !options.formatDescription) {
   console.log("Must have '--formatter' when using '--include-comments'");
+  help(1);
+}
+if (options.generateObjJ && !options.formatDescription) {
+  console.log("Must have '--formatter' when using '--generate-objj'");
   help(1);
 }
 

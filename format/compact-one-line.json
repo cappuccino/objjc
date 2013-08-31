@@ -34,5 +34,21 @@
 	"MemberExpression": {},
 	"Identifier": {"parent": {"VariableDeclaration": {"prior":{"None": {"before":" "}}}, "FunctionDeclaration": {"prior":{"None": {"before":" "}}}}},
 	"IdentifierName": {},
-	"Literal": {}
+	"Literal": {},
+	"ObjectiveJType": {},
+	"ArrayLiteral": {},
+	"DictionaryLiteral": {},
+	"ImportStatement": {},
+	"ClassDeclarationStatement": {},
+	"ProtocolDeclarationStatement": {},
+	"IvarDeclaration": {"after": ";"},
+	"MethodDeclarationStatement": {},
+	"MessageSendExpression": {},
+	"SelectorLiteralExpression": {},
+	"ProtocolLiteralExpression": {},
+	"Reference": {},
+	"Dereference": {},
+	"ClassStatement": {},
+	"GlobalStatement": {},
+	"PreprocessStatement": {"before": "\n"}
 }

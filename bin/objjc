@@ -69,7 +69,7 @@ for (var i = 2; i < process.argv.length; ++i) {
   else if (arg == "--ecma5") acornOptions.ecmaVersion = 5;
   else if (arg == "--strict-semicolons") acornOptions.strictSemicolons = true;
   else if (arg == "--track-comments") acornOptions.trackComments = true;
-  else if (arg == "--include-comment-line-break") acornOptions.trackCommentsIncludeLineBreak = false;
+  else if (arg == "--include-comment-line-break") acornOptions.trackCommentsIncludeLineBreak = true;
   else if (arg == "--include-comments") options.includeComments = true, acornOptions.trackComments = true;
   else if (arg == "--track-spaces") acornOptions.trackSpaces = true;
   else if (arg == "--track-locations") acornOptions.locations = true;

@@ -1,7 +1,7 @@
 {
     "name": "objj-compiler",
     "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "homepage": "https://github.com/mrcarlberg/ObjJAcornCompiler",
     "contributors": [
         {

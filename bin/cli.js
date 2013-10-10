@@ -2,7 +2,7 @@
 
 var path = require('path');
 var fs = require('fs');
-var compiler = require(path.join(path.dirname(fs.realpathSync(__filename)), "../ObjJAcornCompiler.js"));
+var compiler = require("../lib/ObjJAcornCompiler.js");
 
 var infile, compiled, options = {}, acornOptions = {}, silent = false, code = true, map = false, ast = false, output, outputFilename;
 
@@ -20,47 +20,6 @@ function help(status) {
 // We skip the high number unicode whitespaces and only allow regular extended ASCII codes
 function isWhiteSpace(tok) {
     return ((tok < 14 && tok > 8) || tok === 32 || tok === 160);
-}
-
-function defineMacro(macro) {
-  if (!options.macros)
-    options.macros = Object.create(null);
-
-  var split = macro.split('='),
-      nameAndArgs = split[0],
-      splitNameAndArgs = nameAndArgs.split('('),
-      name = splitNameAndArgs[0].trim(),
-      args = splitNameAndArgs[1],
-      definition = split[1];
-
-  if (args)
-  {
-    var pos = 0,
-        start,
-        token = args.charCodeAt(pos),
-        parameterNames = [];
-
-    // Skip whitespaces
-    while(!isNaN(token) && isWhiteSpace(token))
-      token = args.charCodeAt(++pos);
-    start = pos;
-    // Will go until end or ')'
-    while(!isNaN(token) && token !== 41) // ')'
-    {
-      // Will go until end, ')', comma or whitespace
-      while(!isNaN(token) && token !== 41 && token !== 44 && !isWhiteSpace(token)) // ')', ',' or whitespace
-      {
-        token = args.charCodeAt(++pos);
-      }
-      // Get parameter identifier
-      parameterNames.push(args.slice(start, pos));
-      // Skip whitespaces and comma
-      while(!isNaN(token) && (isWhiteSpace(token) || token === 44))
-        token = args.charCodeAt(++pos);
-      start = pos;
-    }
-  }
-  options.macros[name] = new compiler.acorn.Macro(name, definition, parameterNames);
 }
 
 for (var i = 2; i < process.argv.length; ++i) {
@@ -108,7 +67,7 @@ for (var i = 2; i < process.argv.length; ++i) {
         options.formatDescription = jsonFile;
   }
   else if (arg == "--output" || arg == "-o") output = process.argv[++i];
-  else if (arg.substring(0, 2) == "-D") defineMacro(arg.substring(2));
+  else if (arg.slice(0, 2) == "-D") (acornOptions.macros || (acornOptions.macros = [])).push(arg.slice(2));
   else if (arg == "--help") help(0);
   else if (arg[0] == "-") help(1);
   else infile = arg;

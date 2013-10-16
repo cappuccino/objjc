@@ -2,23 +2,28 @@
     "name": "objj-compiler",
     "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
     "version": "0.3.4",
-    "homepage": "https://github.com/mrcarlberg/ObjJAcornCompiler",
+    "homepage": "https://github.com/cappuccino/objjc",
     "contributors": [
         {
             "name": "Martin Carlberg",
             "email": "martin@carlberg.org",
             "web": "http://carlberg.org"
+        },
+        {
+            "name": "Aparajita Fishman",
+            "email": "aparajita@aparajita.com",
+            "web": "http://www.aparajita.com"
         }
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/mrcarlberg/ObjJAcornCompiler.git"
+        "url": "https://github.com/cappuccino/objjc.git"
     },
-    "bugs": "https://github.com/mrcarlberg/ObjJAcornCompiler/issues",
+    "bugs": "https://github.com/cappuccino/objjc/issues",
     "licenses": [
         {
             "type": "MIT",
-            "url": "http://raw.github.com/mrcarlberg/ObjJAcornCompiler/master/LICENSE"
+            "url": "https://raw.github.com/cappuccino/objjc/master/LICENSE"
         }
     ],
     "main": "lib/ObjJAcornCompiler",
@@ -30,7 +35,7 @@
         "node": ">=0.8.0"
     },
     "dependencies": {
-        "objj-acorn": ">=0.3.3-objj-2",
+        "objj-acorn": ">=0.5.0",
         "source-map": "0.1.x"
     },
     "devDependencies": {
@@ -41,5 +46,18 @@
     "scripts": {
         "test": "grunt test"
     },
-    "keywords": ["source", "source code", "JavaScript", "ECMAScript", "Objective-J", "preprocessor", "pre-processor", "pre processor", "processor", "utility", "beautifier", "formatter"]
+    "keywords": [
+        "source",
+        "source code",
+        "JavaScript",
+        "ECMAScript",
+        "Objective-J",
+        "preprocessor",
+        "pre-processor",
+        "pre processor",
+        "processor",
+        "utility",
+        "beautifier",
+        "formatter"
+    ]
 }

@@ -274,13 +274,12 @@ function main()
     }
     else if (outputPath)
     {
-        var baseFilename = path.basename(infile, path.extname(infile)),
-            filePath = path.join(outputPath, baseFilename);
+        var baseFilename = path.basename(infile, path.extname(infile));
 
         if (generateCode)
-            fs.writeFileSync(filePath + ".js", compiled.code());
+            fs.writeFileSync(path.join(outputPath, baseFilename) + ".js", compiled.code());
         if (options.sourceMap)
-            fs.writeFileSync(filePath + ".map", compiled.map());
+            fs.writeFileSync(path.join(outputPath, path.basename(infile)) + ".map", compiled.map());
     }
 }
 

@@ -26,7 +26,7 @@ function help(status)
     console.log("--ecma3|--ecma5      Sets the ECMAScript version to parse. Default is version 5.");
     console.log("--strict-semicolons  Prevents the parser from doing automatic semicolon insertion.");
     console.log("                     Statements that do not end in semicolons will generate an error.");
-    console.log("-Dmacro[([param, ...])][=definition]]");
+    console.log("-Dmacro|--macro macro[([param, ...])][=definition]]");
     console.log("                     Defines a macro. A name with no parameters and no definition will be defined");
     console.log("                     with the value 1. To be safe from shell expansion, the values on either side");
     console.log("                     of the = should be enclosed in '', for example -D'PLUS_ONE(arg)'='arg + 1'.");
@@ -77,6 +77,8 @@ for (var i = 2; i < process.argv.length; ++i)
         acornOptions.strictSemicolons = true;
     else if (arg.slice(0, 2) === "-D")
         (acornOptions.macros || (acornOptions.macros = [])).push(arg.slice(2));
+    else if (arg === "--macro")
+        (acornOptions.macros || (acornOptions.macros = [])).push(process.argv[++i]);
     else if (arg === "--no-objj")
         acornOptions.objj = false;
     else if (arg === "--no-preprocess")

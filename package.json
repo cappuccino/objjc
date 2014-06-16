@@ -36,7 +36,8 @@
     },
     "dependencies": {
         "objj-acorn": ">=0.5.0",
-        "source-map": "0.1.x"
+        "source-map": "0.1.x",
+        "optionator": ">=0.1.1"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

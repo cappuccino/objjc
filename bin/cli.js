@@ -3,191 +3,253 @@
 
 var path = require("path"),
     fs = require("fs"),
+    optionator = require("optionator"),
     compiler = require("../lib/compiler.js");
 
-var infile,
+var inFiles = [],
     options = {},
     acornOptions = {objj: true},
     silent = false,
     generateCode = true,
     outputPath = null,
     formatPath = null,
-    useStdin = !process.stdin.isTTY;
+    useStdin = false;
 
-function help(status)
+function parseOptions()
 {
-    var name = path.basename(process.argv[1]);
+    optionator = optionator({
+        prepend: "usage: objjc [options] file ...\nCompiles one or more files and outputs source code and/or a source map. If <file> is '-', reads from stdin.",
+        helpStyle: {
+            maxPadFactor: 2.0
+        },
+        options: [
+            { heading: "Parser options" },
+            {
+                option: "macro",
+                type: "String | [String]",
+                description: "Defines a macro. The argument should be in the form <name>[(arg[, argN])]=<definition>. A name with no args and no definition will be defined with the value 1. To be safe from shell expansion, the argument should be enclosed in single quotes. To define multiple macros, enclose multiple comma-delimited, single-quoted strings in square brackets, all enclosed by double-quotes. \n\nExamples:\n--macro 'PLUS_ONE(arg)=arg + 1'\n--macro \"['FOO(arg)=arg + 1', 'BAR(s)=\"\\\"foo\\\"\" + s', 'DEBUG']\""
+            },
+            {
+                option: "prefix",
+                type: "String",
+                description: "Macro definitions are read from the file as this path and applied to all compiled files."
+            },
+            {
+                option: "ecma3",
+                type: "Boolean",
+                description: "Tells the parser to parse ECMAScript 3."
+            },
+            {
+                option: "ecma5",
+                type: "Boolean",
+                description: "Tells the parser to parse ECMAScript 5."
+            },
+            {
+                option: "strict-semicolons",
+                type: "Boolean",
+                description: "Prevents the parser from doing automatic semicolon insertion (the default). Statements that do not end in semicolons will generate an error."
+            },
+            {
+                option: "no-objj",
+                type: "Boolean",
+                description: "Turns off Objective-J syntax parsing and disables Objective-J code generation."
+            },
+            {
+                option: "no-preprocess",
+                type: "Boolean",
+                description: "Turns off the preprocessor."
+            },
 
-    console.log("usage: " + name + "[options] file\n");
-    console.log("Compiles <file> and outputs source code and/or a source map.");
-    console.log("If <file> is '-', reads from stdin. You may also pipe or redirect into " + name + " and omit <file>.");
+            { heading: "Code generation options" },
+            {
+                option: "output",
+                type: "String",
+                description: "Writes generated code to the given directory (if not using stdin) or file (if using stdin) instead of the console. When not using stdin, the output filenames are based on the input filename (excluding the extension)."
+            },
+            {
+                option: "tab-indent",
+                type: "String",
+                description: "Tabs are used to indent code."
+            },
+            {
+                option: "space-indent",
+                type: "String",
+                description: "Spaces (4 by default) are used to indent code. This is the default."
+            },
+            {
+                option: "indent-width",
+                type: "Int",
+                description: "Sets the number of spaces to use for indenting. May not be used with --tab-indent."
+            },
+            {
+                option: "source-map",
+                type: "Boolean",
+                description: "Generates a source map for use with browsers that support them."
+            },
+            {
+                option: "source-map-only",
+                type: "Boolean",
+                description: "Only generates a source map for use with browsers that support them."
+            },
+            {
+                option: "format",
+                type: "String",
+                description: "Format the generated code according to the given named format. If the name contains no path separators, then the named standard format is used. The .json extension may be omitted in this case. Otherwise the format file at the given path is used."
+            },
+            {
+                option: "include-comments",
+                type: "Boolean",
+                description: "Comments in the source are included in the compiled code. May only be used in conjunction with --format."
+            },
+            {
+                option: "include-comment-line-breaks",
+                type: "Boolean",
+                description: "Line breaks before comments are included in the compiled code. May only be used in conjunction with --format."
+            },
+            {
+                option: "generate-objj",
+                type: "Boolean",
+                description: "By default, Objective-J source is converted into plain JavaScript code. Passing this option causes Objective-J code to be generated, which is useful if you want to beautify the original Objective-J source code. May only be used in conjunction with --format."
+            },
+            {
+                option: "silent",
+                type: "Boolean",
+                description: "Suppress normal output. Error messages will still be output."
+            },
 
-    console.log("\nParser options:");
-    console.log("--ecma3|--ecma5      Sets the ECMAScript version to parse. Default is version 5.");
-    console.log("--strict-semicolons  Prevents the parser from doing automatic semicolon insertion.");
-    console.log("                     Statements that do not end in semicolons will generate an error.");
-    console.log("-Dmacro|--macro macro[([param, ...])][=definition]]");
-    console.log("                     Defines a macro. A name with no parameters and no definition will be defined");
-    console.log("                     with the value 1. To be safe from shell expansion, the values on either side");
-    console.log("                     of the = should be enclosed in '', for example -D'PLUS_ONE(arg)'='arg + 1'.");
-    console.log("                     May be used multiple times to define multiple macros.");
-    console.log("--no-objj            Turns off Objective-J syntax parsing and disables Objective-J code generation.");
-    console.log("--no-preprocess      Turns off the preprocessor.");
+            { heading: "General options" },
+            {
+                option: "version",
+                type: "Boolean",
+                description: "Show the current version and exit."
+            },
+            {
+                option: "help",
+                type: "Boolean",
+                description: "Show this help."
+            }
+        ],
+        mutuallyExclusive: [
+            ["ecma3", "ecma5"],
+            ["tab-indent", "space-indent"],
+            ["tab-indent", "indent-width"],
+            ["source-map", "source-map-only"]
+        ]
+    });
 
-    console.log("\nCode generation options:");
-    console.log("-o --output <path>   Write generated code to the given directory (which must exist) instead of the console.");
-    console.log("                     The output filenames are based on the input filename (excluding the extension).");
-    console.log("--tab-indent         Tabs are used to indent code.");
-    console.log("--space-indent       Spaces (4 by default) are used to indent code. This is the default.");
-    console.log("--indent-width N     Sets the number of spaces to use for indenting. May not be used with --tab-indent.");
-    console.log("--source-map[-only]  Generates a source map for use with browsers that support them. If --source-map-only,");
-    console.log("                     only the source map is generated.");
-    console.log("--format <path>      Format the generated code according to the given format name or file. If <path>");
-    console.log("                     contains no path separators, then the named standard format is used. The .json");
-    console.log("                     extension may be omitted in this case. Otherwise the format file at the given");
-    console.log("                     path is used.");
-    console.log("--include-comments   Comments in the source are included in the compiled code. May only be used");
-    console.log("                     in conjunction with --format.");
-    console.log("--include-comment-line-breaks");
-    console.log("                     Line breaks before comments are included in the compiled code. May only be used");
-    console.log("                     in conjunction with --format.");
-    console.log("--generate-objj      By default, Objective-J source is converted into plain JavaScript code. Passing");
-    console.log("                     this option causes Objective-J code to be generated, which is useful if you want.");
-    console.log("                     to beautify the original Objective-J source code. May only be used in conjunction");
-    console.log("                     with --format.");
-    console.log("--silent             Do not output anything, just return the exit status.");
+    try
+    {
+        options = optionator.parse(process.argv);
 
-    console.log("\nGeneral options:");
-    console.log("--version            Print the current version and exit.");
-    console.log("--help               Print this usage information and exit.");
+        if (options.version)
+        {
+            console.log("objjc v" + compiler.version);
+            process.exit(0);
+        }
+        else if (options.help)
+        {
+            console.log(optionator.generateHelp());
+            process.exit(0);
+        }
+    }
+    catch (ex)
+    {
+        console.error("ERROR: " + ex.message);
+        process.exit(1);
+    }
 
-    process.exit(status);
-}
+    inFiles = options._;
 
-for (var i = 2; i < process.argv.length; ++i)
-{
-    var arg = process.argv[i];
-
-    // Parser options
-    if (arg === "--ecma3")
+    if (options.ecma3)
         acornOptions.ecmaVersion = 3;
-    else if (arg === "--ecma5")
+    else if (options.ecma5)
         acornOptions.ecmaVersion = 5;
-    else if (arg === "--strict-semicolons")
+
+    if (options.strictSemicolons)
         acornOptions.strictSemicolons = true;
-    else if (arg.slice(0, 2) === "-D")
-        (acornOptions.macros || (acornOptions.macros = [])).push(arg.slice(2));
-    else if (arg === "--macro")
-        (acornOptions.macros || (acornOptions.macros = [])).push(process.argv[++i]);
-    else if (arg === "--no-objj")
+
+    if (options.macro)
+    {
+        if (Array.isArray(options.macro))
+            acornOptions.macros = options.macro;
+        else
+            acornOptions.macros = [options.macro];
+    }
+    else
+        acornOptions.macros = [];
+
+    if (options.noObjj)
         acornOptions.objj = false;
-    else if (arg === "--no-preprocess")
+
+    if (options.noPreprocess)
         acornOptions.preprocess = false;
 
-    // Code generation options
-    else if (arg === "--output" || arg === "-o")
-        outputPath = process.argv[++i];
-    else if (arg === "--tab-indent" || arg === "--space-indent")
-    {
-        if (options.indentString != null)
-        {
-            console.error("ERROR: --tab-indent and --space-indent are mutually exclusive.");
-            process.exit(1);
-        }
-        else
-        {
-            if (arg === "--tab-indent")
-            {
-                options.indentString = "\t";
-                options.indentWidth = 1;
-            }
-            else
-                options.indentString = " ";
-        }
-    }
-    else if (arg === "--indent-width")
-    {
-        if (options.indentString !== "\t")
-            options.indentWidth = parseInt(process.argv[++i], 10);
-        else
-        {
-            console.error("ERROR: --indent-width may not be used with --tab-indent.");
-            process.exit(1);
-        }
-    }
-    else if (arg.indexOf("--source-map") === 0)
-    {
-        options.sourceMap = true;
+    if (options.output)
+        outputPath = options.output;
 
-        if (arg === "--source-map-only")
-            generateCode = false;
-    }
-    else if (arg === "--format")
-        formatPath = process.argv[++i];
-    else if (arg === "--include-comments")
+    if (options.tabIndent)
     {
-        options.includeComments = true;
+        options.indentString = "\t";
+        options.indentWidth = 1;
+    }
+    else
+        options.indentString = " ";
+
+    if (options.sourceMapOnly)
+        generateCode = false;
+
+    if (options.format)
+        formatPath = options.format;
+
+    if (options.includeComments)
         acornOptions.trackComments = true;
-    }
-    else if (arg === "--include-comment-line-breaks")
-        acornOptions.trackCommentsIncludeLineBreak = true;
-    else if (arg === "--generate-objj")
-        options.generateObjJ = true;
-    else if (arg === "--silent")
-        silent = true;
 
-    // General options
-    else if (arg === "--version")
+    if (options.includeCommentLineBreaks)
+        acornOptions.trackCommentsIncludeLineBreak = true;
+
+    options.generateObjJ = !!options.generateObjj;
+    silent = !!options.silent;
+
+    if (inFiles.indexOf("-") >= 0)
     {
-        console.log(compiler.version);
+        useStdin = true;
+        inFiles = [];
+    }
+
+    if (inFiles.length === 0 && !useStdin)
+    {
+        console.log(optionator.generateHelp());
         process.exit(0);
     }
-    else if (arg.indexOf("--") === 0)
-        help(0);
-    else
+
+    if (options.includeComments && !options.format)
     {
-        if (arg === "-")
-            useStdin = true;
-        else
-            infile = arg;
-        break;
+        console.error("ERROR: --include-comments may only be used in conjunction with --format.");
+        process.exit(1);
     }
+
+    if (options.generateObjJ && !formatPath)
+    {
+        console.error("ERROR: --generate-objj may only be used in conjunction with --format.");
+        process.exit(1);
+    }
+
+    if (acornOptions.trackCommentsIncludeLineBreak && (!options.format || !options.includeComments))
+    {
+        console.error("ERROR: --include-comment-line-breaks may only be used in conjunction with --include-line-breaks and --format.\n");
+        process.exit(1);
+    }
+
+    if (options.sourceMap && useStdin)
+    {
+        console.error("ERROR: --sourceMap may not be used with stdin.");
+        process.exit(1);
+    }
+
+    options.acornOptions = acornOptions;
 }
 
-if (!infile && !useStdin)
-    help(1);
-
-if (options.includeComments && !options.format)
-{
-    console.error("ERROR: --include-comments may only be used in conjunction with --format.");
-    process.exit(1);
-}
-
-if (options.generateObjJ && !formatPath)
-{
-    console.error("ERROR: --generate-objj may only be used in conjunction with --format.");
-    process.exit(1);
-}
-
-if (options.generateObjJ && !acornOptions.objj)
-{
-    console.error("ERROR: --no-objj and --generate-objj are mutually exclusive.");
-    process.exit(1);
-}
-
-if (acornOptions.trackCommentsIncludeLineBreak && (!options.format || !options.includeComments))
-{
-    console.error("ERROR: --include-comment-line-breaks may only be used in conjunction with --include-line-breaks and --format.\n");
-    process.exit(1);
-}
-
-if (options.sourceMap && useStdin)
-{
-    console.error("ERROR: --sourceMap may not be used with stdin.");
-    process.exit(1);
-}
-
-if (formatPath)
+function loadFormat()
 {
     var filePath = formatPath,
         error = null;
@@ -239,55 +301,99 @@ if (formatPath)
     }
 }
 
-if (outputPath)
+function makeOutputDir()
 {
     outputPath = path.resolve(outputPath);
 
-    if (!fs.existsSync(outputPath) || !fs.statSync(outputPath).isDirectory())
-    {
-        console.error("ERROR: No such directory: " + outputPath);
-        process.exit(1);
-    }
+    var targetDir = useStdin ? path.dirname(outputPath) : outputPath;
+
+    if (!fs.existsSync(targetDir))
+        fs.mkdir(targetDir);
+    else if (!fs.statSync(targetDir).isDirectory())
+        throw new Error("'" + targetDir + "' is not a directory");
 }
 
-var source;
-
-function main()
+function generate(inFile, compiled)
 {
-    var compiled;
-
-    try
-    {
-        options.acornOptions = acornOptions;
-        compiled = compiler.compile(source, infile, options);
-    }
-    catch (e)
-    {
-        console.error(e.message);
-        process.exit(1);
-    }
-
     if (!silent && !outputPath)
     {
         if (generateCode)
             console.log(compiled.code());
+
         if (options.sourceMap)
             console.log(compiled.map());
     }
     else if (outputPath)
     {
-        var baseFilename = path.basename(infile, path.extname(infile));
+        if (useStdin)
+            inFile = outputPath;
+
+        var baseFilename = path.basename(inFile, path.extname(inFile)),
+            targetPath;
+
+        if (useStdin)
+            targetPath = path.join(path.dirname(outputPath), baseFilename);
+        else
+            targetPath = path.join(outputPath, baseFilename);
+
+        var filePath = targetPath + ".js";
 
         if (generateCode)
-            fs.writeFileSync(path.join(outputPath, baseFilename) + ".js", compiled.code());
+            fs.writeFileSync(filePath, compiled.code());
+
         if (options.sourceMap)
-            fs.writeFileSync(path.join(outputPath, path.basename(infile)) + ".map", compiled.map());
+            fs.writeFileSync(targetPath + ".map", compiled.map());
     }
 }
 
+function main(source)
+{
+    try
+    {
+        if (formatPath)
+            loadFormat();
+
+        if (outputPath)
+            makeOutputDir();
+
+        if (options.prefix)
+            compiler.readPrefix(options);
+
+        var compiled,
+            count = inFiles.length || 1;
+
+        for (var i = 0; i < count; ++i)
+        {
+            var inFile;
+
+            if (source === null)
+            {
+                inFile = path.resolve(inFiles[i]);
+                source = fs.readFileSync(inFile, "utf8");
+            }
+            else
+                inFile = "<stdin>";
+
+            compiled = compiler.compile(source, inFile, options);
+            source = null;
+
+            generate(inFile, compiled);
+        }
+    }
+    catch (ex)
+    {
+        console.error("ERROR: " + ex.message);
+        //process.exit(1);
+        throw ex;
+    }
+}
+
+parseOptions();
+
 if (useStdin)
 {
-    source = "";
+    var source = "";
+
     process.stdin.resume();
     process.stdin.setEncoding("utf8");
 
@@ -296,11 +402,10 @@ if (useStdin)
     });
 
     process.stdin.on("end", function() {
-        main();
+        main(source);
     });
 }
 else
 {
-    source = fs.readFileSync(infile, "utf8");
-    main();
+    main(null);
 }

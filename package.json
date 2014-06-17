@@ -2,7 +2,7 @@
     "name": "objj-compiler",
     "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
     "version": "0.5.0",
-    "homepage": "https://github.com/cappuccino/objjc",
+    "homepage": "https://github.com/cappuccino/objj-compiler",
     "contributors": [
         {
             "name": "Martin Carlberg",
@@ -17,36 +17,35 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/cappuccino/objjc.git"
+        "url": "https://github.com/cappuccino/objj-compiler.git"
     },
-    "bugs": "https://github.com/cappuccino/objjc/issues",
+    "bugs": "https://github.com/cappuccino/objj-compiler/issues",
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://raw.github.com/cappuccino/objjc/master/LICENSE"
+            "url": "https://raw.githubusercontent.com/cappuccino/objj-compiler/master/LICENSE"
         }
     ],
-    "main": "lib/ObjJAcornCompiler",
+    "main": "lib/compiler.js",
     "bin": {
-        "objjc": "./bin/cli.js"
+        "objjc": "./bin/objjc"
     },
     "preferGlobal": true,
     "engines": {
-        "node": ">=0.8.0"
+        "node": ">=0.10.0"
     },
     "dependencies": {
-        "objj-acorn": ">=0.5.0",
-        "source-map": "0.1.x",
-        "optionator": ">=0.1.1"
+        "chalk": "^0.4.0",
+        "objj-acorn": ">=0.5.1",
+        "optionator": ">=0.4.0",
+        "source-map": "^0.1.34"
     },
     "devDependencies": {
-        "grunt": "~0.4.1",
+        "grunt": "~0.4.5",
         "grunt-contrib-clean": "~0.5.0",
-        "grunt-contrib-jshint": "~0.6.0",
-        "grunt-contrib-jshint": "~0.6.0",
-        "grunt-contrib-uglify": "~0.2.0",
-        "grunt-contrib-watch": "~0.5.0",
-        "grunt-jasmine-node": "~0.1.0"
+        "grunt-contrib-jshint": "~0.10.0",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-watch": "~0.6.1"
     },
     "scripts": {
         "test": "grunt test"

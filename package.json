@@ -1,7 +1,7 @@
 {
     "name": "objj-compiler",
     "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
-    "version": "0.5.0",
+    "version": "1.0.0-beta",
     "homepage": "https://github.com/cappuccino/objj-compiler",
     "contributors": [
         {

@@ -1,4 +1,8 @@
 {
+    "*": {
+      "indentString": " ",
+      "indentWidth": 4
+    },
     "*block": {
         "nodes": [
             "if",

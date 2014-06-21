@@ -46,7 +46,7 @@
     },
     "block": {
         "before": "\n|-1",
-        "afterLeftBrace": "",
+        "afterLeftBrace": "\n",
         "beforeRightBrace": "\n|-1"
     },
     "expression": {
@@ -105,14 +105,16 @@
     "debugger": {
         "after": ";"
     },
-    "function": {},
+    "function": {
+        "beforeLeftParens": ""
+    },
     "function expression": {},
     "var": {
-        "beforeIdentifier": " ",
         "beforeAssign": " ",
         "afterAssign": " ",
-        "after": ";",
-        "onePerLine": false
+        "beforeComma": "",
+        "afterComma": "\n    ",
+        "after": ";"
     },
     "this": {},
     "array": {

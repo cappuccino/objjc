@@ -1,0 +1,176 @@
+{
+    "*block": {
+        "nodes": [
+            "if",
+            "for",
+            "for in",
+            "while",
+            "do while",
+            "switch",
+            "try",
+            "var",
+            "with",
+            "function",
+            "function expression",
+            "@implementation",
+            "@protocol"
+        ],
+        "before": {
+            "*": "\n\n",
+            "*statement": "\n",
+            "block": "\n",
+            "label": "\n"
+        },
+        "after": {
+            "*": "\n",
+            "block": ""
+        },
+        "beforeLeftParens": " ",
+        "afterRightParens": "\n"
+    },
+    "*statement": {
+        "nodes": [
+            "expression",
+            "label",
+            "break",
+            "continue",
+            "return",
+            "debugger",
+            "@import",
+            "@class",
+            "@global",
+            "#",
+            "ivar"
+        ],
+        "before": "\n"
+    },
+    "block": {
+        "before": "\n|-1",
+        "afterLeftBrace": "",
+        "beforeRightBrace": "\n|-1"
+    },
+    "expression": {
+        "before": "\n",
+        "after": ";"
+    },
+    "if": {
+        "beforeElse": "\n",
+        "afterElse": ""
+    },
+    "label": {
+        "before": {
+            "*": "\n\n",
+            "label": "\n"
+        },
+        "afterColon": ""
+    },
+    "break": {
+        "after": ";"
+    },
+    "continue": {
+        "after": ";"
+    },
+    "with": {},
+    "switch": {
+        "afterLeftBrace": "",
+        "beforeCase": "\n",
+        "afterCase": " ",
+        "afterColon": "",
+        "beforeRightBrace": "\n"
+    },
+    "return": {
+        "after": ";",
+        "beforeExpression": " "
+    },
+    "throw": {
+        "beforeExpression": " "
+    },
+    "try": {
+        "beforeStatement": "",
+        "beforeCatch": "",
+        "afterCatch": "",
+        "beforeCatchStatement": ""
+    },
+    "while": {},
+    "do while": {
+        "beforeStatement": "",
+        "after": ";"
+    },
+    "for": {},
+    "for in": {
+        "beforeIn": " ",
+        "afterIn": " "
+    },
+    "for init": {},
+    "debugger": {
+        "after": ";"
+    },
+    "function": {},
+    "function expression": {},
+    "var": {
+        "beforeIdentifier": " ",
+        "beforeAssign": " ",
+        "afterAssign": " ",
+        "after": ";",
+        "onePerLine": false
+    },
+    "this": {},
+    "array": {
+        "beforeComma": "",
+        "afterComma": " "
+    },
+    "object": {
+        "beforeComma": "",
+        "afterComma": " ",
+        "beforeColon": "",
+        "afterColon": " "
+    },
+    ",": {
+        "beforeComma": "",
+        "afterComma": " "
+    },
+    "unary expression": {},
+    "update expression": {},
+    "binary expression": {
+        "beforeOperator": " ",
+        "afterOperator": " "
+    },
+    "logical expression": {
+        "beforeOperator": " ",
+        "afterOperator": " "
+    },
+    "assignment": {
+        "beforeOperator": " ",
+        "afterOperator": " "
+    },
+    "ternary expression": {
+        "beforeOperator": " ",
+        "afterOperator": " "
+    },
+    "new": {},
+    "function call": {},
+    "member": {},
+    "identifier": {},
+    "identifier name": {},
+    "literal": {},
+    "objective-j type": {},
+    "@[]": {},
+    "@{}": {},
+    "@import": {},
+    "@implementation": {},
+    "@protocol": {},
+    "ivar": {
+        "after": ";"
+    },
+    "method": {
+        "before": "\n\n"
+    },
+    "message send": {},
+    "@selector": {},
+    "@protocol()": {},
+    "@ref": {},
+    "@deref": {},
+    "@class": {},
+    "@global": {},
+    "#": {}
+}

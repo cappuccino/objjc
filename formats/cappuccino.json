@@ -21,36 +21,25 @@
         ],
         "before": {
             "*": "\n\n",
-            "*statement": "\n",
-            "block": "\n",
+            "program": "",
+            "{}": "\n",
             "label": "\n"
         },
-        "after": {
-            "*": "\n",
-            "block": ""
-        },
-        "beforeLeftParens": " ",
-        "afterRightParens": "\n"
+        "beforeLeftParens": " "
     },
     "*statement": {
         "nodes": [
-            "expression",
-            "label",
             "break",
             "continue",
             "return",
-            "debugger",
-            "@import",
-            "@class",
-            "@global",
-            "#",
-            "ivar"
+            "debugger"
         ],
-        "before": "\n"
+        "before": "\n",
+        "after": ";"
     },
-    "block": {
+    "{}": {
         "before": "\n|-1",
-        "afterLeftBrace": "\n",
+        "afterLeftBrace": "",
         "beforeRightBrace": "\n|-1"
     },
     "expression": {
@@ -72,7 +61,6 @@
         "after": ";"
     },
     "continue": {
-        "after": ";"
     },
     "with": {},
     "switch": {
@@ -100,7 +88,10 @@
         "beforeStatement": "",
         "after": ";"
     },
-    "for": {},
+    "for": {
+        "afterInitExpression": "",
+        "afterInitSemicolon": " "
+    },
     "for in": {
         "beforeIn": " ",
         "afterIn": " "
@@ -114,11 +105,22 @@
     },
     "function expression": {},
     "var": {
+        "before": {
+            "*": "\n",
+            "for": "",
+            "var": "\n\n"
+        },
         "beforeAssign": " ",
         "afterAssign": " ",
         "beforeComma": "",
-        "afterComma": "\n    ",
-        "after": ";"
+        "afterComma": {
+            "*": "\n    ",
+            "for": " "
+        },
+        "after": {
+            "*": ";",
+            "for": ""
+        }
     },
     "this": {},
     "array": {

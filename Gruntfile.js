@@ -1,9 +1,17 @@
 "use strict";
 
+var cli = require("./lib/cli"),
+    glob = require("glob");
+
 module.exports = function(grunt)
 {
     // Project configuration.
     grunt.initConfig({
+        clean: {
+            test: {
+                src: ["test/fixtures/*.js"]
+            }
+        },
         jshint: {
             options: {
                 jshintrc: ".jshintrc"
@@ -12,11 +20,17 @@ module.exports = function(grunt)
                 src: "Gruntfile.js"
             },
             lib: {
-                src: ["lib/**/*.js"]
+                src: ["lib/*.js"]
             },
+        },
+
+        mochaTest: {
             test: {
-                src: ["test/**/*.js"]
-            },
+                options: {
+                    reporter: "spec"
+                },
+                src: ["test/*.js"]
+            }
         },
 
         watch: {
@@ -40,7 +54,21 @@ module.exports = function(grunt)
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks("grunt-jasmine-node");
+    grunt.loadNpmTasks("grunt-mocha-test");
 
     grunt.registerTask("default", ["jshint"]);
+    grunt.registerTask("test", ["jshint", "mochaTest"]);
+    grunt.registerTask("_generateFixtures", "Generate test fixtures.", function()
+    {
+        var files = glob.sync("test/fixtures/*.j");
+
+        files.forEach(
+            function(file)
+            {
+                grunt.log.writeln(file);
+                cli.run(["node", "objjc", "--debug", "--no-source-map", "-o", "test/fixtures", file]);
+            }
+        );
+    });
+    grunt.registerTask("generateFixtures", ["clean", "_generateFixtures"]);
 };

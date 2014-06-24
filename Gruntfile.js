@@ -12,6 +12,20 @@ module.exports = function(grunt)
                 src: ["test/fixtures/*.js"]
             }
         },
+        eslint: {
+            options: {
+                config: ".eslintrc"
+            },
+            gruntfile: {
+                src: "Gruntfile.js"
+            },
+            lib: {
+                src: ["lib/*.js"]
+            },
+            test: {
+                src: ["test/*.js"]
+            }
+        },
         jshint: {
             options: {
                 jshintrc: ".jshintrc"
@@ -22,6 +36,9 @@ module.exports = function(grunt)
             lib: {
                 src: ["lib/*.js"]
             },
+            test: {
+                src: ["test/*.js"]
+            }
         },
 
         mochaTest: {
@@ -54,10 +71,11 @@ module.exports = function(grunt)
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-eslint");
     grunt.loadNpmTasks("grunt-mocha-test");
 
-    grunt.registerTask("default", ["jshint"]);
-    grunt.registerTask("test", ["jshint", "mochaTest"]);
+    grunt.registerTask("test", ["eslint", "jshint", "mochaTest"]);
+    grunt.registerTask("default", ["test"]);
     grunt.registerTask("_generateFixtures", "Generate test fixtures.", function()
     {
         var files = glob.sync("test/fixtures/*.j");

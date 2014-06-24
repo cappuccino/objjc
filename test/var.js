@@ -13,23 +13,22 @@
 /*jshint ignore:start */
 
 var utils = require("./lib/utils"),
-    compareWithFixture = utils.compareWithFixture;
-
-require("should");
+    compareWithFixture = utils.compareWithFixture,
+    expect = require("expect.js");
 
 //noinspection BadExpressionStatementJS
 describe("var", function() {
-    describe("sequential var statements", function() {
+    describe("sequential statements", function() {
         it("should be separated by a blank line", function()
         {
-            compareWithFixture("var-sequence").should.be.ok;
+            expect(compareWithFixture("var-sequence")).to.be.ok();
         });
     });
 
-    describe("var statement with multiple declarations", function() {
+    describe("statement with multiple declarations", function() {
         it("should be on multiple lines", function()
         {
-            compareWithFixture("var-multiple").should.be.ok;
+            expect(compareWithFixture("var-multiple")).to.be.ok();
         });
     });
 });

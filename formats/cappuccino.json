@@ -1,9 +1,13 @@
 {
     "*": {
-      "indentString": " ",
-      "indentWidth": 4
+        "indent-string": " ",
+        "indent-width": 4,
+        "before-comma": "",
+        "after-comma": " ",
+        "after-left-parens": "",
+        "before-left-parens": ""
     },
-    "*block": {
+    "*control": {
         "nodes": [
             "if",
             "for",
@@ -12,96 +16,87 @@
             "do while",
             "switch",
             "try",
-            "var",
-            "with",
-            "function",
-            "function expression",
-            "@implementation",
-            "@protocol"
+            "with"
         ],
         "before": {
             "*": "\n\n",
             "program": "",
-            "{}": "\n",
+            "*control": "",
+            "{}": "",
             "label": "\n"
         },
-        "beforeLeftParens": " "
+        "before-left-parens": " ",
+        "after-left-parens": ""
     },
     "*statement": {
         "nodes": [
+            "expression statement",
             "break",
             "continue",
+            "debugger",
+            "ivar",
             "return",
-            "debugger"
+            "throw",
+            "var",
+            "empty statement"
         ],
         "before": "\n",
         "after": ";"
     },
     "{}": {
-        "before": "\n|-1",
-        "afterLeftBrace": "",
-        "beforeRightBrace": "\n|-1"
-    },
-    "expression": {
         "before": "\n",
-        "after": ";"
+        "after-left-brace": "|1",
+        "before-right-brace": "\n|-1"
     },
     "if": {
-        "beforeElse": "\n",
-        "afterElse": ""
+        "before-else": "\n",
+        "after-else": ""
     },
     "label": {
         "before": {
             "*": "\n\n",
             "label": "\n"
         },
-        "afterColon": ""
+        "after-colon": ""
     },
     "break": {
-        "after": ";"
     },
     "continue": {
     },
     "with": {},
     "switch": {
-        "afterLeftBrace": "",
-        "beforeCase": "\n",
-        "afterCase": " ",
-        "afterColon": "",
-        "beforeRightBrace": "\n"
+        "after-left-brace": "",
+        "before-case": "\n",
+        "after-case": " ",
+        "after-colon": "",
+        "before-left-brace": "\n"
     },
     "return": {
-        "after": ";",
-        "beforeExpression": " "
+        "before-expression": " "
     },
     "throw": {
-        "beforeExpression": " "
+        "before-expression": " "
     },
     "try": {
-        "beforeStatement": "",
-        "beforeCatch": "",
-        "afterCatch": "",
-        "beforeCatchStatement": ""
+        "before-catch": ""
     },
     "while": {},
     "do while": {
-        "beforeStatement": "",
-        "after": ";"
+        "before-statement": ""
     },
     "for": {
-        "afterInitExpression": "",
-        "afterInitSemicolon": " "
+        "after-init-expression": "",
+        "after-init-semicolon": " "
     },
     "for in": {
-        "beforeIn": " ",
-        "afterIn": " "
+        "before-in": " ",
+        "after-in": " "
     },
     "for init": {},
     "debugger": {
-        "after": ";"
     },
     "function": {
-        "beforeLeftParens": ""
+        "before-left-parens": ""
     },
     "function expression": {},
     "var": {
@@ -110,50 +105,40 @@
             "for": "",
             "var": "\n\n"
         },
-        "beforeAssign": " ",
-        "afterAssign": " ",
-        "beforeComma": "",
-        "afterComma": {
+        "before-assign": " ",
+        "after-assign": " ",
+        "after-comma": {
             "*": "\n    ",
             "for": " "
         },
         "after": {
-            "*": ";",
             "for": ""
         }
     },
     "this": {},
-    "array": {
-        "beforeComma": "",
-        "afterComma": " "
-    },
+    "array": {},
     "object": {
-        "beforeComma": "",
-        "afterComma": " ",
-        "beforeColon": "",
-        "afterColon": " "
+        "before-colon": "",
+        "after-colon": " "
     },
-    ",": {
-        "beforeComma": "",
-        "afterComma": " "
-    },
+    ",": {},
     "unary expression": {},
     "update expression": {},
     "binary expression": {
-        "beforeOperator": " ",
-        "afterOperator": " "
+        "before-operator": " ",
+        "after-operator": " "
     },
     "logical expression": {
-        "beforeOperator": " ",
-        "afterOperator": " "
+        "before-operator": " ",
+        "after-operator": " "
     },
     "assignment": {
-        "beforeOperator": " ",
-        "afterOperator": " "
+        "before-operator": " ",
+        "after-operator": " "
     },
     "ternary expression": {
-        "beforeOperator": " ",
-        "afterOperator": " "
+        "before-operator": " ",
+        "after-operator": " "
     },
     "new": {},
     "function call": {},
@@ -168,7 +153,6 @@
     "@implementation": {},
     "@protocol": {},
     "ivar": {
-        "after": ";"
     },
     "method": {
         "before": "\n\n"

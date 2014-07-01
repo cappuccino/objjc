@@ -1,6 +1,7 @@
 "use strict";
 
 var cli = require("./lib/cli"),
+    fs = require("fs"),
     glob = require("glob");
 
 module.exports = function(grunt)
@@ -44,7 +45,10 @@ module.exports = function(grunt)
         mochaTest: {
             test: {
                 options: {
-                    reporter: "spec"
+                    reporter: "spec",
+                    colors: true,
+                    useInlineDiffs: true,
+                    bail: false,
                 },
                 src: ["test/*.js"]
             }
@@ -76,9 +80,11 @@ module.exports = function(grunt)
 
     grunt.registerTask("test", ["eslint", "jshint", "mochaTest"]);
     grunt.registerTask("default", ["test"]);
-    grunt.registerTask("_generateFixtures", "Generate test fixtures.", function()
+    grunt.registerTask("generateFixtures", "Generate test fixtures.", function()
     {
-        var files = glob.sync("test/fixtures/*.j");
+        var files = glob.sync("test/fixtures/*.js");
+        files.forEach(function(file) { fs.unlink(file); });
+        files = glob.sync("test/fixtures/*.j");
 
         files.forEach(
             function(file)
@@ -88,5 +94,4 @@ module.exports = function(grunt)
             }
         );
     });
-    grunt.registerTask("generateFixtures", ["clean", "_generateFixtures"]);
 };

@@ -92,7 +92,7 @@
         "camelcase": 0,
         "complexity": [0, 11],
         "consistent-return": 2,
-        "consistent-this": [2, "that"],
+        "consistent-this": [2, "self"],
         "curly": [0, "multi"],
         "default-case": 2,
         "dot-notation": 2,

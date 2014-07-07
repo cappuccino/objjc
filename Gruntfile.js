@@ -1,8 +1,6 @@
 "use strict";
 
-var cli = require("./lib/cli"),
-    fs = require("fs"),
-    glob = require("glob");
+var cli = require("./lib/cli");
 
 module.exports = function(grunt)
 {
@@ -82,12 +80,11 @@ module.exports = function(grunt)
     grunt.registerTask("default", ["test"]);
     grunt.registerTask("generateFixtures", "Generate test fixtures.", function()
     {
-        var files = glob.sync("test/fixtures/*.js");
-        files.forEach(function(file) { fs.unlink(file); });
-        files = glob.sync("test/fixtures/*.j");
+        var files = grunt.file.expand("test/fixtures/*.js");
+        files.forEach(function(file) { grunt.file.delete(file, { force: true }); });
+        files = grunt.file.expand("test/fixtures/*.j");
 
-        files.forEach(
-            function(file)
+        files.forEach(function(file)
             {
                 grunt.log.writeln(file);
                 cli.run(["node", "objjc", "--debug", "--no-source-map", "-o", "test/fixtures", file]);

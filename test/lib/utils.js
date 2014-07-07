@@ -11,30 +11,51 @@
 "use strict";
 
 var compiler = require("../../lib/compiler"),
-    fs = require("fs"),
+    grunt = require("grunt"),
     path = require("path");
 
-exports.compareWithFixture = function(filename)
+exports.compiledFixture = function(name)
 {
-    var sourcePath = path.join("test", "fixtures", filename + ".j"),
-        fixturePath = path.join("test", "fixtures", filename + ".js");
+    var sourcePath = path.join("test", "fixtures", name + ".j");
 
-    if (fs.existsSync(sourcePath))
+    if (grunt.file.exists(sourcePath))
     {
         try
         {
             var options = { sourceMap: false },
-                source = fs.readFileSync(sourcePath, "utf-8"),
-                code = compiler.compile(source, sourcePath, options).code(),
-                fixture = fs.readFileSync(fixturePath, "utf-8");
+                source = grunt.file.read(sourcePath),
+                code = compiler.compile(source, sourcePath, options).code();
 
-            return code === fixture;
+            return code;
         }
         catch (ex)
         {
             console.error(ex.message);
         }
     }
+    else
+        console.error("No such fixture: " + sourcePath);
 
-    return false;
+    return "";
+};
+
+exports.fixture = function(name)
+{
+    var fixturePath = path.join("test", "fixtures", name + ".js");
+
+    if (grunt.file.exists(fixturePath))
+    {
+        try
+        {
+            return grunt.file.read(fixturePath);
+        }
+        catch (ex)
+        {
+            console.error(ex.message);
+        }
+    }
+    else
+        console.error("No such fixture: " + sourcePath);
+
+    return "";
 };

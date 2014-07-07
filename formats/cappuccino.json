@@ -4,6 +4,8 @@
         "indent-width": 4,
         "before-comma": "",
         "after-comma": " ",
+        "before-operator": " ",
+        "after-operator": " ",
         "after-left-parens": "",
         "before-left-parens": ""
     },
@@ -40,13 +42,31 @@
             "var",
             "empty statement"
         ],
-        "before": "\n",
+        "before": {
+            "*": "\n",
+            "program": ""
+        },
         "after": ";"
+    },
+    "*separated block": {
+        "nodes": [
+            "@implementation"
+        ],
+        "before": {
+            "*": "\n\n",
+            "*separated block": "\n",
+            "program": ""
+        },
+        "after": "\n"
     },
     "{}": {
         "before": "\n",
         "after-left-brace": "|1",
-        "before-right-brace": "\n|-1"
+        "before-right-brace": "\n|-1",
+        "after": {
+            "*": "\n",
+            "method": ""
+        }
     },
     "if": {
         "before-else": "\n",
@@ -60,6 +80,7 @@
         "after-colon": ""
     },
     "break": {
+        "before-label": " "
     },
     "continue": {
     },
@@ -124,22 +145,10 @@
     ",": {},
     "unary expression": {},
     "update expression": {},
-    "binary expression": {
-        "before-operator": " ",
-        "after-operator": " "
-    },
-    "logical expression": {
-        "before-operator": " ",
-        "after-operator": " "
-    },
-    "assignment": {
-        "before-operator": " ",
-        "after-operator": " "
-    },
-    "ternary expression": {
-        "before-operator": " ",
-        "after-operator": " "
-    },
+    "binary expression": {},
+    "logical expression": {},
+    "assignment": {},
+    "ternary expression": {},
     "new": {},
     "function call": {},
     "member": {},
@@ -154,15 +163,15 @@
     "@protocol": {},
     "ivar": {
     },
-    "method": {
-        "before": "\n\n"
-    },
+    "method": {},
     "message send": {},
     "@selector": {},
     "@protocol()": {},
     "@ref": {},
     "@deref": {},
-    "@class": {},
+    "@class": {
+        "before": "\n"
+    },
     "@global": {},
     "#": {}
 }

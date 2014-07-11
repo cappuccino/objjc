@@ -46,11 +46,15 @@
             "*": "\n",
             "program": ""
         },
-        "after": ";"
+        "after": {
+            "*": ";",
+            "*control": ";\n"
+        }
     },
     "*separated block": {
         "nodes": [
-            "@implementation"
+            "@implementation",
+            "@protocol"
         ],
         "before": {
             "*": "\n\n",

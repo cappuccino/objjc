@@ -10,9 +10,11 @@
 
 "use strict";
 
-var compiler = require("../../lib/compiler"),
+var expect = require("expect.js"),
     grunt = require("grunt"),
-    path = require("path");
+    path = require("path"),
+    reporter = require("../../lib/reporter"),
+    Runner = require("../../lib/runner");
 
 exports.compiledFixture = function(name)
 {
@@ -22,11 +24,17 @@ exports.compiledFixture = function(name)
     {
         try
         {
-            var options = { sourceMap: false },
-                source = grunt.file.read(sourcePath),
-                code = compiler.compile(source, sourcePath, options).code();
+            var options = {
+                    sourceMap: false,
+                    acornOptions: {},
+                    silent: true,
+                    reporter: reporter.SilentReporter
+                },
+                runner = new Runner(options);
 
-            return code;
+            runner.compileFileOrSource(sourcePath, null);
+
+            return runner.getCompiler().code();
         }
         catch (ex)
         {
@@ -58,4 +66,9 @@ exports.fixture = function(name)
         console.error("No such fixture: " + sourcePath);
 
     return "";
+};
+
+exports.compareWithFixture = function(fixture)
+{
+    expect(exports.compiledFixture(fixture)).to.equal(exports.fixture(fixture));
 };

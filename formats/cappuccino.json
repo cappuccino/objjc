@@ -23,11 +23,10 @@
         "before": {
             "*": "\n\n",
             "^": {
-                "program": "\n\n",
                 "*control": "\n"
             },
-            "program": "",
             "*control": "\n\n",
+            "program": "",
             "{}": "",
             "label": "\n"
         },
@@ -51,6 +50,7 @@
                 "program": "\n",
                 "*control": "\n"
             },
+            "program": "",
             "{}": ""
         },
         "after": ";"
@@ -62,8 +62,7 @@
         ],
         "before": {
             "*": "\n\n",
-            "*separated block": "\n",
-            "program": ""
+            "*separated block": "\n"
         },
         "after": "\n"
     },
@@ -80,6 +79,7 @@
     "label": {
         "before": {
             "*": "\n\n",
+            "program": "",
             "label": "\n"
         },
         "after-colon": ""
@@ -129,7 +129,6 @@
         "before": {
             "*": "\n",
             "{}": "",
-            "program": "",
             "for": "",
             "var": "\n\n"
         },

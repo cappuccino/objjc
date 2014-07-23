@@ -51,6 +51,7 @@
                 "*control": "\n"
             },
             "program": "",
+            "*control": "\n\n",
             "{}": ""
         },
         "after": ";"
@@ -88,6 +89,7 @@
         "before-label": " "
     },
     "continue": {
+        "before-label": " "
     },
     "with": {},
     "switch": {
@@ -118,7 +120,6 @@
         "before-in": " ",
         "after-in": " "
     },
-    "for init": {},
     "debugger": {
     },
     "function": {
@@ -128,6 +129,9 @@
     "var": {
         "before": {
             "*": "\n",
+            "^": {
+                "for": ""
+            },
             "{}": "",
             "for": "",
             "var": "\n\n"

@@ -22,8 +22,12 @@
         ],
         "before": {
             "*": "\n\n",
+            "^": {
+                "program": "\n\n",
+                "*control": "\n"
+            },
             "program": "",
-            "*control": "",
+            "*control": "\n\n",
             "{}": "",
             "label": "\n"
         },
@@ -39,17 +43,17 @@
             "ivar",
             "return",
             "throw",
-            "var",
             "empty statement"
         ],
         "before": {
             "*": "\n",
-            "program": ""
+            "^": {
+                "program": "\n",
+                "*control": "\n"
+            },
+            "{}": ""
         },
-        "after": {
-            "*": ";",
-            "*control": ";\n"
-        }
+        "after": ";"
     },
     "*separated block": {
         "nodes": [
@@ -65,12 +69,9 @@
     },
     "{}": {
         "before": "\n",
-        "after-left-brace": "|1",
+        "after-left-brace": "\n|1",
         "before-right-brace": "\n|-1",
-        "after": {
-            "*": "\n",
-            "method": ""
-        }
+        "after": ""
     },
     "if": {
         "before-else": "\n",
@@ -127,6 +128,8 @@
     "var": {
         "before": {
             "*": "\n",
+            "{}": "",
+            "program": "",
             "for": "",
             "var": "\n\n"
         },
@@ -137,6 +140,7 @@
             "for": " "
         },
         "after": {
+            "*": ";",
             "for": ""
         }
     },

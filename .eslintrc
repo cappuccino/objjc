@@ -45,7 +45,7 @@
         "no-lone-blocks": 2,
         "no-lonely-if": 2,
         "no-loop-func": 2,
-        "no-mixed-requires": [0, false],
+        "no-mixed-requires": [2, false],
         "no-multi-str": 2,
         "no-native-reassign": 2,
         "no-negated-in-lhs": 2,

@@ -66,6 +66,10 @@
         "before-else": "\n",
         "after-else": ""
     },
+    "else if": {
+        "before-else": "\n",
+        "after-else": " "
+    },
     "label": {
         "before": {
             "*": "\n\n",
@@ -90,11 +94,8 @@
         "between-case-blocks": "\n",
         "before-right-brace": "\n|-1"
     },
-    "return": {
-        "before-expression": " "
-    },
+    "return": {},
     "throw": {
-        "before-expression": " "
     },
     "try": {
         "before-catch": ""
@@ -120,8 +121,7 @@
     "var": {
         "before": {
             "*": "\n\n",
-            "*parent": "",
-            "for": ""
+            "*parent": ""
         },
         "before-assign": " ",
         "after-assign": " ",

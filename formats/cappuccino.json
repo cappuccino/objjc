@@ -81,11 +81,14 @@
     },
     "with": {},
     "switch": {
-        "after-left-brace": "",
+        "before-left-brace": "\n",
+        "after-left-brace": "|1",
         "before-case": "\n",
         "after-case": " ",
+        "before-colon": "",
         "after-colon": "",
-        "before-left-brace": "\n"
+        "between-case-blocks": "\n",
+        "before-right-brace": "\n|-1"
     },
     "return": {
         "before-expression": " "

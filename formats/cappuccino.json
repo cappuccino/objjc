@@ -22,12 +22,8 @@
         ],
         "before": {
             "*": "\n\n",
-            "^": {
-                "*control": "\n"
-            },
             "*control": "\n\n",
-            "program": "",
-            "{}": "",
+            "*parent": "\n",
             "label": "\n"
         },
         "before-left-parens": " ",
@@ -46,13 +42,7 @@
         ],
         "before": {
             "*": "\n",
-            "^": {
-                "program": "\n",
-                "*control": "\n"
-            },
-            "program": "",
-            "*control": "\n\n",
-            "{}": ""
+            "*control": "\n\n"
         },
         "after": ";"
     },
@@ -69,9 +59,8 @@
     },
     "{}": {
         "before": "\n",
-        "after-left-brace": "\n|1",
-        "before-right-brace": "\n|-1",
-        "after": ""
+        "after-left-brace": "",
+        "before-right-brace": "\n"
     },
     "if": {
         "before-else": "\n",
@@ -80,7 +69,6 @@
     "label": {
         "before": {
             "*": "\n\n",
-            "program": "",
             "label": "\n"
         },
         "after-colon": ""
@@ -128,13 +116,9 @@
     "function expression": {},
     "var": {
         "before": {
-            "*": "\n",
-            "^": {
-                "for": ""
-            },
-            "{}": "",
-            "for": "",
-            "var": "\n\n"
+            "*": "\n\n",
+            "*parent": "",
+            "for": ""
         },
         "before-assign": " ",
         "after-assign": " ",

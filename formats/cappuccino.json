@@ -18,7 +18,10 @@
             "do while",
             "switch",
             "try",
-            "with"
+            "with",
+            "function",
+            "@implementation",
+            "@protocol"
         ],
         "before": {
             "*": "\n\n",
@@ -38,24 +41,17 @@
             "ivar",
             "return",
             "throw",
-            "empty statement"
+            "empty statement",
+            "@global",
+            "@class"
         ],
         "before": {
             "*": "\n",
-            "*control": "\n\n"
+            "*control": "\n\n",
+            "var": "\n\n",
+            "{}": "\n\n"
         },
         "after": ";"
-    },
-    "*separated block": {
-        "nodes": [
-            "@implementation",
-            "@protocol"
-        ],
-        "before": {
-            "*": "\n\n",
-            "*separated block": "\n"
-        },
-        "after": "\n"
     },
     "{}": {
         "before": "\n",
@@ -95,10 +91,10 @@
         "before-right-brace": "\n|-1"
     },
     "return": {},
-    "throw": {
-    },
+    "throw": {},
     "try": {
-        "before-catch": ""
+        "before-catch": "\n",
+        "before-finally": "\n"
     },
     "while": {},
     "do while": {
@@ -121,7 +117,7 @@
     "var": {
         "before": {
             "*": "\n\n",
-            "*parent": ""
+            "*parent": "\n"
         },
         "before-assign": " ",
         "after-assign": " ",
@@ -168,8 +164,10 @@
     "@ref": {},
     "@deref": {},
     "@class": {
-        "before": "\n"
+        "after": ""
     },
-    "@global": {},
+    "@global": {
+        "after": ""
+    },
     "#": {}
 }

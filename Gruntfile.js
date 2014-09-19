@@ -12,9 +12,6 @@ module.exports = function(grunt)
             }
         },
         eslint: {
-            options: {
-                config: ".eslintrc"
-            },
             gruntfile: {
                 src: "Gruntfile.js"
             },

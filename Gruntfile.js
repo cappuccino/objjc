@@ -40,6 +40,7 @@ module.exports = function(grunt)
         mochaTest: {
             test: {
                 options: {
+                    require: "chai",
                     reporter: "spec",
                     colors: true,
                     useInlineDiffs: true,

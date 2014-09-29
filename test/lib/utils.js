@@ -10,11 +10,12 @@
 
 "use strict";
 
-var expect = require("expect.js"),
-    grunt = require("grunt"),
+var grunt = require("grunt"),
     path = require("path"),
     reporter = require("../../lib/reporter"),
     Runner = require("../../lib/runner");
+
+require("chai").should();
 
 exports.compiledFixture = function(name)
 {
@@ -32,7 +33,7 @@ exports.compiledFixture = function(name)
                 },
                 runner = new Runner(options);
 
-            runner.compileFileOrSource(sourcePath, null);
+            runner.compileFiles([sourcePath]);
 
             return runner.getCompiler().code();
         }
@@ -63,12 +64,12 @@ exports.fixture = function(name)
         }
     }
     else
-        console.error("No such fixture: " + sourcePath);
+        console.error("No such fixture: " + fixturePath);
 
     return "";
 };
 
 exports.compareWithFixture = function(fixture)
 {
-    expect(exports.compiledFixture(fixture)).to.equal(exports.fixture(fixture));
+    exports.compiledFixture(fixture).should.equal(exports.fixture(fixture));
 };

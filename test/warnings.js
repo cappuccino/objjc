@@ -10,26 +10,16 @@
 
 "use strict";
 
-/*global describe, it, beforeEach, afterEach */
+/*global describe, it */
 /*eslint-disable max-nested-callbacks */
 
 var utils = require("./lib/utils");
 
 describe("Compiler warnings", function() {
-    var hook;
-
-    beforeEach(function() {
-        hook = utils.captureStream(process.stdout);
-    });
-
-    afterEach(function() {
-        hook.unhook();
-    });
-
     describe("identifiers", function() {
         it("should be checked and specific warnings given", function() {
-            utils.compiledFixture("identifiers", true);
-            hook.captured().should.equal(utils.readFixture("identifier-warnings.txt"));
+            var output = utils.compiledFixture("identifiers", { captureStdout: true });
+            output.stdout.should.equal(utils.readFixture("identifier-warnings.txt"));
         });
     });
 });

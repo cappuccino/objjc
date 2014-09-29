@@ -17,28 +17,48 @@ var grunt = require("grunt"),
 
 require("chai").should();
 
-exports.compiledFixture = function(name, captureWarnings)
+exports.compiledFixture = function(name, options)
 {
     var sourcePath = path.join("test", "fixtures", name + ".j");
 
     if (grunt.file.exists(sourcePath))
     {
+        options = options || {};
+
+        var hook;
+
         try
         {
+            if (options.captureStdout)
+                hook = exports.captureStream(process.stdout, true);
+
             var options = {
                     sourceMap: false,
                     acornOptions: {},
                     silent: true,
-                    reporter: captureWarnings ? reporter.StandardReporter : reporter.SilentReporter
+                    reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
                 },
                 runner = new Runner(options);
 
             runner.compileFiles([sourcePath]);
 
-            return runner.getCompiler().code();
+            var stdout;
+
+            if (hook)
+            {
+                stdout = hook.captured();
+                hook.unhook();
+            }
+            else
+                stdout = "";
+
+            return { code: runner.getCompiler().code(), stdout: stdout };
         }
         catch (ex)
         {
+            if (hook)
+                hook.unhook();
+
             console.error(ex.message);
         }
     }
@@ -73,18 +93,20 @@ exports.readFixture = function(name)
 
 exports.compareWithFixture = function(fixture)
 {
-    exports.compiledFixture(fixture).should.equal(exports.readFixture(fixture));
+    exports.compiledFixture(fixture).code.should.equal(exports.readFixture(fixture));
 };
 
-exports.captureStream = function(stream)
+exports.captureStream = function(stream, silent)
 {
     var oldWrite = stream.write,
-        buf = "";
+        buffer = "";
 
     stream.write = function(chunk)
     {
-        buf += chunk.toString(); // chunk is a String or Buffer
-        oldWrite.apply(stream, arguments);
+        buffer += chunk.toString(); // chunk is a String or Buffer
+
+        if (!silent)
+            oldWrite.apply(stream, arguments);
     };
 
     return {
@@ -94,7 +116,7 @@ exports.captureStream = function(stream)
         },
         captured: function()
         {
-            return buf;
+            return buffer;
         }
     };
 };

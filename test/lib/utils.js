@@ -17,7 +17,7 @@ var grunt = require("grunt"),
 
 require("chai").should();
 
-exports.compiledFixture = function(name)
+exports.compiledFixture = function(name, captureWarnings)
 {
     var sourcePath = path.join("test", "fixtures", name + ".j");
 
@@ -29,7 +29,7 @@ exports.compiledFixture = function(name)
                     sourceMap: false,
                     acornOptions: {},
                     silent: true,
-                    reporter: reporter.SilentReporter
+                    reporter: captureWarnings ? reporter.StandardReporter : reporter.SilentReporter
                 },
                 runner = new Runner(options);
 
@@ -48,9 +48,11 @@ exports.compiledFixture = function(name)
     return "";
 };
 
-exports.fixture = function(name)
+exports.readFixture = function(name)
 {
-    var fixturePath = path.join("test", "fixtures", name + ".js");
+    var extension = path.extname(name),
+        filename = extension ? name : name + ".js",
+        fixturePath = path.join("test", "fixtures", filename);
 
     if (grunt.file.exists(fixturePath))
     {
@@ -71,5 +73,28 @@ exports.fixture = function(name)
 
 exports.compareWithFixture = function(fixture)
 {
-    exports.compiledFixture(fixture).should.equal(exports.fixture(fixture));
+    exports.compiledFixture(fixture).should.equal(exports.readFixture(fixture));
+};
+
+exports.captureStream = function(stream)
+{
+    var oldWrite = stream.write,
+        buf = "";
+
+    stream.write = function(chunk)
+    {
+        buf += chunk.toString(); // chunk is a String or Buffer
+        oldWrite.apply(stream, arguments);
+    };
+
+    return {
+        unhook: function unhook()
+        {
+            stream.write = oldWrite;
+        },
+        captured: function()
+        {
+            return buf;
+        }
+    };
 };

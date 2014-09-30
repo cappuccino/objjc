@@ -123,3 +123,26 @@ exports.captureStream = function(stream, silent)
         }
     };
 };
+
+/* global describe, it */
+/* jshint loopfunc: true */
+/* eslint-disable max-nested-callbacks, no-loop-func */
+
+exports.makeDescribes = function(data, pathPrefix)
+{
+    for (var i = 0; i < data.length; ++i)
+    {
+        var info = data[i],
+            description = info[0],
+            should = info[1],
+            fixture = path.join(pathPrefix, info[2]);
+
+        describe(description, function()
+        {
+            it(should, function()
+            {
+                exports.compareWithFixture(fixture);
+            });
+        });
+    }
+};

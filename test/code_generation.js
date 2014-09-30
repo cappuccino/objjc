@@ -10,51 +10,20 @@
 
 "use strict";
 
-/*global describe, it */
-/*eslint-disable max-nested-callbacks */
+/* global describe */
 
 var utils = require("./lib/utils");
 
+var data = [
+    ["@[] array literal", "should generate Objective-J code", "array-literal"],
+    ["@protocol", "should generate objj_getProtocol calls", "@protocol"],
+    ["@selector", "should generate sel_getUid calls", "@selector"],
+    ["accessors", "should be generated according to attributes", "accessers"],
+    ["class declaration", "should generate well-formatted and commented code for ivars, instance methods and class methods", "class-declaration"],
+    ["message send", "should generate msgSend[N] calls and temp vars", "message-send"],
+    ["protocols", "should generate Objective-J code", "protocols"],
+];
+
 describe("Code generation", function() {
-    describe("@[] array literal", function() {
-        it("should generate Objective-J code", function() {
-            utils.compareWithFixture("code/array-literal");
-        });
-    });
-
-    describe("class declaration", function() {
-        it("should generate well-formatted and commented code for ivars, instance methods and class methods", function() {
-            utils.compareWithFixture("code/class-declaration");
-        });
-    });
-
-    describe("accessors", function() {
-        it("should be generated according to attributes", function() {
-            utils.compareWithFixture("code/accessors");
-        });
-    });
-
-    describe("protocols", function() {
-        it("should generate Objective-J code", function() {
-            utils.compareWithFixture("code/protocols");
-        });
-    });
-
-    describe("message send", function() {
-        it("should generate msgSend[N] calls and temp vars", function() {
-            utils.compareWithFixture("code/message-send");
-        });
-    });
-
-    describe("@selector", function() {
-        it("should generate sel_getUid calls", function() {
-            utils.compareWithFixture("code/@selector");
-        });
-    });
-
-    describe("@protocol", function() {
-        it("should generate objj_getProtocol calls", function() {
-            utils.compareWithFixture("code/@protocol");
-        });
-    });
+    utils.makeDescribes(data, "code");
 });

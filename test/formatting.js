@@ -10,69 +10,23 @@
 
 "use strict";
 
-/*global describe, it */
-/*eslint-disable max-nested-callbacks */
+/*global describe */
 
 var utils = require("./lib/utils");
 
+var data = [
+    ["assignment", "should have spaces around = and generate code for @deref", "assignment"],
+    ["binary expression", "should have spaces around operator and remove unnecessary parens", "binary-expression"],
+    ["break statement", "should have a space before a label", "break"],
+    ["JavaScript array", "should be one line with a space after commas", "array-expression"],
+    ["function call", "should have no space before the argument list, space after the commas", "function-call"],
+    ["new", "should have formatted arguments and parens", "new"],
+    ["sequential var statements", "should be separated by a blank line", "var-sequence"],
+    ["statement block", "should have braces on separate lines and indent nested blocks", "block"],
+    ["var statement with multiple declarations", "should be on multiple lines", "var-multiple"],
+    ["var within a for init", "should be on one line", "var-for"],
+];
+
 describe("Formatting", function() {
-    describe("JavaScript array", function() {
-        it("should be one line with a space after commas", function() {
-            utils.compareWithFixture("format/array-expression");
-        });
-    });
-
-    describe("assignment", function() {
-        it("should have spaces around = and generate code for @deref", function() {
-            utils.compareWithFixture("format/assignment");
-        });
-    });
-
-    describe("binary expression", function() {
-        it("should have spaces around operator and remove unnecessary parens", function() {
-            utils.compareWithFixture("format/binary-expression");
-        });
-    });
-
-    describe("statement block", function() {
-        it("should have braces on separate lines and indent nested blocks", function() {
-            utils.compareWithFixture("format/block");
-        });
-    });
-
-    describe("break statement", function() {
-        it("should have a space before a label", function() {
-            utils.compareWithFixture("format/break");
-        });
-    });
-
-    describe("function call", function() {
-        it("should have no space before the argument list, space after the commas", function() {
-            utils.compareWithFixture("format/function-call");
-        });
-    });
-
-    describe("new", function() {
-        it("should have formatted arguments and parens", function() {
-            utils.compareWithFixture("format/new");
-        });
-    });
-
-    describe("sequential var statements", function() {
-        it("should be separated by a blank line", function() {
-            utils.compareWithFixture("format/var-sequence");
-        });
-    });
-
-    describe("var statement with multiple declarations", function() {
-        it("should be on multiple lines", function() {
-            utils.compareWithFixture("format/var-multiple");
-        });
-    });
-
-    describe("var within a for init", function() {
-        it("should be on one line", function() {
-            utils.compareWithFixture("format/var-for");
-        });
-    });
+    utils.makeDescribes(data, "format");
 });

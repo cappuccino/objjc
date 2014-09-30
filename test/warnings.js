@@ -11,15 +11,30 @@
 "use strict";
 
 /*global describe, it */
-/*eslint-disable max-nested-callbacks */
+/* jshint loopfunc: true */
+/* eslint-disable max-nested-callbacks, no-loop-func */
 
-var utils = require("./lib/utils");
+var path = require("path"),
+    utils = require("./lib/utils");
+
+var data = [
+    ["identifiers", "should be checked and specific warnings given", "identifiers"]
+];
 
 describe("Compiler warnings", function() {
-    describe("identifiers", function() {
-        it("should be checked and specific warnings given", function() {
-            var output = utils.compiledFixture("warnings/identifiers", { captureStdout: true });
-            output.stdout.should.equal(utils.readFixture("warnings/identifiers.txt"));
+
+    for (var i = 0; i < data.length; ++i)
+    {
+        var info = data[i],
+            description = info[0],
+            should = info[1],
+            prefix = path.join("warnings", info[2]);
+
+        describe(description, function() {
+            it(should, function() {
+                var output = utils.compiledFixture(prefix, { captureStdout: true });
+                output.stdout.should.equal(utils.readFixture(prefix + ".txt"));
+            });
         });
-    });
+    }
 });

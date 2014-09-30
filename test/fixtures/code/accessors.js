@@ -93,7 +93,7 @@ class_addMethods($the_class,
     function $Accessors__setDOB_(self, _cmd, newValue)
     {
         if (self.birthday !== newValue)
-            self.birthday = [newValue copy];
+            self.birthday = newValue == null ? null : newValue.isa.objj_msgSend0(newValue, "copy");
     },
     // argument types
     ["void", "CPDate"]),

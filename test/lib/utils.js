@@ -19,7 +19,10 @@ require("chai").should();
 
 exports.compiledFixture = function(name, options)
 {
-    var sourcePath = path.join("test", "fixtures", name + ".j");
+    if (path.extname(name) === "")
+        name += ".j";
+
+    var sourcePath = path.join("test", "fixtures", name);
 
     if (grunt.file.exists(sourcePath))
     {
@@ -65,7 +68,7 @@ exports.compiledFixture = function(name, options)
     else
         console.error("No such fixture: " + sourcePath);
 
-    return "";
+    return { code: "", stdout: "" };
 };
 
 exports.readFixture = function(name)

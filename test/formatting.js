@@ -18,61 +18,61 @@ var utils = require("./lib/utils");
 describe("Formatting", function() {
     describe("JavaScript array", function() {
         it("should be one line with a space after commas", function() {
-            utils.compareWithFixture("array-expression");
+            utils.compareWithFixture("format/array-expression");
         });
     });
 
     describe("assignment", function() {
         it("should have spaces around = and generate code for @deref", function() {
-            utils.compareWithFixture("assignment");
+            utils.compareWithFixture("format/assignment");
         });
     });
 
     describe("binary expression", function() {
         it("should have spaces around operator and remove unnecessary parens", function() {
-            utils.compareWithFixture("binary-expression");
+            utils.compareWithFixture("format/binary-expression");
         });
     });
 
     describe("statement block", function() {
         it("should have braces on separate lines and indent nested blocks", function() {
-            utils.compareWithFixture("block");
+            utils.compareWithFixture("format/block");
         });
     });
 
     describe("break statement", function() {
         it("should have a space before a label", function() {
-            utils.compareWithFixture("break");
+            utils.compareWithFixture("format/break");
         });
     });
 
     describe("function call", function() {
         it("should have no space before the argument list, space after the commas", function() {
-            utils.compareWithFixture("function-call");
+            utils.compareWithFixture("format/function-call");
         });
     });
 
     describe("new", function() {
         it("should have formatted arguments and parens", function() {
-            utils.compareWithFixture("new");
+            utils.compareWithFixture("format/new");
         });
     });
 
     describe("sequential var statements", function() {
         it("should be separated by a blank line", function() {
-            utils.compareWithFixture("var-sequence");
+            utils.compareWithFixture("format/var-sequence");
         });
     });
 
     describe("var statement with multiple declarations", function() {
         it("should be on multiple lines", function() {
-            utils.compareWithFixture("var-multiple");
+            utils.compareWithFixture("format/var-multiple");
         });
     });
 
     describe("var within a for init", function() {
         it("should be on one line", function() {
-            utils.compareWithFixture("var-for");
+            utils.compareWithFixture("format/var-for");
         });
     });
 });

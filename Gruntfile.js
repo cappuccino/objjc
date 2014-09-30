@@ -1,6 +1,8 @@
 "use strict";
 
-var cli = require("./lib/cli");
+var cli = require("./lib/cli"),
+    path = require("path"),
+    utils = require("./test/lib/utils");
 
 module.exports = function(grunt)
 {
@@ -8,7 +10,7 @@ module.exports = function(grunt)
     grunt.initConfig({
         clean: {
             test: {
-                src: ["test/fixtures/*.js"]
+                src: ["test/fixtures/**/*.js"]
             }
         },
         eslint: {
@@ -78,14 +80,30 @@ module.exports = function(grunt)
     grunt.registerTask("default", ["test"]);
     grunt.registerTask("generateFixtures", "Generate test fixtures.", function()
     {
-        var files = grunt.file.expand("test/fixtures/*.js");
+        var files = grunt.file.expand("test/fixtures/**/*.js");
         files.forEach(function(file) { grunt.file.delete(file, { force: true }); });
-        files = grunt.file.expand("test/fixtures/*.j");
+        files = grunt.file.expand("test/fixtures/{code,format}/*.j");
 
         files.forEach(function(file)
             {
                 grunt.log.writeln(file);
-                cli.run(["node", "objjc", "--quiet", "--no-source-map", "-o", "test/fixtures", file]);
+                cli.run(["node", "objjc", "--quiet", "--no-source-map", "-o", path.dirname(file), file]);
+            }
+        );
+
+        files = grunt.file.expand("test/fixtures/warnings/*.j");
+
+        files.forEach(function(file)
+            {
+                grunt.log.writeln(file);
+
+                var fixture = path.relative("test/fixtures", file),
+                    output = utils.compiledFixture(fixture, { captureStdout: true }),
+                    outputDir = path.dirname(file),
+                    filename = path.basename(file, path.extname(file)) + ".txt";
+
+                file = path.join(outputDir, filename);
+                grunt.file.write(file, output.stdout);
             }
         );
     });

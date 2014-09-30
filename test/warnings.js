@@ -18,8 +18,8 @@ var utils = require("./lib/utils");
 describe("Compiler warnings", function() {
     describe("identifiers", function() {
         it("should be checked and specific warnings given", function() {
-            var output = utils.compiledFixture("identifiers", { captureStdout: true });
-            output.stdout.should.equal(utils.readFixture("identifier-warnings.txt"));
+            var output = utils.compiledFixture("warnings/identifiers", { captureStdout: true });
+            output.stdout.should.equal(utils.readFixture("warnings/identifiers.txt"));
         });
     });
 });

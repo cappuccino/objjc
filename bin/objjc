@@ -10,4 +10,5 @@
  * modify it under the terms of the MIT license (http://opensource.org/licenses/MIT).
  */
 
-require("../lib/cli.js").run();
+// Use process.argv for args, use process.exit to exit
+require("../lib/cli.js").run(null, true);

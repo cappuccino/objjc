@@ -85,7 +85,7 @@ module.exports = function(grunt)
         files.forEach(function(file)
             {
                 grunt.log.writeln(file);
-                cli.run(["node", "objjc", "--no-source-map", "-o", "test/fixtures", file]);
+                cli.run(["node", "objjc", "--quiet", "--no-source-map", "-o", "test/fixtures", file]);
             }
         );
     });

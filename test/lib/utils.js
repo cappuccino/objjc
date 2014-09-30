@@ -35,12 +35,12 @@ exports.compiledFixture = function(name, options)
             var options = {
                     sourceMap: false,
                     acornOptions: {},
-                    silent: true,
+                    quiet: true,
                     reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
                 },
                 runner = new Runner(options);
 
-            runner.compileFiles([sourcePath]);
+            runner.compileFile(sourcePath);
 
             var stdout;
 

@@ -1,12 +1,19 @@
-var foo = bar;
 @implementation Foo
 {
     CPString name;
+    CPString firstName;
 }
-- (int)test:(float)arg
-{}
+
+-(void)test:(int)arg {
+    console.log(arg);
+}
+
+-(void)test:(int)arg {
+    console.log(arg);
+}
+
 @end
-"bar"
+
 
 var BarCount = 0;
 
@@ -25,22 +32,16 @@ var BarCount = 0;
 {
     return firstName + " " + lastName;
 }
-- ( CPString ) addContactWithFirstName : (CPString )first   lastName  :(CPString )  last
+
+- (CPString) addContactWithFirstName:(CPString)first lastName:(CPString)last
 {
     firstName = first;
     lastName = last;
     BarCount++;
 }
-- (void)test:(int)arg
-{}
+
+- (int)test:(float)arg
+{
+}
 
 @end
-
-
-@implementation FooBar (Foo)
-
-@end
-@class Superclass
-@implementation Subclass:Superclass
-@end
-"foobar"

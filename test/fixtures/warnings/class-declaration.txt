@@ -1,0 +1,14 @@
+class-declaration.j:11:1: error: duplicate definition of method 'test:'
+-(void)test:(int)arg {
+^
+class-declaration.j:7:1: note: original definition is here:
+-(void)test:(int)arg {
+^
+class-declaration.j:22:14: warning: redeclaration of instance variable 'firstName' in class 'Bar'
+    CPString firstName;
+             ^
+class-declaration.j:4:14: note: previous declaration is here, in class 'Foo'
+    CPString firstName;
+             ^
+
+1 warning and 1 error generated.

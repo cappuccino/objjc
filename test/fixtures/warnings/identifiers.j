@@ -4,11 +4,22 @@ Date = null;
 var bar = 13;
 @global baz
 @class HaveALittleClass
+@class CPObject
 @class CPTextField
 
-@implementation Test
+@implementation Test : CPObject
 {
     int x;
+}
+
+- (id)init
+{
+    self = [super init];
+
+    if (self)
+        x = 7;
+
+    return self;
 }
 
 - (void)test
@@ -33,6 +44,9 @@ var bar = 13;
 
 + (void)initialize
 {
+    if (self != [Test class])
+        return;
+
     var FOO = 7,
         alert = "warning!",
         x = 13;

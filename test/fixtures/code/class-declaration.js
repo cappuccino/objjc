@@ -1,31 +1,5 @@
 var foo = bar;
 
-// @implementation Test
-var $the_class = objj_allocateClassPair(Nil, "Test");
-objj_registerClassPair($the_class);
-
-// Instance methods
-class_addMethods($the_class,
-[    
-    // -test:
-    new objj_method(sel_getUid("test:"),    
-    function $Test__test_(self, _cmd, arg)
-    {
-        console.log(arg);
-    },
-    // argument types
-    ["void", "int"]),
-    
-    // -test:
-    new objj_method(sel_getUid("test:"),    
-    function $Test__test_(self, _cmd, arg)
-    {
-    },
-    // argument types
-    ["int", "float"]),
-]);
-// @end: @implementation Test
-
 // @implementation Foo
 var $the_class = objj_allocateClassPair(Nil, "Foo");
 objj_registerClassPair($the_class);
@@ -33,6 +7,18 @@ objj_registerClassPair($the_class);
 class_addIvars($the_class,
 [    
     new objj_ivar("name", "CPString"),
+]);
+
+// Instance methods
+class_addMethods($the_class,
+[    
+    // -test:
+    new objj_method(sel_getUid("test:"),    
+    function $Foo__test_(self, _cmd, arg)
+    {
+    },
+    // argument types
+    ["int", "float"]),
 ]);
 // @end: @implementation Foo
 
@@ -72,6 +58,14 @@ class_addMethods($the_class,
     },
     // argument types
     ["CPString", "CPString", "CPString"]),
+    
+    // -test:
+    new objj_method(sel_getUid("test:"),    
+    function $Bar__test_(self, _cmd, arg)
+    {
+    },
+    // argument types
+    ["void", "int"]),
 ]);
 
 // Class methods

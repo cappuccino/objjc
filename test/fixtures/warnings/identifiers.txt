@@ -1,52 +1,52 @@
 identifiers.j:2:1: warning: assigning to a read-only predefined global
 Date = null;
 ^
-identifiers.j:18:5: warning: local declaration of 'bar' hides a file variable
+identifiers.j:29:5: warning: local declaration of 'bar' hides a file variable
     bar = 27,
     ^
 identifiers.j:4:5: note: declaration is here
 var bar = 13;
     ^
-identifiers.j:19:5: warning: local declaration of 'baz' hides a @global declaration
+identifiers.j:30:5: warning: local declaration of 'baz' hides a @global declaration
     baz = "test",
     ^
 identifiers.j:5:9: note: declaration is here
 @global baz
         ^
-identifiers.j:20:5: warning: local declaration of 'HaveALittleClass' hides a @class declaration
+identifiers.j:31:5: warning: local declaration of 'HaveALittleClass' hides a @class declaration
     HaveALittleClass,
     ^
 identifiers.j:6:8: note: declaration is here
 @class HaveALittleClass
        ^
-identifiers.j:21:5: warning: local declaration of 'Test' hides a class
+identifiers.j:32:5: warning: local declaration of 'Test' hides a class
     Test,
     ^
-identifiers.j:9:17: note: declaration is here
-@implementation Test
+identifiers.j:10:17: note: declaration is here
+@implementation Test : CPObject
                 ^
-identifiers.j:25:5: warning: implicitly creating a global variable in the method 'test'; did you mean to use var?
+identifiers.j:36:5: warning: implicitly creating a global variable in the method 'test'; did you mean to use var?
     glob = "this should warn";
     ^
-identifiers.j:28:17: warning: reference to unknown identifier 'ex'
+identifiers.j:39:17: warning: reference to unknown identifier 'ex'
     console.log(ex);  // This should generate a warning, ex is out of scope
                 ^
-identifiers.j:29:5: warning: debugger statement
+identifiers.j:40:5: warning: debugger statement
     debugger;
     ^
-identifiers.j:30:52: warning: reference to unknown identifier 'CGRectMakeZero'
+identifiers.j:41:52: warning: reference to unknown identifier 'CGRectMakeZero'
     var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()], delegate = [self delegate],
                                                    ^
-identifiers.j:31:14: warning: reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
+identifiers.j:42:14: warning: reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
      text = [CPTextfield labelWithTitle:@"Woo-hoo!"];
              ^
-identifiers.j:37:9: warning: local declaration of 'alert' hides a predefined global
+identifiers.j:51:9: warning: local declaration of 'alert' hides a predefined global
         alert = "warning!",
         ^
-identifiers.j:40:5: warning: assigning to a read-only predefined global
+identifiers.j:54:5: warning: assigning to a read-only predefined global
     window = null;  // read-only, warn
     ^
-identifiers.j:46:21: warning: implicitly creating a global variable in the function 'munge'; did you mean to use var?
+identifiers.j:60:21: warning: implicitly creating a global variable in the function 'munge'; did you mean to use var?
 function munge(x) { doh = "doh!"; }
                     ^
 

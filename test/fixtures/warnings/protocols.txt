@@ -1,0 +1,29 @@
+protocols.j:6:1: warning: multiple declarations of method 'firstName' found and ignored
+- (CPString)firstName;
+^
+protocols.j:3:1: note: first declaration is here:
+- (CPString)firstName;
+^
+protocols.j:18:27: warning: method 'fullName' in protocol 'Person' not implemented
+@implementation Somebody <Person>
+                          ^
+protocols.j:5:1: note: method 'fullName' declared here
+- (CPString)fullName;
+^
+protocols.j:24:45: error: cannot find protocol declaration for 'Unknown'
+@implementation SomeParent <Person, Parent, Unknown>
+                                            ^
+protocols.j:24:37: warning: method 'adopt:' in protocol 'Parent' not implemented
+@implementation SomeParent <Person, Parent, Unknown>
+                                    ^
+protocols.j:10:1: note: method 'adopt:' declared here
+- (void)adopt:(Person)child;
+^
+protocols.j:24:37: warning: method 'children' in protocol 'Parent' not implemented
+@implementation SomeParent <Person, Parent, Unknown>
+                                    ^
+protocols.j:11:1: note: method 'children' declared here
+- (CPArray)children;
+^
+
+4 warnings and 1 error generated.

@@ -1,5 +1,5 @@
 /*
- * formatting.js
+ * format.js
  *
  * Created by Aparajita Fishman.
  * Copyright 2014, Aparajita Fishman.

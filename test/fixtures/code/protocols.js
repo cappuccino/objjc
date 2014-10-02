@@ -175,8 +175,7 @@ objj_registerClassPair($the_class);
 
 class_addIvars($the_class,
 [    
-    new objj_ivar("children", "CPArray"),    
-    new objj_ivar("firstName", "CPString"),
+    new objj_ivar("children", "CPArray"),
 ]);
 
 // Instance methods

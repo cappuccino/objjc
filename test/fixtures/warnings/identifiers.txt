@@ -1,27 +1,27 @@
 identifiers.j:2:1: warning: assigning to a read-only predefined global
 Date = null;
 ^
-identifiers.j:29:5: warning: local declaration of 'bar' hides a file variable
-    bar = 27,
-    ^
+identifiers.j:29:9: warning: local declaration of 'bar' hides a file variable
+        bar = 27,
+        ^
 identifiers.j:4:5: note: declaration is here
 var bar = 13;
     ^
-identifiers.j:30:5: warning: local declaration of 'baz' hides a @global declaration
-    baz = "test",
-    ^
+identifiers.j:30:9: warning: local declaration of 'baz' hides a @global declaration
+        baz = "test",
+        ^
 identifiers.j:5:9: note: declaration is here
 @global baz
         ^
-identifiers.j:31:5: warning: local declaration of 'HaveALittleClass' hides a @class declaration
-    HaveALittleClass,
-    ^
+identifiers.j:31:9: warning: local declaration of 'HaveALittleClass' hides a @class declaration
+        HaveALittleClass,
+        ^
 identifiers.j:6:8: note: declaration is here
 @class HaveALittleClass
        ^
-identifiers.j:32:5: warning: local declaration of 'Test' hides a class
-    Test,
-    ^
+identifiers.j:32:9: warning: local declaration of 'Test' hides a class
+        Test,
+        ^
 identifiers.j:10:17: note: declaration is here
 @implementation Test : CPObject
                 ^

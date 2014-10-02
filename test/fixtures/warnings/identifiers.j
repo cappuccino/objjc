@@ -25,12 +25,12 @@ var bar = 13;
 - (void)test
 {
     var DEBUG = true,
-    FOO = 13,
-    bar = 27,
-    baz = "test",
-    HaveALittleClass,
-    Test,
-    local = true;
+        FOO = 13,
+        bar = 27,
+        baz = "test",
+        HaveALittleClass,
+        Test,
+        local = true;
 
     if (local) console.log("local");
     glob = "this should warn";

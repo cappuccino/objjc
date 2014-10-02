@@ -51,7 +51,6 @@
 @implementation AnotherParent : SomeParent
 {
     CPArray children;
-    CPString firstName;
 }
 
 - (id)init

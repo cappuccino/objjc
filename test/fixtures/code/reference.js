@@ -25,7 +25,7 @@ class_addMethods($the_class,
     {
         var i = 13;
 
-        self.isa.objj_msgSend1(self, "mungeRef:", function(__value) { return arguments.length ? i = __value : i; });
+        self.isa.objj_msgSend1(self, "mungeRef:", /* @ref(i) */ function $at_ref(__value) { return arguments.length ? i = __value : i; });
     },
     // argument types
     ["void"]),

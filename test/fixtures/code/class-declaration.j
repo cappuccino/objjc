@@ -1,4 +1,4 @@
-var foo = bar;
+var foo = 7;
 @implementation Foo
 {
     CPString name;

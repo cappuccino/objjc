@@ -5,6 +5,8 @@
 {
     var i = ++@deref(ref);
     i = @deref(ref)++;
+    i = --@deref(ref);
+    i = @deref(ref)--;
     @deref(ref) += 1;
 }
 

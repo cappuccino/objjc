@@ -12,6 +12,8 @@ class_addMethods($the_class,
         var i = (ref)(ref() + 1);
 
         i = ((ref)(ref() + 1) - 1);
+        i = (ref)(ref() - 1);
+        i = ((ref)(ref() - 1) + 1);
         (ref)(ref() + 1);
     },
     // argument types

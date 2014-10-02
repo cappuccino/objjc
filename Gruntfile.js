@@ -10,7 +10,7 @@ module.exports = function(grunt)
     grunt.initConfig({
         clean: {
             test: {
-                src: ["test/fixtures/**/*.js"]
+                src: ["test/fixtures/**/*.{js,txt}"]
             }
         },
         eslint: {

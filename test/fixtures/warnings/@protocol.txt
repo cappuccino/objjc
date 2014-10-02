@@ -1,0 +1,5 @@
+@protocol.j:5:9: error: cannot find protocol declaration for 'SomeProtocol'
+    p = @protocol(SomeProtocol);
+        ^
+
+1 error generated.

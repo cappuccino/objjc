@@ -18,6 +18,7 @@ var path = require("path"),
     utils = require("./lib/utils");
 
 var data = [
+    ["@protocol", "should check for existence and generate an error", "@protocol"],
     ["identifiers", "should be checked for existence and shadowing and specific warnings given", "identifiers"],
     ["protocols", "should be checked for existence and conformance and specific warnings given", "protocols"],
 ];

@@ -78,7 +78,7 @@ module.exports = function(grunt)
 
     grunt.registerTask("test", ["eslint", "jshint", "mochaTest"]);
     grunt.registerTask("default", ["test"]);
-    grunt.registerTask("generateFixtures", "Generate test fixtures.", function()
+    grunt.registerTask("fixtures", "Generate test fixtures.",  function()
     {
         var files = grunt.file.expand("test/fixtures/**/*.js");
         files.forEach(function(file) { grunt.file.delete(file, { force: true }); });
@@ -107,4 +107,5 @@ module.exports = function(grunt)
             }
         );
     });
+    grunt.registerTask("generateFixtures", ["clean", "fixtures"]);
 };

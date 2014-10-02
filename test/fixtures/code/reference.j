@@ -3,8 +3,6 @@
 
 - (void)mungeRef:(intRef)ref
 {
-    @deref([self someRef]) += 7;
-    @deref([self someRef]) += 7;
     var i = ++@deref(ref);
     i = @deref(ref)++;
     @deref(ref) += 1;

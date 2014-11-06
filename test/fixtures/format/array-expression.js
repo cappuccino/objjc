@@ -1,1 +1,1 @@
-["one", 7, foo];
+["one", 7, new Date()];

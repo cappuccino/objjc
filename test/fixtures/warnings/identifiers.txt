@@ -1,77 +1,80 @@
-identifiers.j:3:1: warning: assigning to a read-only predefined global
-Date = null;  // assigning to a read-only predefined global
+identifiers.j:4:1: warning: assigning to a read-only predefined global
+Date = null;
 ^
-identifiers.j:29:9: warning: local declaration of 'FOO' shadows a global variable
-        FOO = 13,  // local declaration of 'FOO' shadows a global variable
+identifiers.j:32:9: warning: local declaration of 'FOO' shadows a global variable
+        FOO = 13,
         ^
 identifiers.j:1:1: note: declaration is here
 FOO = 7;
 ^
-identifiers.j:30:9: warning: local declaration of 'bar' shadows a file variable
-        bar = 27,  // local declaration of 'bar' shadows a file variable
+identifiers.j:34:9: warning: local declaration of 'bar' shadows a file variable
+        bar = 27,
         ^
-identifiers.j:5:5: note: declaration is here
+identifiers.j:6:5: note: declaration is here
 var bar = 13;
     ^
-identifiers.j:31:9: warning: local declaration of 'baz' shadows a @global declaration
-        baz = "test",  // local declaration of 'baz' shadows a @global declaration
+identifiers.j:36:9: warning: local declaration of 'baz' shadows a @global declaration
+        baz = "test",
         ^
-identifiers.j:6:9: note: declaration is here
+identifiers.j:7:9: note: declaration is here
 @global baz
         ^
-identifiers.j:32:9: warning: local declaration of 'HaveALittleClass' shadows a @class declaration
-        HaveALittleClass,  // local declaration of 'HaveALittleClass' shadows a @class declaration
+identifiers.j:38:9: warning: local declaration of 'HaveALittleClass' shadows a @class declaration
+        HaveALittleClass,
         ^
-identifiers.j:7:8: note: declaration is here
+identifiers.j:9:8: note: declaration is here
 @class HaveALittleClass
        ^
-identifiers.j:33:9: warning: local declaration of 'Test' shadows a class
-        Test,  // local declaration of 'Test' shadows a class
+identifiers.j:40:9: warning: local declaration of 'Test' shadows a class
+        Test,
         ^
-identifiers.j:11:17: note: declaration is here
+identifiers.j:13:17: note: declaration is here
 @implementation Test : CPObject
                 ^
-identifiers.j:40:15: warning: reference to unknown identifier 'boo'
-        bar = boo;  // reference to unknown identifier 'boo'
+identifiers.j:48:15: warning: reference to unknown identifier 'boo'
+        bar = boo;
               ^
-identifiers.j:42:5: warning: implicitly creating a global variable in the method 'test'; did you mean to use 'var glob'?
-    glob = "this should warn";  // implicitly creating a global variable
+identifiers.j:51:5: warning: implicitly creating a global variable in the method 'test'; did you mean to use 'var glob'?
+    glob = "this should warn";
     ^
-identifiers.j:54:17: warning: reference to unknown identifier 'ex'
-    console.log(ex);  // reference to unknown identifier 'ex', out of scope
+identifiers.j:64:17: warning: reference to unknown identifier 'ex'
+    console.log(ex);
                 ^
-identifiers.j:55:5: warning: debugger statement
-    debugger;  // debugger statement
+identifiers.j:66:5: warning: debugger statement
+    debugger;
     ^
-identifiers.j:57:52: warning: reference to unknown identifier 'CGRectMakeZero'
-    var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()],  // reference to unknown identifier 'CGRectMakeZero'
+identifiers.j:69:52: warning: reference to unknown identifier 'CGRectMakeZero'
+    var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()],
                                                    ^
-identifiers.j:59:17: warning: reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
-        text = [CPTextfield labelWithTitle:@"Woo-hoo!"];  // reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
+identifiers.j:72:17: warning: reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
+        text = [CPTextfield labelWithTitle:@"Woo-hoo!"],
                 ^
-identifiers.j:64:17: warning: local declaration of 'FOO' shadows a variable in a containing closure
-                FOO = 7;  // local declaration of 'FOO' shadows a variable in a containing closure
-                ^
-identifiers.j:29:9: note: declaration is here
-        FOO = 13,  // local declaration of 'FOO' shadows a global variable
+identifiers.j:73:9: warning: local declaration of 'window' shadows a predefined global
+        window = [CPApp mainWindow];
         ^
-identifiers.j:69:25: warning: local declaration of 'foobar' shadows a variable in a containing closure
-                    var foobar = "foobar";  // local declaration of 'foobar' shadows a variable in a containing closure
+identifiers.j:79:17: warning: local declaration of 'FOO' shadows a variable in a containing closure
+                FOO = 7;
+                ^
+identifiers.j:32:9: note: declaration is here
+        FOO = 13,
+        ^
+identifiers.j:86:25: warning: local declaration of 'foobar' shadows a variable in a containing closure
+                    var foobar = "foobar";
                         ^
-identifiers.j:63:17: note: declaration is here
+identifiers.j:77:17: note: declaration is here
             var foobar = 27,
                 ^
-identifiers.j:77:17: warning: reference to unknown identifier 'foobar'
-    console.log(foobar);  // reference to unknown identifier 'foobar', declared in inner scope
+identifiers.j:95:17: warning: reference to unknown identifier 'foobar'
+    console.log(foobar);
                 ^
-identifiers.j:91:9: warning: local declaration of 'alert' shadows a predefined global
-    var alert = "warning!",  // local declaration of 'alert' shadows a predefined global
+identifiers.j:110:9: warning: local declaration of 'alert' shadows a predefined global
+    var alert = "warning!",
         ^
-identifiers.j:94:5: warning: assigning to a read-only predefined global
-    window = null;  // assigning to a read-only predefined global
+identifiers.j:114:5: warning: assigning to a read-only predefined global
+    window = null;
     ^
-identifiers.j:106:5: warning: implicitly creating a global variable in the function 'munge'; did you mean to use 'var doh'?
-    doh = "doh!";  // implicitly creating a global variable
+identifiers.j:129:5: warning: implicitly creating a global variable in the function 'munge'; did you mean to use 'var doh'?
+    doh = "doh!";
     ^
 
-18 warnings generated.
+19 warnings generated.

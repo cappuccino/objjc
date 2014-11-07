@@ -1,9 +1,11 @@
 FOO = 7;
 GLOBAL = "global";
-Date = null;  // assigning to a read-only predefined global
+// assigning to a read-only predefined global
+Date = null;
 
 var bar = 13;
 @global baz
+@global CPApp
 @class HaveALittleClass
 @class CPObject
 @class CPTextField
@@ -26,20 +28,27 @@ var bar = 13;
 - (void)test
 {
     var DEBUG = true,
-        FOO = 13,  // local declaration of 'FOO' shadows a global variable
-        bar = 27,  // local declaration of 'bar' shadows a file variable
-        baz = "test",  // local declaration of 'baz' shadows a @global declaration
-        HaveALittleClass,  // local declaration of 'HaveALittleClass' shadows a @class declaration
-        Test,  // local declaration of 'Test' shadows a class
+        // local declaration of 'FOO' shadows a global variable
+        FOO = 13,
+        // local declaration of 'bar' shadows a file variable
+        bar = 27,
+        // local declaration of 'baz' shadows a @global declaration
+        baz = "test",
+        // local declaration of 'HaveALittleClass' shadows a @class declaration
+        HaveALittleClass,
+        // local declaration of 'Test' shadows a class
+        Test,
         local = true,
         outer = 7;
 
     if (local)
         console.log("local");
     else
-        bar = boo;  // reference to unknown identifier 'boo'
+        // reference to unknown identifier 'boo'
+        bar = boo;
 
-    glob = "this should warn";  // implicitly creating a global variable
+    // implicitly creating a global variable
+    glob = "this should warn";
     glob = "this should not warn";
 
     try
@@ -51,22 +60,30 @@ var bar = 13;
         console.log(ex.message);
     }
 
-    console.log(ex);  // reference to unknown identifier 'ex', out of scope
-    debugger;  // debugger statement
+    // reference to unknown identifier 'ex', out of scope
+    console.log(ex);
+    // debugger statement
+    debugger;
 
-    var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()],  // reference to unknown identifier 'CGRectMakeZero'
+    // reference to unknown identifier 'CGRectMakeZero'
+    var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()],
         delegate = [self delegate],
-        text = [CPTextfield labelWithTitle:@"Woo-hoo!"];  // reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
+        // reference to unknown identifier 'CPTextfield'; did you mean 'CPTextField'?
+        text = [CPTextfield labelWithTitle:@"Woo-hoo!"],
+        window = [CPApp mainWindow];
 
     [self testWithCallback:function()
         {
             var foobar = 27,
-                FOO = 7;  // local declaration of 'FOO' shadows a variable in a containing closure
+                // local declaration of 'FOO' shadows a variable in a containing closure
+                FOO = 7;
 
-            console.log(outer + foobar);  // make sure outer scope can be referenced
+            // make sure outer scope can be referenced
+            console.log(outer + foobar);
             setTimeout(function()
                 {
-                    var foobar = "foobar";  // local declaration of 'foobar' shadows a variable in a containing closure
+                    // local declaration of 'foobar' shadows a variable in a containing closure
+                    var foobar = "foobar";
 
                     console.log(foobar + FOO);
                 },
@@ -74,7 +91,8 @@ var bar = 13;
         }
     ];
 
-    console.log(foobar);  // reference to unknown identifier 'foobar', declared in inner scope
+    // reference to unknown identifier 'foobar', declared in inner scope
+    console.log(foobar);
 }
 
 - (void)testWithCallback:(JSObject)callback
@@ -88,13 +106,17 @@ var bar = 13;
     if (self != [Test class])
         return;
 
-    var alert = "warning!",  // local declaration of 'alert' shadows a predefined global
+    // local declaration of 'alert' shadows a predefined global
+    var alert = "warning!",
         x = 13;
 
-    window = null;  // assigning to a read-only predefined global
-    onblur = null;  // no warning, it's assignable
+    // assigning to a read-only predefined global
+    window = null;
+    // no warning, it's assignable
+    onblur = null;
 
-    deferredLocal = "don't warn";  // declaration follows, should not warn
+    // declaration follows, should not warn
+    deferredLocal = "don't warn";
 
     var deferredLocal;
 }
@@ -103,7 +125,8 @@ var bar = 13;
 
 function munge(x)
 {
-    doh = "doh!";  // implicitly creating a global variable
+    // implicitly creating a global variable
+    doh = "doh!";
 }
 
 var deferredFileVar = "file var";

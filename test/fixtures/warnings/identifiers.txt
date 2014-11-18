@@ -35,7 +35,7 @@ identifiers.j:48:15: warning: reference to unknown identifier 'boo'
         bar = boo;
               ^
 identifiers.j:51:5: warning: implicitly creating a global variable in the method 'test'; did you mean to use 'var glob'?
-    glob = "this should warn";
+    glob = @"this should warn";
     ^
 identifiers.j:64:17: warning: reference to unknown identifier 'ex'
     console.log(ex);

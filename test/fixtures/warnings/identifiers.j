@@ -1,5 +1,5 @@
 FOO = 7;
-GLOBAL = "global";
+GLOBAL = @"global";
 // assigning to a read-only predefined global
 Date = null;
 
@@ -48,8 +48,8 @@ var bar = 13;
         bar = boo;
 
     // implicitly creating a global variable
-    glob = "this should warn";
-    glob = "this should not warn";
+    glob = @"this should warn";
+    glob = @"this should not warn";
 
     try
     {
@@ -97,7 +97,7 @@ var bar = 13;
 
 - (void)testWithCallback:(JSObject)callback
 {
-    GLOBAL = "this should not warn";
+    GLOBAL = @"this should not warn";
     callback();
 }
 

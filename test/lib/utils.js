@@ -55,7 +55,12 @@ exports.compiledFixture = function(name, options)
             else
                 stdout = "";
 
-            return { code: runner.getCompiler().code(), stdout: stdout };
+            var compiler = runner.getCompiler();
+
+            return {
+                code: compiler ? compiler.code() : "",
+                stdout: stdout
+            };
         }
         catch (ex)
         {

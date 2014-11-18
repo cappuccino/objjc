@@ -1,0 +1,5 @@
+acorn.j:1:8: error: unexpected token
+foo ==== 7;
+       ^
+
+1 error generated.

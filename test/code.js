@@ -16,6 +16,7 @@ var utils = require("./lib/utils");
 
 var data = [
     ["@[] array literal", "should generate Objective-J code", "array-literal"],
+    ["@{} dictionary literal", "should generate Objective-J code", "dictionary-literal"],
     ["@protocol", "should generate objj_getProtocol calls", "@protocol"],
     ["@ref / @deref", "should generate a function for @ref, function calls for @deref, and correctly deal with pre- or post-increment/decrement", "reference"],
     ["@selector", "should generate sel_getUid calls", "@selector"],

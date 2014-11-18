@@ -20,7 +20,7 @@ var path = require("path"),
 var data = [
     ["@protocol", "should check for existence and generate an error", "@protocol"],
     ["acorn errors", "should be caught and show where the error occurred", "acorn"],
-    ["classes", "should be checked for duplicate methods and ivars, and specific warnings should be given", "class-declaration"],
+    ["classes", "should be checked for duplicate methods/ivars and conflicting return/parameter types, and specific warnings should be given", "class-declaration"],
     ["identifiers", "should be checked for existence and shadowing, and specific warnings should be given", "identifiers"],
     ["protocols", "should be checked for existence and conformance and specific warnings should be given", "protocols"],
 ];

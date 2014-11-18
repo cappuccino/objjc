@@ -39,6 +39,7 @@ exports.compiledFixture = function(name, options)
                     sourceMap: false,
                     acornOptions: {},
                     quiet: true,
+                    warnings: ["all"],
                     reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
                 },
                 runner = new Runner(options);

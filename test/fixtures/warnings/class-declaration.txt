@@ -10,5 +10,17 @@ class-declaration.j:22:14: error: redeclaration of instance variable 'firstName'
 class-declaration.j:4:14: note: previous declaration is here, in class 'Foo'
     CPString firstName;
              ^
+class-declaration.j:43:4: warning: conflicting return type in implementation of 'test:': 'void' vs 'int'
+- (int)test:(float)arg
+   ^
+class-declaration.j:7:3: note: previous implementation is here
+-(void)test:(int)arg {
+  ^
+class-declaration.j:43:14: warning: conflicting parameter type in implementation of 'test:': 'int' vs 'float'
+- (int)test:(float)arg
+             ^
+class-declaration.j:7:14: note: previous implementation is here
+-(void)test:(int)arg {
+             ^
 
-2 errors generated.
+2 warnings and 2 errors generated.

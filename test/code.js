@@ -21,6 +21,7 @@ var data = [
     ["@selector", "should generate sel_getUid calls", "@selector"],
     ["accessors", "should be generated according to attributes", "accessers"],
     ["class declaration", "should generate well-formatted and commented code for ivars, instance methods and class methods", "class-declaration"],
+    ["literals", "should generate regular Javascript literals", "literal"],
     ["message send", "should generate msgSend[N] calls and receiver temp vars in the proper scope", "message-send"],
     ["protocols", "should generate well-formatted and commented code", "protocols"],
 ];

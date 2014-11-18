@@ -1,1 +1,2 @@
-@["one" ,7, foo ]
+var array = @[@"one" ,1,   @"two",  2 ]
+  , empty = @[];

@@ -18,6 +18,7 @@ var path = require("path"),
     utils = require("./lib/utils");
 
 var data = [
+    ["@deref", "should check for reference expressions that have side effects and generate an error", "@deref"],
     ["@protocol", "should check for existence and generate an error", "@protocol"],
     ["acorn errors", "should be caught and show where the error occurred", "acorn"],
     ["classes", "should be checked for duplicate methods/ivars and conflicting return/parameter types, and specific warnings should be given", "class-declaration"],

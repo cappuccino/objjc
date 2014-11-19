@@ -1,0 +1,5 @@
+@deref.j:5:12: error: dereference expressions may not have side effects
+    @deref([self someRef]) += 7;
+           ^
+
+1 error generated.

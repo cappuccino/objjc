@@ -9,11 +9,11 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("mungeRef:"),    
     function $Reference__mungeRef_(self, _cmd, ref)
     {
-        var i = (ref)(ref() + 1);
+        var i = /* ++@deref(ref) */(ref)(ref() + 1);
 
-        i = ((ref)(ref() + 1) - 1);
-        i = (ref)(ref() - 1);
-        i = ((ref)(ref() - 1) + 1);
+        i = /* @deref(ref)++ */((ref)(ref() + 1) - 1);
+        i = /* --@deref(ref) */(ref)(ref() - 1);
+        i = /* @deref(ref)-- */((ref)(ref() - 1) + 1);
         (ref)(ref() + 1);
     },
     // argument types

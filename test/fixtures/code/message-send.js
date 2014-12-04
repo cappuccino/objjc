@@ -2,7 +2,7 @@
 // @class CPString
 // @class CPTextField
 
-var fileVar = ((___r1 = (CPApplication == null ? null : CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication"))), ___r1 === null ? null : ___r1.isa.objj_msgSend0(___r1, "mainWindow"));
+var fileVar = ((___r1 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r1 === null ? null : ___r1.isa.objj_msgSend0(___r1, "mainWindow"));
 
 // @implementation Test
 var $the_class = objj_allocateClassPair(Nil, "Test");

@@ -3,7 +3,12 @@
 - (CPString)firstName;
 - (CPString)lastName;
 - (CPString)fullName;
+// multiple declarations of method 'firstName' found and ignored
 - (CPString)firstName;
+@end
+
+// duplicate definiton of protocol 'Person'
+@protocol Person
 @end
 
 @protocol Parent
@@ -11,16 +16,19 @@
 - (CPArray)children;
 @end
 
-
-@protocol PersonWithChildren < Person, Parent >
+@protocol PersonWithChildren <Person, Parent>
 @end
 
+// method 'fullName' in protocol 'Person' not implemented
 @implementation Somebody <Person>
 - (void)setFirstName:(CPString)first lastName:(CPString)last {}
 - (CPString)firstName {}
 - (CPString)lastName {}
 @end
 
+// cannot find protocol declaration for 'Unknown'
+// method 'adopt:' in protocol 'Parent' not implemented
+// method 'children' in protocol 'Parent' not implemented
 @implementation SomeParent <Person, Parent, Unknown>
 {
     CPString firstName;
@@ -50,6 +58,7 @@
 
 @end
 
+// only the superclass warns about missing protocol methods
 @implementation AnotherParent : SomeParent
 {
     CPArray children;

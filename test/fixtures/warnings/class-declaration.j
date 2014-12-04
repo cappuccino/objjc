@@ -1,47 +1,36 @@
 @implementation Foo
 {
-    CPString name;
     CPString firstName;
 }
 
--(void)test:(int)arg {
+-(void)test:(int)arg
+{
     console.log(arg);
 }
 
--(void)test:(int)arg {
+// duplicate definition of method 'test:'
+-(void)test:(int)arg
+{
     console.log(arg);
 }
 
 @end
 
 
-var BarCount = 0;
-
 @implementation Bar : Foo
 {
+    // redeclaration of instance variable 'firstName' in class 'Bar'
     CPString firstName;
-    CPString lastName;
 }
 
-+ (int)contactCount
-{
-    return BarCount;
-}
-
-- (CPString)fullName
-{
-    return firstName + " " + lastName;
-}
-
-- (CPString) addContactWithFirstName:(CPString)first lastName:(CPString)last
-{
-    firstName = first;
-    lastName = last;
-    BarCount++;
-}
-
+// conflicting return type in implementation of 'test:': 'void' vs 'int'
+// conflicting parameter type in implementation of 'test:': 'int' vs 'float'
 - (int)test:(float)arg
 {
 }
 
+@end
+
+// duplicate definition of class 'Bar'
+@implementation Bar
 @end

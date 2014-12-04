@@ -19,18 +19,18 @@ identifiers.j:36:9: warning: local declaration of 'baz' shadows a @global declar
 identifiers.j:7:9: note: declaration is here
 @global baz
         ^
-identifiers.j:38:9: warning: local declaration of 'HaveALittleClass' shadows a @class declaration
+identifiers.j:38:9: warning: local declaration of 'HaveALittleClass' shadows a class
         HaveALittleClass,
         ^
-identifiers.j:9:8: note: declaration is here
+identifiers.j:9:1: note: declaration is here
 @class HaveALittleClass
-       ^
+^
 identifiers.j:40:9: warning: local declaration of 'Test' shadows a class
         Test,
         ^
-identifiers.j:13:17: note: declaration is here
+identifiers.j:13:1: note: declaration is here
 @implementation Test : CPObject
-                ^
+^
 identifiers.j:48:15: warning: reference to unknown identifier 'boo'
         bar = boo;
               ^

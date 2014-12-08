@@ -24,6 +24,7 @@ var data = [
     ["classes", "should be checked for duplicate methods/ivars and conflicting return/parameter types, and specific warnings should be given", "class-declaration"],
     ["global symbols", "should be checked for redefinition as a different type and specific warnings should be given", "redefinition"],
     ["identifiers", "should be checked for existence and shadowing, and specific warnings should be given", "identifiers"],
+    ["ivars and method parameters", "should be checked for unknown types and specific warnings should be given", "protocols"],
     ["protocols", "should be checked for existence and conformance and specific warnings should be given", "protocols"],
 ];
 

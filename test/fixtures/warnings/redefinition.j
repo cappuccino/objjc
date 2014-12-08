@@ -14,6 +14,9 @@
 @protocol foo
 @end
 
+// 'foo' previously defined as a global
+@typedef foo
+
 // This will not warn
 foo = "good";
 
@@ -34,30 +37,51 @@ Global = "global";
 @protocol Global
 @end
 
+// 'Global' previously defined as a global
+@typedef Global
 
-@class Foo
 
-@implementation FooBar
+@class SomeClass
+
+// doesn't warn
+@implementation SomeClass
 @end
 
 // ignored
-@class Foo
+@class SomeClass
 
-// 'Foo' previously defined as a class
-@global Foo
+// 'SomeClass' previously defined as a class
+@global SomeClass
 
-// 'FooBar' previously defined as a class
-@global FooBar
+// 'SomeClass' previously defined as a class
+SomeClass = "foo";
 
-// 'Foo' previously defined as a class
-Foo = "foo";
-
-// 'FooBar' previously defined as a class
-FooBar = "foo";
-
-// 'FooBar' previously defined as a class
-@protocol FooBar
+// 'SomeClass' previously defined as a class
+@protocol SomeClass
 @end
+
+// 'SomeClass' previously defined as a class
+@typedef SomeClass
+
+
+@implementation AnotherClass
+@end
+
+// doesn't warn
+@class AnotherClass
+
+// 'AnotherClass' previously defined as a class
+@global AnotherClass
+
+// 'AnotherClass' previously defined as a class
+AnotherClass = "foo";
+
+// 'AnotherClass' previously defined as a class
+@protocol AnotherClass
+@end
+
+// 'AnotherClass' previously defined as a class
+@typedef AnotherClass
 
 
 @protocol Protocol
@@ -72,6 +96,9 @@ FooBar = "foo";
 // 'Protocol' previously defined as a protocol
 @implementation Protocol
 @end
+
+// 'Protocol' previously defined as a protocol
+@typedef Protocol
 
 // 'Protocol' previously defined as a protocol
 Protocol = "protocol";

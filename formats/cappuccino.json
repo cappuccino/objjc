@@ -43,6 +43,7 @@
             "throw",
             "empty statement",
             "@global",
+            "@typedef",
             "@class"
         ],
         "before": {
@@ -163,6 +164,9 @@
     "@protocol()": {},
     "@ref": {},
     "@deref": {},
+    "@typedef": {
+        "after": ""
+    },
     "@class": {
         "after": ""
     },

@@ -39,7 +39,7 @@ describe("Compiler warnings", function() {
 
         describe(description, function() {
             it(should, function() {
-                var output = utils.compiledFixture(prefix, { captureStdout: true, maxErrors: 100 });
+                var output = utils.compiledFixture(prefix, { captureStdout: true });
                 output.stdout.should.equal(utils.readFixture(prefix + ".txt"));
             });
         });

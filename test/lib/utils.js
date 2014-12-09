@@ -40,6 +40,7 @@ exports.compiledFixture = function(name, options)
                     acornOptions: {},
                     quiet: true,
                     warnings: ["all"],
+                    maxErrors: options.maxErrors || 100,
                     reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
                 },
                 runner = new Runner(options);

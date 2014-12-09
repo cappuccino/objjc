@@ -1,92 +1,143 @@
 redefinition.j:7:1: error: 'foo' previously defined as a global
 @class foo
 ^
-redefinition.j:1:9: note: definition is here:
+redefinition.j:1:9: note: definition is here
 @global foo
         ^
-redefinition.j:10:1: error: 'foo' previously defined as a global
+redefinition.j:9:1: error: 'foo' previously defined as a global
 @implementation foo
 ^
-redefinition.j:1:9: note: definition is here:
+redefinition.j:1:9: note: definition is here
 @global foo
         ^
-redefinition.j:14:1: error: 'foo' previously defined as a global
+redefinition.j:12:1: error: 'foo' previously defined as a global
 @protocol foo
 ^
-redefinition.j:1:9: note: definition is here:
+redefinition.j:1:9: note: definition is here
+@global foo
+        ^
+redefinition.j:15:1: error: 'foo' previously defined as a global
+@typedef foo
+^
+redefinition.j:1:9: note: definition is here
 @global foo
         ^
 redefinition.j:27:1: error: 'Global' previously defined as a global
 @class Global
 ^
-redefinition.j:21:1: note: definition is here:
+redefinition.j:21:1: note: definition is here
 Global = "global";
 ^
-redefinition.j:30:1: error: 'Global' previously defined as a global
+redefinition.j:29:1: error: 'Global' previously defined as a global
 @implementation Global
 ^
-redefinition.j:21:1: note: definition is here:
+redefinition.j:21:1: note: definition is here
 Global = "global";
 ^
-redefinition.j:34:1: error: 'Global' previously defined as a global
+redefinition.j:32:1: error: 'Global' previously defined as a global
 @protocol Global
 ^
-redefinition.j:21:1: note: definition is here:
+redefinition.j:21:1: note: definition is here
 Global = "global";
 ^
-redefinition.j:47:1: error: 'Foo' previously defined as a class
-@global Foo
+redefinition.j:35:1: error: 'Global' previously defined as a global
+@typedef Global
 ^
-redefinition.j:38:1: note: definition is here:
-@class Foo
+redefinition.j:21:1: note: definition is here
+Global = "global";
 ^
-redefinition.j:50:1: error: 'FooBar' previously defined as a class
-@global FooBar
+redefinition.j:39:1: error: 'window' previously defined as a predefined global
+@global window
 ^
-redefinition.j:40:1: note: definition is here:
-@implementation FooBar
+redefinition.j:40:1: error: 'window' previously defined as a predefined global
+@class window
 ^
-redefinition.j:53:1: error: 'Foo' previously defined as a class
-Foo = "foo";
+redefinition.j:42:1: error: 'window' previously defined as a predefined global
+@implementation window
 ^
-redefinition.j:38:1: note: definition is here:
-@class Foo
+redefinition.j:45:1: error: 'window' previously defined as a predefined global
+@protocol window
 ^
-redefinition.j:56:1: error: 'FooBar' previously defined as a class
-FooBar = "foo";
+redefinition.j:48:1: error: 'window' previously defined as a predefined global
+@typedef window
 ^
-redefinition.j:40:1: note: definition is here:
-@implementation FooBar
+redefinition.j:61:1: error: 'SomeClass' previously defined as a class
+@global SomeClass
 ^
-redefinition.j:59:1: error: 'FooBar' previously defined as a class
-@protocol FooBar
+redefinition.j:54:1: note: definition is here
+@implementation SomeClass
 ^
-redefinition.j:40:1: note: definition is here:
-@implementation FooBar
+redefinition.j:63:1: error: 'SomeClass' previously defined as a class
+SomeClass = "foo";
 ^
-redefinition.j:67:1: error: 'Protocol' previously defined as a protocol
+redefinition.j:54:1: note: definition is here
+@implementation SomeClass
+^
+redefinition.j:65:1: error: 'SomeClass' previously defined as a class
+@protocol SomeClass
+^
+redefinition.j:54:1: note: definition is here
+@implementation SomeClass
+^
+redefinition.j:68:1: error: 'SomeClass' previously defined as a class
+@typedef SomeClass
+^
+redefinition.j:54:1: note: definition is here
+@implementation SomeClass
+^
+redefinition.j:78:1: error: 'AnotherClass' previously defined as a class
+@global AnotherClass
+^
+redefinition.j:71:1: note: definition is here
+@implementation AnotherClass
+^
+redefinition.j:80:1: error: 'AnotherClass' previously defined as a class
+AnotherClass = "foo";
+^
+redefinition.j:71:1: note: definition is here
+@implementation AnotherClass
+^
+redefinition.j:82:1: error: 'AnotherClass' previously defined as a class
+@protocol AnotherClass
+^
+redefinition.j:71:1: note: definition is here
+@implementation AnotherClass
+^
+redefinition.j:85:1: error: 'AnotherClass' previously defined as a class
+@typedef AnotherClass
+^
+redefinition.j:71:1: note: definition is here
+@implementation AnotherClass
+^
+redefinition.j:92:1: error: 'Protocol' previously defined as a protocol
 @global Protocol
 ^
-redefinition.j:63:1: note: definition is here:
+redefinition.j:88:1: note: definition is here
 @protocol Protocol
 ^
-redefinition.j:70:1: error: 'Protocol' previously defined as a protocol
+redefinition.j:94:1: error: 'Protocol' previously defined as a protocol
 @class Protocol
 ^
-redefinition.j:63:1: note: definition is here:
+redefinition.j:88:1: note: definition is here
 @protocol Protocol
 ^
-redefinition.j:73:1: error: 'Protocol' previously defined as a protocol
+redefinition.j:96:1: error: 'Protocol' previously defined as a protocol
 @implementation Protocol
 ^
-redefinition.j:63:1: note: definition is here:
+redefinition.j:88:1: note: definition is here
 @protocol Protocol
 ^
-redefinition.j:77:1: error: 'Protocol' previously defined as a protocol
+redefinition.j:99:1: error: 'Protocol' previously defined as a protocol
+@typedef Protocol
+^
+redefinition.j:88:1: note: definition is here
+@protocol Protocol
+^
+redefinition.j:101:1: error: 'Protocol' previously defined as a protocol
 Protocol = "protocol";
 ^
-redefinition.j:63:1: note: definition is here:
+redefinition.j:88:1: note: definition is here
 @protocol Protocol
 ^
 
-15 errors generated.
+26 errors generated.

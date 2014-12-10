@@ -17,7 +17,6 @@ if (foo)
             soo();
         }
         else
-
             print("bar");
 
         if (foobar)

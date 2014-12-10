@@ -7,3 +7,5 @@ if (true)
         "false";
     }
 }
+
+var something;

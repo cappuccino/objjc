@@ -1,3 +1,18 @@
+protocols.j:2:23: warning: unknown type 'CPString'
+- (void)setFirstName:(CPString)first lastName:(CPString)last;
+                      ^
+protocols.j:2:48: warning: unknown type 'CPString'
+- (void)setFirstName:(CPString)first lastName:(CPString)last;
+                                               ^
+protocols.j:3:4: warning: unknown type 'CPString'
+- (CPString)firstName;
+   ^
+protocols.j:4:4: warning: unknown type 'CPString'
+- (CPString)lastName;
+   ^
+protocols.j:5:4: warning: unknown type 'CPString'
+- (CPString)fullName;
+   ^
 protocols.j:7:1: warning: multiple declarations of method 'firstName' found and ignored
 - (CPString)firstName;
 ^
@@ -10,6 +25,21 @@ protocols.j:11:1: error: duplicate definiton of protocol 'Person'
 protocols.j:1:1: note: previous definition is here
 @protocol Person
 ^
+protocols.j:16:4: warning: unknown type 'CPArray'
+- (CPArray)children;
+   ^
+protocols.j:24:23: warning: unknown type 'CPString'
+- (void)setFirstName:(CPString)first lastName:(CPString)last {}
+                      ^
+protocols.j:24:48: warning: unknown type 'CPString'
+- (void)setFirstName:(CPString)first lastName:(CPString)last {}
+                                               ^
+protocols.j:25:4: warning: unknown type 'CPString'
+- (CPString)firstName {}
+   ^
+protocols.j:26:4: warning: unknown type 'CPString'
+- (CPString)lastName {}
+   ^
 protocols.j:23:27: warning: method 'fullName' in protocol 'Person' not implemented
 @implementation Somebody <Person>
                           ^
@@ -19,6 +49,27 @@ protocols.j:5:1: note: method 'fullName' declared here
 protocols.j:32:45: error: cannot find protocol declaration for 'Unknown'
 @implementation SomeParent <Person, Parent, Unknown>
                                             ^
+protocols.j:34:14: warning: unknown type 'CPString'
+    CPString firstName;
+             ^
+protocols.j:35:14: warning: unknown type 'CPString'
+    CPString lastName;
+             ^
+protocols.j:38:23: warning: unknown type 'CPString'
+- (void)setFirstName:(CPString)first lastName:(CPString)last
+                      ^
+protocols.j:38:48: warning: unknown type 'CPString'
+- (void)setFirstName:(CPString)first lastName:(CPString)last
+                                               ^
+protocols.j:44:4: warning: unknown type 'CPString'
+- (CPString)firstName
+   ^
+protocols.j:49:4: warning: unknown type 'CPString'
+- (CPString)lastName
+   ^
+protocols.j:54:4: warning: unknown type 'CPString'
+- (CPString)fullName
+   ^
 protocols.j:32:37: warning: method 'adopt:' in protocol 'Parent' not implemented
 @implementation SomeParent <Person, Parent, Unknown>
                                     ^
@@ -31,5 +82,11 @@ protocols.j:32:37: warning: method 'children' in protocol 'Parent' not implement
 protocols.j:16:1: note: method 'children' declared here
 - (CPArray)children;
 ^
+protocols.j:64:13: warning: unknown type 'CPArray'
+    CPArray children;
+            ^
+protocols.j:82:4: warning: unknown type 'CPArray'
+- (CPArray)children
+   ^
 
-4 warnings and 2 errors generated.
+23 warnings and 2 errors generated.

@@ -16,21 +16,23 @@ class_addMethods($the_class,
     {
         try
         {
-            munge(self.x);
+            self.isa.objj_msgSend0(self, "fail");
         }
         catch (ex)
         {
             console.log(ex.message);
         }
-
-        console.log(ex);
+    },
+    // argument types
+    ["void"]),
+    
+    // -fail
+    new objj_method(sel_getUid("fail"),    
+    function $Test__fail(self, _cmd)
+    {
+        throw Error("oops");
     },
     // argument types
     ["void"]),
 ]);
 // @end: @implementation Test
-
-function munge(x)
-{
-    return x + 1;
-}

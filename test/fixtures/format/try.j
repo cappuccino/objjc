@@ -5,10 +5,12 @@
 
 - (void)test
 {
-try { munge(x); } catch(ex) { console.log(ex.message); }
-console.log(ex);  // This should generate a warning, ex is out of scope
+try { [self fail]; } catch(ex) { console.log(ex.message); }
+}
+
+- (void)fail
+{
+    throw Error("oops");
 }
 
 @end
-
-function munge(x) { return x + 1; }

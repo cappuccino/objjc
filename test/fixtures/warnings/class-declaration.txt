@@ -1,3 +1,6 @@
+class-declaration.j:3:14: warning: unknown type 'CPString'
+    CPString firstName;
+             ^
 class-declaration.j:12:1: error: duplicate definition of method 'test:'
 -(void)test:(int)arg
 ^
@@ -29,4 +32,4 @@ class-declaration.j:20:1: note: previous definition is here
 @implementation Bar : Foo
 ^
 
-2 warnings and 3 errors generated.
+3 warnings and 3 errors generated.

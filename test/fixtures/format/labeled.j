@@ -1,3 +1,1 @@
-loop1:
-if (foo)
-    bar();
+loop1: if (foo) bar();

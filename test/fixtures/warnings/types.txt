@@ -1,0 +1,20 @@
+types.j:42:16: warning: unknown type 'CPUInteger'
+    CPUInteger cpui;
+               ^
+types.j:45:17: warning: unknown type 'CPTextField'
+    CPTextField field;
+                ^
+types.j:48:4: warning: unknown type 'CPTextField'
+- (CPTextField)bad:(CPUInteger)arg moreBad:(CPView)view
+   ^
+types.j:48:21: warning: unknown type 'CPUInteger'
+- (CPTextField)bad:(CPUInteger)arg moreBad:(CPView)view
+                    ^
+types.j:61:4: warning: unknown type 'BadReturnType'
+- (BadReturnType)bad:(BadArgType)arg moreBad:(CPView)view;
+   ^
+types.j:61:23: warning: unknown type 'BadArgType'
+- (BadReturnType)bad:(BadArgType)arg moreBad:(CPView)view;
+                      ^
+
+6 warnings generated.

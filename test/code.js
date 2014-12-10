@@ -15,15 +15,15 @@
 var utils = require("./lib/utils");
 
 var data = [
-    ["@[] array literal", "should generate Objective-J code", "array-literal"],
-    ["@{} dictionary literal", "should generate Objective-J code", "dictionary-literal"],
+    ["@[] array literals", "should generate Objective-J code", "array-literal"],
+    ["@{} dictionary literals", "should generate Objective-J code", "dictionary-literal"],
     ["@protocol", "should generate objj_getProtocol calls", "@protocol"],
     ["@ref / @deref", "should generate a function for @ref, function calls for @deref, and correctly deal with pre- or post-increment/decrement", "reference"],
     ["@selector", "should generate sel_getUid calls", "@selector"],
     ["accessors", "should be generated according to attributes", "accessers"],
-    ["class declaration", "should generate well-formatted and commented code for ivars, instance methods and class methods", "class-declaration"],
+    ["class declarations", "should generate well-formatted and commented code for ivars, instance methods and class methods", "class-declaration"],
     ["literals", "should generate regular Javascript literals", "literal"],
-    ["message send", "should generate msgSend[N] calls and receiver temp vars in the proper scope", "message-send"],
+    ["message sends", "should generate msgSend[N] calls and receiver temp vars in the proper scope", "message-send"],
     ["protocols", "should generate well-formatted and commented code", "protocols"],
 ];
 

@@ -11,17 +11,17 @@
     },
     "*control": {
         "nodes": [
+            "@implementation",
+            "@protocol",
+            "do while",
             "if",
             "for",
             "for in",
-            "while",
-            "do while",
+            "function",
             "switch",
             "try",
-            "with",
-            "function",
-            "@implementation",
-            "@protocol"
+            "while",
+            "with"
         ],
         "before": {
             "*": "\n\n",
@@ -34,17 +34,16 @@
     },
     "*statement": {
         "nodes": [
-            "expression statement",
-            "break",
-            "continue",
-            "debugger",
-            "ivar",
-            "return",
-            "throw",
-            "empty statement",
+            "@class",
             "@global",
             "@typedef",
-            "@class"
+            "break",
+            "continue",
+            "empty statement",
+            "expression statement",
+            "debugger",
+            "return",
+            "throw"
         ],
         "before": {
             "*": "\n",
@@ -54,18 +53,66 @@
         },
         "after": ";"
     },
+    "@[]": {},
+    "@class": {
+        "after": ""
+    },
+    "@deref": {},
+    "@global": {
+        "after": ""
+    },
+    "@import": {},
+    "@implementation": {},
+    "@protocol": {},
+    "@protocol()": {},
+    "@ref": {},
+    "@selector": {},
+    "@typedef": {
+        "after": ""
+    },
+    "@{}": {},
+    ",": {},
     "{}": {
         "before": "\n",
         "after-left-brace": "",
         "before-right-brace": "\n"
     },
-    "if": {
-        "before-else": "\n",
-        "after-else": ""
+    "array": {},
+    "assignment": {},
+    "binary expression": {},
+    "break": {
+        "before-label": " "
+    },
+    "continue": {
+        "before-label": " "
+    },
+    "do while": {
+        "before-statement": ""
+    },
+    "debugger": {
     },
     "else if": {
         "before-else": "\n",
         "after-else": " "
+    },
+    "for": {
+        "after-init-expression": "",
+        "after-init-semicolon": " "
+    },
+    "for in": {
+        "before-in": " ",
+        "after-in": " "
+    },
+    "function": {
+        "before-left-parens": ""
+    },
+    "function call": {},
+    "function expression": {},
+    "identifier": {},
+    "identifier name": {},
+    "if": {
+        "before-else": "\n",
+        "after-else": ""
     },
     "label": {
         "before": {
@@ -74,13 +121,17 @@
         },
         "after-colon": ""
     },
-    "break": {
-        "before-label": " "
+    "literal": {},
+    "logical expression": {},
+    "member": {},
+    "message send": {},
+    "method": {},
+    "new": {},
+    "object": {
+        "before-colon": "",
+        "after-colon": " "
     },
-    "continue": {
-        "before-label": " "
-    },
-    "with": {},
+    "objective-j type": {},
     "switch": {
         "before-left-brace": "\n",
         "after-left-brace": "|1",
@@ -92,29 +143,15 @@
         "before-right-brace": "\n|-1"
     },
     "return": {},
+    "ternary expression": {},
+    "this": {},
     "throw": {},
     "try": {
         "before-catch": "\n",
         "before-finally": "\n"
     },
-    "while": {},
-    "do while": {
-        "before-statement": ""
-    },
-    "for": {
-        "after-init-expression": "",
-        "after-init-semicolon": " "
-    },
-    "for in": {
-        "before-in": " ",
-        "after-in": " "
-    },
-    "debugger": {
-    },
-    "function": {
-        "before-left-parens": ""
-    },
-    "function expression": {},
+    "unary expression": {},
+    "update expression": {},
     "var": {
         "before": {
             "*": "\n\n",
@@ -131,47 +168,6 @@
             "for": ""
         }
     },
-    "this": {},
-    "array": {},
-    "object": {
-        "before-colon": "",
-        "after-colon": " "
-    },
-    ",": {},
-    "unary expression": {},
-    "update expression": {},
-    "binary expression": {},
-    "logical expression": {},
-    "assignment": {},
-    "ternary expression": {},
-    "new": {},
-    "function call": {},
-    "member": {},
-    "identifier": {},
-    "identifier name": {},
-    "literal": {},
-    "objective-j type": {},
-    "@[]": {},
-    "@{}": {},
-    "@import": {},
-    "@implementation": {},
-    "@protocol": {},
-    "ivar": {
-    },
-    "method": {},
-    "message send": {},
-    "@selector": {},
-    "@protocol()": {},
-    "@ref": {},
-    "@deref": {},
-    "@typedef": {
-        "after": ""
-    },
-    "@class": {
-        "after": ""
-    },
-    "@global": {
-        "after": ""
-    },
-    "#": {}
+    "while": {},
+    "with": {}
 }

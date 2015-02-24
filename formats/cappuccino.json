@@ -74,8 +74,8 @@
     ",": {},
     "{}": {
         "before": "\n",
-        "after-left-brace": "",
-        "before-right-brace": "\n"
+        "after-left-brace": "|1",
+        "before-right-brace": "\n|-1"
     },
     "array": {},
     "assignment": {},

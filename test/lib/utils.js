@@ -135,6 +135,17 @@ exports.captureStream = function(stream, silent)
 /* jshint loopfunc: true */
 /* eslint-disable max-nested-callbacks, no-loop-func */
 
+function makeDescribe(description, should, fixture)
+{
+    describe(description, function()
+    {
+        it(should, function()
+        {
+            exports.compareWithFixture(fixture);
+        });
+    });
+}
+
 exports.makeDescribes = function(data, pathPrefix)
 {
     for (var i = 0; i < data.length; ++i)
@@ -144,12 +155,6 @@ exports.makeDescribes = function(data, pathPrefix)
             should = info[1],
             fixture = path.join(pathPrefix, info[2]);
 
-        describe(description, function()
-        {
-            it(should, function()
-            {
-                exports.compareWithFixture(fixture);
-            });
-        });
+        makeDescribe(description, should, fixture);
     }
 };

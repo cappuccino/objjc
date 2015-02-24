@@ -28,8 +28,20 @@ var data = [
     ["protocols", "should be checked for existence and conformance and specific warnings should be given", "protocols"],
 ];
 
-describe("Compiler warnings", function() {
+function makeDescribe(description, should, prefix)
+{
+    describe(description, function()
+    {
+        it(should, function()
+        {
+            var output = utils.compiledFixture(prefix, {captureStdout: true});
+            output.stdout.should.equal(utils.readFixture(prefix + ".txt"));
+        });
+    });
+}
 
+describe("Compiler warnings", function()
+{
     for (var i = 0; i < data.length; ++i)
     {
         var info = data[i],
@@ -37,11 +49,6 @@ describe("Compiler warnings", function() {
             should = info[1],
             prefix = path.join("warnings", info[2]);
 
-        describe(description, function() {
-            it(should, function() {
-                var output = utils.compiledFixture(prefix, { captureStdout: true });
-                output.stdout.should.equal(utils.readFixture(prefix + ".txt"));
-            });
-        });
+        makeDescribe(description, should, prefix);
     }
 });

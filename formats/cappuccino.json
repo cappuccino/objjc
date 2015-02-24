@@ -164,11 +164,11 @@
         "after-assign": " ",
         "after-comma": {
             "*": "\n    ",
-            "for": " "
+            "for init": " "
         },
         "after": {
             "*": ";",
-            "for": ""
+            "for init": ""
         }
     },
     "while": {},

@@ -23,6 +23,7 @@ var data = [
     ["if/else statements", "should indent non-block dependent statements on next line", "if"],
     ["labels", "should be on a separate line", "labeled"],
     ["JavaScript arrays", "should be one line with a space after commas", "array-expression"],
+    ["JavaScript objects", "should have formatted keys and values", "object"],
     ["new statements", "should have formatted arguments and parens", "new"],
     ["sequential var statements", "should be separated by a blank line", "var-sequence"],
     ["statement blocks", "should have braces on separate lines, a blank line after non-nested blocks, and indent nested blocks", "block"],

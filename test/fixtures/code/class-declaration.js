@@ -91,6 +91,7 @@ if (!$the_class)
 // @end: @implementation FooBar (Foo)
 
 // @class Superclass
+// @class AnotherClass
 
 // @implementation Subclass : Superclass
 var $the_class = objj_allocateClassPair(Superclass, "Subclass");

@@ -41,6 +41,7 @@ var BarCount = 0;
 
 @end
 @class Superclass
+@class AnotherClass
 @implementation Subclass:Superclass
 @end
 "foobar"

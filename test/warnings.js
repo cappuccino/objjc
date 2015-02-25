@@ -21,7 +21,7 @@ var data = [
     ["@deref", "should check for reference expressions that have side effects and generate an error", "@deref"],
     ["@protocol", "should check for existence and generate an error", "@protocol"],
     ["acorn errors", "should be caught and show where the error occurred", "acorn"],
-    ["classes", "should be checked for duplicate methods/ivars and conflicting return/parameter types, and specific warnings should be given", "class-declaration"],
+    ["classes", "should be checked for duplicate methods/ivars, conflicting return/parameter types, and conflicting accessors, and specific warnings should be given", "class-declaration"],
     ["global symbols", "should be checked for redefinition as a different type and specific warnings should be given", "redefinition"],
     ["identifiers", "should be checked for existence and shadowing, and specific warnings should be given", "identifiers"],
     ["ivars and method parameters", "should be checked for unknown types and specific warnings should be given", "protocols"],

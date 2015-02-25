@@ -4,6 +4,11 @@
 @implementation Foo : Bar
 {
     CPString firstName;
+
+    int goodProperty @accessors(readonly);
+
+    // setter cannot be specified for a readonly property
+    int badProperty @accessors(setter=setBad, readonly);
 }
 
 -(void)test:(int)arg

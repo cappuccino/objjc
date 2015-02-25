@@ -133,7 +133,7 @@ exports.captureStream = function(stream, silent)
 
 /* global describe, it */
 /* jshint loopfunc: true */
-/* eslint-disable max-nested-callbacks, no-loop-func */
+/*eslint-disable max-nested-callbacks, no-loop-func */
 
 function makeDescribe(description, should, fixture)
 {

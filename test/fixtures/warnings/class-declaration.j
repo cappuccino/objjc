@@ -1,4 +1,7 @@
-@implementation Foo
+@class CPString
+
+// cannot find implementation declaration for 'Bar', superclass of 'Foo'
+@implementation Foo : Bar
 {
     CPString firstName;
 }

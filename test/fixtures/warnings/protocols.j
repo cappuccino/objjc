@@ -1,3 +1,5 @@
+@class CPString
+
 @protocol Person
 - (void)setFirstName:(CPString)first lastName:(CPString)last;
 - (CPString)firstName;
@@ -82,6 +84,11 @@
 - (CPArray)children
 {
     return children;
+}
+
+// cannot find protocol declaration for 'Unknown'
+- (void)setSomething:(id<Unknown>)something
+{
 }
 
 @end

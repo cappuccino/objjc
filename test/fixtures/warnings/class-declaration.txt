@@ -1,35 +1,35 @@
-class-declaration.j:3:14: warning: unknown type 'CPString'
-    CPString firstName;
-             ^
-class-declaration.j:12:1: error: duplicate definition of method 'test:'
+class-declaration.j:4:23: error: cannot find implementation declaration for 'Bar', superclass of 'Foo'
+@implementation Foo : Bar
+                      ^
+class-declaration.j:15:1: error: duplicate definition of method 'test:'
 -(void)test:(int)arg
 ^
-class-declaration.j:6:1: note: original definition is here:
+class-declaration.j:9:1: note: original definition is here:
 -(void)test:(int)arg
 ^
-class-declaration.j:23:14: error: redeclaration of instance variable 'firstName' in class 'Bar'
+class-declaration.j:26:14: error: redeclaration of instance variable 'firstName' in class 'Bar'
     CPString firstName;
              ^
-class-declaration.j:3:14: note: previous declaration is here, in class 'Foo'
+class-declaration.j:6:14: note: previous declaration is here, in class 'Foo'
     CPString firstName;
              ^
-class-declaration.j:28:4: warning: conflicting return type in implementation of 'test:': 'void' vs 'int'
+class-declaration.j:31:4: warning: conflicting return type in implementation of 'test:': 'void' vs 'int'
 - (int)test:(float)arg
    ^
-class-declaration.j:6:3: note: previous implementation is here
+class-declaration.j:9:3: note: previous implementation is here
 -(void)test:(int)arg
   ^
-class-declaration.j:28:14: warning: conflicting parameter type in implementation of 'test:': 'int' vs 'float'
+class-declaration.j:31:14: warning: conflicting parameter type in implementation of 'test:': 'int' vs 'float'
 - (int)test:(float)arg
              ^
-class-declaration.j:6:14: note: previous implementation is here
+class-declaration.j:9:14: note: previous implementation is here
 -(void)test:(int)arg
              ^
-class-declaration.j:35:1: error: duplicate definition of class 'Bar'
+class-declaration.j:38:1: error: duplicate definition of class 'Bar'
 @implementation Bar
 ^
-class-declaration.j:20:1: note: previous definition is here
+class-declaration.j:23:1: note: previous definition is here
 @implementation Bar : Foo
 ^
 
-3 warnings and 3 errors generated.
+2 warnings and 4 errors generated.

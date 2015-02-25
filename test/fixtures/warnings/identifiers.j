@@ -10,6 +10,9 @@ var bar = 13;
 @class CPObject
 @class CPTextField
 
+var NaN;
+// reserved word used for variable name
+
 @implementation Test : CPObject
 {
     int x;

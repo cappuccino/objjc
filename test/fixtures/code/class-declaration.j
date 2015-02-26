@@ -1,3 +1,4 @@
+@class CPString
 var foo = 7;
 @implementation Foo
 {

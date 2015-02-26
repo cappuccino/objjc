@@ -1,7 +1,12 @@
 FOO = 7;
 GLOBAL = @"global";
 // assigning to a read-only predefined global
-Date = null;
+window = null;
+
+// assignment to properties is not checked
+window.foo = "foo";
+window["foo"] = "foo";
+window["foo" + "bar"] = "foo";
 
 var bar = 13;
 @global baz
@@ -13,9 +18,16 @@ var bar = 13;
 var NaN;
 // reserved word used for variable name
 
-@implementation Test : CPObject
+@implementation Me
 {
     int x;
+    JSObject obj;
+}
+@end
+
+@implementation Test : Me
+{
+    int y;
 }
 
 - (id)init
@@ -23,7 +35,10 @@ var NaN;
     self = [super init];
 
     if (self)
+    {
         x = deferredFileVar + DeferredGlobal;
+        obj = {};
+    }
 
     return self;
 }
@@ -43,6 +58,16 @@ var NaN;
         Test,
         local = true,
         outer = 7;
+
+    // reference to local variable 'y' shadows an instance variable
+    y = 7;
+
+    // local declaration of 'y' shadows an instance variable
+    var y = 13;
+
+    // make sure these are ivar refs
+    obj.foo = function() { console.log("hello"); };
+    obj.foo();
 
     if (local)
         console.log("local");
@@ -111,6 +136,7 @@ var NaN;
 
     // local declaration of 'alert' shadows a predefined global
     var alert = "warning!",
+    // local declaration of 'x' shadows an instance variable
         x = 13;
 
     // assigning to a read-only predefined global
@@ -122,6 +148,10 @@ var NaN;
     deferredLocal = "don't warn";
 
     var deferredLocal;
+
+    // in a class method, y is not an ivar
+    // implicitly creating a global variable
+    y = 27;
 }
 
 @end

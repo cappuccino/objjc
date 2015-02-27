@@ -35,19 +35,19 @@ exports.compiledFixture = function(name, options)
             if (options.captureStdout)
                 hook = exports.captureStream(process.stdout, true);
 
-            var options = {
-                    sourceMap: false,
+            options = {
+                    sourceMap: options.sourceMap,
                     acornOptions: {},
                     quiet: true,
                     warnings: ["all"],
                     maxErrors: options.maxErrors || 100,
                     reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
-                },
-                runner = new Runner(options);
+            };
+
+            var runner = new Runner(options),
+                stdout;
 
             runner.compileFile(sourcePath);
-
-            var stdout;
 
             if (hook)
             {
@@ -61,6 +61,7 @@ exports.compiledFixture = function(name, options)
 
             return {
                 code: compiler ? compiler.getCode() : "",
+                map: (compiler && options.sourceMap) ? compiler.getSourceMap() : "",
                 stdout: stdout
             };
         }
@@ -75,7 +76,7 @@ exports.compiledFixture = function(name, options)
     else
         console.error("No such fixture: " + sourcePath);
 
-    return { code: "", stdout: "" };
+    return { code: "", map: "", stdout: "" };
 };
 
 exports.readFixture = function(name)

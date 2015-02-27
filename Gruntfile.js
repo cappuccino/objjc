@@ -4,13 +4,38 @@ var cli = require("./lib/cli"),
     path = require("path"),
     utils = require("./test/lib/utils");
 
+function writeFixtures(grunt, which, options)
+{
+    var files = grunt.file.expand("test/fixtures/" + which + "/*.j");
+
+    files.forEach(function(file)
+    {
+        grunt.log.writeln(file);
+
+        var fixture = path.relative("test/fixtures", file),
+            output = utils.compiledFixture(fixture, options),
+            outputDir = path.dirname(file),
+            baseName = path.basename(file, path.extname(file)),
+            filename = baseName + (options.captureStdout ? ".txt" : ".js");
+
+        file = path.join(outputDir, filename);
+        grunt.file.write(file, options.captureStdout ? output.stdout : output.code);
+
+        if (options.sourceMap)
+        {
+            file = path.join(outputDir, path.basename(file) + ".map");
+            grunt.file.write(file, output.map);
+        }
+    });
+}
+
 module.exports = function(grunt)
 {
     // Project configuration.
     grunt.initConfig({
         clean: {
             test: {
-                src: ["test/fixtures/**/*.{js,txt}"]
+                src: ["test/fixtures/**/*.{js,txt,map}"]
             }
         },
         eslint: {
@@ -78,7 +103,7 @@ module.exports = function(grunt)
 
     grunt.registerTask("test", ["eslint", "jshint", "mochaTest"]);
     grunt.registerTask("default", ["test"]);
-    grunt.registerTask("fixtures", "Generate test fixtures.", function()
+    grunt.registerTask("generateFixtures", "Generate test fixtures.", function()
     {
         var files = grunt.file.expand("test/fixtures/**/*.js");
         files.forEach(function(file) { grunt.file.delete(file, { force: true }); });
@@ -91,21 +116,8 @@ module.exports = function(grunt)
             }
         );
 
-        files = grunt.file.expand("test/fixtures/warnings/*.j");
-
-        files.forEach(function(file)
-            {
-                grunt.log.writeln(file);
-
-                var fixture = path.relative("test/fixtures", file),
-                    output = utils.compiledFixture(fixture, { captureStdout: true }),
-                    outputDir = path.dirname(file),
-                    filename = path.basename(file, path.extname(file)) + ".txt";
-
-                file = path.join(outputDir, filename);
-                grunt.file.write(file, output.stdout);
-            }
-        );
+        writeFixtures(grunt, "warnings", { captureStdout: true });
+        writeFixtures(grunt, "source-map", { sourceMap: true });
     });
-    grunt.registerTask("generateFixtures", ["clean", "fixtures"]);
+    grunt.registerTask("regenerateFixtures", ["clean", "generateFixtures"]);
 };

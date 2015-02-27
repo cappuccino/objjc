@@ -60,7 +60,7 @@ exports.compiledFixture = function(name, options)
             var compiler = runner.getCompiler();
 
             return {
-                code: compiler ? compiler.code() : "",
+                code: compiler ? compiler.getCode() : "",
                 stdout: stdout
             };
         }

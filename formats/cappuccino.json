@@ -2,6 +2,7 @@
     "*": {
         "indent-string": " ",
         "indent-width": 4,
+        "single-line-array-limit": 2,
         "before-comma": "",
         "after-comma": " ",
         "before-operator": " ",
@@ -25,9 +26,18 @@
         ],
         "before": {
             "*": "\n\n",
-            "*control": "\n\n",
-            "*parent": "\n",
-            "label": "\n"
+            "$previous": {
+                "*control": "\n\n",
+                "*statement": "\n\n",
+                "label": "\n",
+                "null": {
+                    "*": "\n",
+                    "$parent": {
+                        "lambda": " "
+                    }
+                },
+                "var": "\n\n"
+            }
         },
         "before-left-parens": " ",
         "after-left-parens": ""
@@ -39,17 +49,31 @@
             "@typedef",
             "break",
             "continue",
+            "debugger",
             "empty statement",
             "expression statement",
-            "debugger",
             "return",
             "throw"
         ],
         "before": {
             "*": "\n",
-            "*control": "\n\n",
-            "var": "\n\n",
-            "{}": "\n\n"
+            "$previous": {
+                "*control": "\n\n",
+                "{}": "\n\n",
+                "function expression": "\n\n",
+                "null": {
+                    "*": "\n",
+                    "$parent": {
+                        "lambda": " "
+                    }
+                },
+                "var": {
+                    "*": "\n\n",
+                    "$parent": {
+                        "for": "\n"
+                    }
+                }
+            }
         },
         "after": ";"
     },
@@ -73,11 +97,58 @@
     "@{}": {},
     ",": {},
     "{}": {
-        "before": "\n",
-        "after-left-brace": "|1",
-        "before-right-brace": "\n|-1"
+        "before-left-brace": {
+            "*": "\n",
+            "$parent": {
+                "function expression": {
+                    "$parent": {
+                        "var": "\n    "
+                    }
+                }
+            }
+        },
+        "after-left-brace": {
+            "*": "|1",
+            "$parent": {
+                "function expression": {
+                    "$parent": {
+                        "var": "|2"
+                    }
+                }
+            }
+        },
+        "before-right-brace": {
+            "*": "\n|-1",
+            "$parent": {
+                "function expression": {
+                    "$parent": {
+                        "var": "\n    |-2"
+                    }
+                }
+            }
+        }
     },
-    "array": {},
+    "array": {
+        "after-left-bracket": {
+            "*": "\n|1",
+            "$parent": {
+                "var": "\n    |1"
+            }
+        },
+        "after-comma": {
+            "*": "\n",
+            "$parent": {
+                "var": "\n    "
+            }
+        },
+        "after-single-comma": " ",
+        "before-right-bracket": {
+            "*": "\n|-1",
+            "$parent": {
+                "var": "\n    |-1"
+            }
+        }
+    },
     "assignment": {},
     "binary expression": {},
     "break": {
@@ -91,9 +162,14 @@
     },
     "debugger": {
     },
+    "else": {
+        "before": ""
+    },
     "else if": {
+        "before": " ",
+        "before-left-parens": " ",
         "before-else": "\n",
-        "after-else": " "
+        "after-else": ""
     },
     "for": {
         "after-init-expression": "",
@@ -117,9 +193,16 @@
     "label": {
         "before": {
             "*": "\n\n",
-            "label": "\n"
+            "$previous": {
+                "label": "\n"
+            }
         },
         "after-colon": ""
+    },
+    "lambda": {
+        "before-left-brace": " ",
+        "after-left-brace": "",
+        "before-right-brace": " "
     },
     "literal": {},
     "logical expression": {},
@@ -128,13 +211,29 @@
     "method": {},
     "new": {},
     "object": {
-        "after-left-brace": "|1",
-        "before-right-brace": "\n|-1",
+        "after-left-brace": {
+            "*": "|1",
+            "$parent": {
+                "var": "|2"
+            }
+        },
+        "before-right-brace": {
+            "*": "\n|-1",
+            "$parent": {
+                "var": "\n|-1"
+            }
+        },
+        "after-right-brace": {
+            "$parent": {
+                "var": "|-1"
+            }
+        },
         "before-property": "\n",
         "before-colon": "",
         "after-colon": " "
     },
     "objective-j type": {},
+    "return": {},
     "switch": {
         "before-left-brace": "\n",
         "after-left-brace": "|1",
@@ -145,7 +244,6 @@
         "between-case-blocks": "\n",
         "before-right-brace": "\n|-1"
     },
-    "return": {},
     "ternary expression": {},
     "this": {},
     "throw": {},
@@ -158,17 +256,28 @@
     "var": {
         "before": {
             "*": "\n\n",
-            "*parent": "\n"
+            "$previous": {
+                "null": {
+                    "*": "\n",
+                    "$parent": {
+                        "for": ""
+                    }
+                }
+            }
         },
         "before-assign": " ",
         "after-assign": " ",
         "after-comma": {
             "*": "\n    ",
-            "for init": " "
+            "$parent": {
+                "for": " "
+            }
         },
         "after": {
             "*": ";",
-            "for init": ""
+            "$parent": {
+                "for": ""
+            }
         }
     },
     "while": {},

@@ -35,5 +35,5 @@ var data = [
 ];
 
 describe("Formatting", function() {
-    utils.makeDescribes(data, "format");
+    utils.makeDescribes(data, "formats");
 });

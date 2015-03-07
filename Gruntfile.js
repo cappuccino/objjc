@@ -65,15 +65,24 @@ module.exports = function(grunt)
         },
 
         mochaTest: {
-            test: {
-                options: {
-                    reporter: "spec",
-                    colors: true,
-                    useInlineDiffs: true,
-                    bail: false,
-                    slow: 500
-                },
-                src: ["test/*.js"]
+            options: {
+                reporter: "spec",
+                colors: true,
+                useInlineDiffs: true,
+                bail: false,
+                slow: 500
+            },
+            code: {
+                src: ["test/code.js"]
+            },
+            formats: {
+                src: ["test/formats.js"]
+            },
+            "source-maps": {
+                src: ["test/source-maps.js"]
+            },
+            warnings: {
+                src: ["test/warnings.js"]
             }
         },
 
@@ -107,7 +116,7 @@ module.exports = function(grunt)
     {
         var files = grunt.file.expand("test/fixtures/**/*.js");
         files.forEach(function(file) { grunt.file.delete(file, { force: true }); });
-        files = grunt.file.expand("test/fixtures/{code,format}/*.j");
+        files = grunt.file.expand("test/fixtures/{code,formats}/*.j");
 
         files.forEach(function(file)
             {
@@ -117,7 +126,7 @@ module.exports = function(grunt)
         );
 
         writeFixtures(grunt, "warnings", { captureStdout: true });
-        writeFixtures(grunt, "source-map", { sourceMap: true });
+        writeFixtures(grunt, "source-maps", { sourceMap: true });
     });
     grunt.registerTask("regenerateFixtures", ["clean", "generateFixtures"]);
 };

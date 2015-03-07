@@ -39,7 +39,7 @@ exports.compiledFixture = function(name, options)
                     sourceMap: options.sourceMap,
                     acornOptions: {},
                     quiet: true,
-                    warnings: ["all"],
+                    warnings: options.warnings || ["all"],
                     maxErrors: options.maxErrors || 100,
                     reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
             };

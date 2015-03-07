@@ -34,7 +34,8 @@ function makeDescribe(description, should, prefix)
     {
         it(should, function()
         {
-            var output = utils.compiledFixture(prefix, {captureStdout: true});
+            var output = utils.compiledFixture(prefix, { captureStdout: true });
+
             output.stdout.should.equal(utils.readFixture(prefix + ".txt"));
         });
     });

@@ -225,6 +225,23 @@ function bar()
 
 ***
 
+    reference to unknown identifier 'foo'; did you mean 'Foo'?
+        
+```objj
+@class Foo
+
+@implementation Bar
+- (void)bar
+{
+    [foo doSomething];  // warning
+}
+@end
+```
+
+If an unknown identifier differs from a class or protocol name in case only, the class or protocol name is suggested.
+
+***
+
     assigning to a read-only predefined global
         
 ```objj

@@ -19,12 +19,12 @@ var data = [
     ["@{} dictionary literals", "should generate Objective-J code", "dictionary-literal"],
     ["@protocol", "should generate objj_getProtocol calls", "@protocol"],
     ["@ref / @deref", "should generate a function for @ref, function calls for @deref, and correctly deal with pre- or post-increment/decrement", "reference"],
-    ["@selector", "should generate sel_getUid calls", "@selector"],
-    ["accessors", "should be generated according to attributes", "accessors"],
+    ["@selector", "should generate sel_getUid calls"],
+    ["accessors", "should be generated according to attributes"],
     ["class declarations", "should generate well-formatted and commented code for ivars, instance methods and class methods", "class-declaration"],
     ["literals", "should generate regular Javascript literals", "literal"],
     ["message sends", "should generate msgSend[N] calls and receiver temp vars in the proper scope", "message-send"],
-    ["protocols", "should generate well-formatted and commented code", "protocols"],
+    ["protocols", "should generate well-formatted and commented code"],
 ];
 
 describe("Code generation", function() {

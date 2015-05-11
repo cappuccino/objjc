@@ -154,7 +154,7 @@ exports.makeDescribes = function(data, pathPrefix)
         var info = data[i],
             description = info[0],
             should = info[1],
-            fixture = path.join(pathPrefix, info[2]);
+            fixture = path.join(pathPrefix, info[2] ? info[2] : info[0]);
 
         makeDescribe(description, should, fixture);
     }

@@ -26,6 +26,7 @@ var data = [
     ["identifiers", "should be checked for existence and shadowing, and specific warnings should be given"],
     ["ivars and method parameters", "should be checked for unknown types and specific warnings should be given", "protocols"],
     ["protocols", "should be checked for existence and conformance and specific warnings should be given"],
+    ["types", "should be known"],
 ];
 
 function makeDescribe(description, should, prefix)

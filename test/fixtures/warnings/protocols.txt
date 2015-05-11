@@ -4,7 +4,7 @@ protocols.j:9:1: warning: multiple declarations of method 'firstName' found and 
 protocols.j:5:1: note: first declaration is here:
 - (CPString)firstName;
 ^
-protocols.j:13:1: error: duplicate definiton of protocol 'Person'
+protocols.j:13:1: error: duplicate definition of protocol 'Person'
 @protocol Person
 ^
 protocols.j:3:1: note: previous definition is here
@@ -34,9 +34,9 @@ protocols.j:34:37: warning: method 'children' in protocol 'Parent' not implement
 protocols.j:18:1: note: method 'children' declared here
 - (CPArray)children;
 ^
-protocols.j:66:13: warning: unknown type 'CPArray'
+protocols.j:66:5: warning: unknown type 'CPArray'
     CPArray children;
-            ^
+    ^
 protocols.j:84:4: warning: unknown type 'CPArray'
 - (CPArray)children
    ^

@@ -1,9 +1,9 @@
-types.j:42:16: warning: unknown type 'CPUInteger'
+types.j:42:5: warning: unknown type 'CPUInteger'
     CPUInteger cpui;
-               ^
-types.j:45:17: warning: unknown type 'CPTextField'
+    ^
+types.j:45:5: warning: unknown type 'CPTextField'
     CPTextField field;
-                ^
+    ^
 types.j:48:4: warning: unknown type 'CPTextField'
 - (CPTextField)bad:(CPUInteger)arg moreBad:(CPView)view
    ^

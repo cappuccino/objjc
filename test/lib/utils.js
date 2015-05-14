@@ -10,7 +10,7 @@
 
 "use strict";
 
-var grunt = require("grunt"),
+var fs = require("fs"),
     path = require("path"),
     reporter = require("../../lib/reporter"),
     Runner = require("../../lib/runner");
@@ -24,57 +24,52 @@ exports.compiledFixture = function(name, options)
 
     var sourcePath = path.join("test", "fixtures", name);
 
-    if (grunt.file.exists(sourcePath))
+    options = options || {};
+
+    var hook;
+
+    try
     {
-        options = options || {};
+        if (options.captureStdout)
+            hook = exports.captureStream(process.stdout, true);
 
-        var hook;
+        options = {
+                sourceMap: options.sourceMap,
+                acornOptions: {},
+                quiet: true,
+                warnings: options.warnings || ["all"],
+                maxErrors: options.maxErrors || 100,
+                reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
+        };
 
-        try
+        var runner = new Runner(options),
+            stdout;
+
+        runner.compileFile(sourcePath);
+
+        if (hook)
         {
-            if (options.captureStdout)
-                hook = exports.captureStream(process.stdout, true);
-
-            options = {
-                    sourceMap: options.sourceMap,
-                    acornOptions: {},
-                    quiet: true,
-                    warnings: options.warnings || ["all"],
-                    maxErrors: options.maxErrors || 100,
-                    reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
-            };
-
-            var runner = new Runner(options),
-                stdout;
-
-            runner.compileFile(sourcePath);
-
-            if (hook)
-            {
-                stdout = hook.captured();
-                hook.unhook();
-            }
-            else
-                stdout = "";
-
-            var compiler = runner.getCompiler();
-
-            return {
-                code: compiler ? compiler.getCode() : "",
-                map: (compiler && options.sourceMap) ? compiler.getSourceMap() : "",
-                stdout: stdout
-            };
+            stdout = hook.captured();
+            hook.unhook();
         }
-        catch (ex)
-        {
-            if (hook)
-                hook.unhook();
+        else
+            stdout = "";
 
-            console.error(ex.message);
-        }
+        var compiler = runner.getCompiler();
+
+        return {
+            code: compiler ? compiler.getCode() : "",
+            map: (compiler && options.sourceMap) ? compiler.getSourceMap() : "",
+            stdout: stdout
+        };
     }
-    else
-        console.error("No such fixture: " + sourcePath);
+    catch (ex)
+    {
+        if (hook)
+            hook.unhook();
+
+        console.error(ex.message);
+    }
 
     return { code: "", map: "", stdout: "" };
 };
@@ -85,19 +80,17 @@ exports.readFixture = function(name)
         filename = extension ? name : name + ".js",
         fixturePath = path.join("test", "fixtures", filename);
 
-    if (grunt.file.exists(fixturePath))
+    try
     {
-        try
-        {
-            return grunt.file.read(fixturePath);
-        }
-        catch (ex)
-        {
-            console.error(ex.message);
-        }
+        return fs.readFileSync(fixturePath);
     }
-    else
-        console.error("No such fixture: " + fixturePath);
+    catch (e)
+    {
+        if (e.code === "ENOENT")
+            console.error("No such fixture '" + fixturePath + "'");
+        else
+            console.error(e.message);
+    }
 
     return "";
 };

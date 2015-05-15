@@ -1,73 +1,80 @@
 {
-    "name": "cappuccino-objjc",
-    "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
-    "version": "1.0.0-beta",
-    "homepage": "https://github.com/cappuccino/node-objjc",
-    "contributors": [
-        {
-            "name": "Martin Carlberg",
-            "email": "martin@carlberg.org",
-            "web": "http://carlberg.org"
-        },
-        {
-            "name": "Aparajita Fishman",
-            "email": "aparajita@aparajita.com",
-            "web": "http://www.aparajita.com"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/cappuccino/node-objjc.git"
+  "name": "cappuccino-objjc",
+  "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
+  "version": "1.0.0-beta",
+  "homepage": "https://github.com/cappuccino/node-objjc",
+  "contributors": [
+    {
+      "name": "Martin Carlberg",
+      "email": "martin@carlberg.org",
+      "web": "http://carlberg.org"
     },
-    "bugs": "https://github.com/cappuccino/node-objjc/issues",
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://raw.githubusercontent.com/cappuccino/node-objjc/master/LICENSE"
-        }
-    ],
-    "main": "lib/compiler.js",
-    "bin": {
-        "objjc": "./bin/objjc"
-    },
-    "preferGlobal": true,
-    "engines": {
-        "node": ">=0.10.0"
-    },
-    "dependencies": {
-        "chalk": ">=0.4.0",
-        "lodash-template": ">=1.0.0",
-        "objj-acorn": ">=0.5.1",
-        "optionator": ">=0.4.0",
-        "source-map": ">=0.1.34"
-    },
-    "devDependencies": {
-        "chai": ">=1.9.1",
-        "grunt": ">=0.4.5",
-        "grunt-contrib-clean": ">=0.5.0",
-        "grunt-contrib-jshint": ">=0.10.0",
-        "grunt-contrib-uglify": ">=0.5.0",
-        "grunt-contrib-watch": ">=0.6.1",
-        "grunt-eslint": ">=0.5.0",
-        "grunt-mocha-test": ">=0.11.0",
-        "mocha": ">=1.20.1"
-    },
-    "scripts": {
-        "test": "grunt test"
-    },
-    "keywords": [
-        "source",
-        "source code",
-        "JavaScript",
-        "ECMAScript",
-        "Objective-J",
-        "preprocessor",
-        "pre-processor",
-        "pre processor",
-        "processor",
-        "compiler",
-        "utility",
-        "beautifier",
-        "formatter"
-    ]
+    {
+      "name": "Aparajita Fishman",
+      "email": "aparajita@aparajita.com",
+      "web": "http://www.aparajita.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cappuccino/node-objjc.git"
+  },
+  "bugs": "https://github.com/cappuccino/node-objjc/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/cappuccino/node-objjc/master/LICENSE"
+    }
+  ],
+  "main": "lib/compiler.js",
+  "bin": {
+    "objjc": "./bin/objjc"
+  },
+  "preferGlobal": true,
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "lodash.capitalize": "^3.0.0",
+    "lodash.last": "^3.0.0",
+    "lodash.merge": "^3.2.1",
+    "lodash.repeat": "^3.0.0",
+    "lodash.startswith": "^3.0.1",
+    "lodash.template": "^3.5.1",
+    "lodash.trimright": "^3.0.2",
+    "mkdirp": ">=0.5.1",
+    "objj-acorn": ">=0.5.1",
+    "optionator": "~0.6.0",
+    "source-map": "~0.4.2"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "del": "^1.1.1",
+    "gulp": "^4.0.0-alpha.1",
+    "gulp-eslint": "^0",
+    "gulp-jshint": "^1.10.0",
+    "gulp-mocha": "^2.0.1",
+    "lodash": "^3.8.0",
+    "through2": "^0.6.5",
+    "vinyl-paths": "^1.0.0"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "keywords": [
+    "source",
+    "source code",
+    "JavaScript",
+    "ECMAScript",
+    "Objective-J",
+    "preprocessor",
+    "pre-processor",
+    "pre processor",
+    "processor",
+    "compiler",
+    "utility",
+    "beautifier",
+    "formatter"
+  ]
 }

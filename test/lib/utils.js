@@ -17,12 +17,15 @@ var fs = require("fs"),
 
 require("chai").should();
 
-exports.compiledFixture = function(name, options)
+exports.compiledFixture = function(file, options)
 {
-    if (path.extname(name) === "")
-        name += ".j";
+    if (path.extname(file) === "")
+        file += ".j";
 
-    var sourcePath = path.join("test", "fixtures", name);
+    var sourcePath = file;
+
+    if (!path.isAbsolute(file))
+        sourcePath = path.resolve(path.join("test", "fixtures", file));
 
     options = options || {};
 
@@ -34,12 +37,12 @@ exports.compiledFixture = function(name, options)
             hook = exports.captureStream(process.stdout, true);
 
         options = {
-                sourceMap: options.sourceMap,
-                acornOptions: {},
-                quiet: true,
-                warnings: options.warnings || ["all"],
-                maxErrors: options.maxErrors || 100,
-                reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
+            sourceMap: options.sourceMap,
+            acornOptions: {},
+            quiet: true,
+            warnings: options.warnings || ["all"],
+            maxErrors: options.maxErrors || 100,
+            reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
         };
 
         var runner = new Runner(options),

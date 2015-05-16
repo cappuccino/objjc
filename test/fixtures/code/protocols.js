@@ -71,7 +71,7 @@ var $the_class = objj_allocateClassPair(Nil, "Somebody");
 var $the_protocol = objj_getProtocol("Person");
 
 if (!$the_protocol)
-    throw new SyntaxError("Undefined protocol: Person);
+    throw new SyntaxError("Undefined protocol: Person");
 
 class_addProtocol($the_class, $the_protocol);
 objj_registerClassPair($the_class);
@@ -110,13 +110,13 @@ var $the_class = objj_allocateClassPair(Nil, "SomeParent");
 var $the_protocol = objj_getProtocol("Person");
 
 if (!$the_protocol)
-    throw new SyntaxError("Undefined protocol: Person);
+    throw new SyntaxError("Undefined protocol: Person");
 
 class_addProtocol($the_class, $the_protocol);
 $the_protocol = objj_getProtocol("Parent");
 
 if (!$the_protocol)
-    throw new SyntaxError("Undefined protocol: Parent);
+    throw new SyntaxError("Undefined protocol: Parent");
 
 class_addProtocol($the_class, $the_protocol);
 objj_registerClassPair($the_class);

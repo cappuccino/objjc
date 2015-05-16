@@ -2,7 +2,7 @@
   "name": "cappuccino-objjc",
   "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
   "version": "1.0.0-beta.1",
-  "homepage": "https://github.com/cappuccino/node-objjc",
+  "homepage": "https://github.com/cappuccino/objjc",
   "contributors": [
     {
       "name": "Martin Carlberg",
@@ -17,9 +17,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cappuccino/node-objjc.git"
+    "url": "https://github.com/cappuccino/objjc.git"
   },
-  "bugs": "https://github.com/cappuccino/node-objjc/issues",
+  "bugs": "https://github.com/cappuccino/objjc/issues",
   "license": "MIT",
   "main": "lib/compiler.js",
   "bin": {

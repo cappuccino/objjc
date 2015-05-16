@@ -20,12 +20,7 @@
     "url": "https://github.com/cappuccino/node-objjc.git"
   },
   "bugs": "https://github.com/cappuccino/node-objjc/issues",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://raw.githubusercontent.com/cappuccino/node-objjc/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "main": "lib/compiler.js",
   "bin": {
     "objjc": "./bin/objjc"
@@ -53,11 +48,14 @@
     "del": "^1.1.1",
     "gulp": "^4.0.0-alpha.1",
     "gulp-eslint": "^0",
-    "gulp-jshint": "^1.10.0",
+    "gulp-filter": "^2.0.2",
+    "gulp-load-plugins": "^0.10.0",
     "gulp-mocha": "^2.0.1",
+    "gulp-newer": "^0.5.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.3",
     "lodash": "^3.8.0",
-    "through2": "^0.6.5",
-    "vinyl-paths": "^1.0.0"
+    "through2": "^0.6.5"
   },
   "scripts": {
     "test": "gulp test"

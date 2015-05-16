@@ -105,4 +105,4 @@ if (!$the_class)
 var $the_class = objj_allocateClassPair(Superclass, "Subclass");
 objj_registerClassPair($the_class);
 // @end: @implementation Subclass : Superclass
-//# sourceMappingURL=source-map.js.map
+//# sourceMappingURL=source-maps.js.map

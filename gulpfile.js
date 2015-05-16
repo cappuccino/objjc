@@ -102,4 +102,6 @@ gulp.task("generate-fixtures", function()
         .pipe(gulp.dest(dest));
 });
 
+gulp.task("regenerate-fixtures", gulp.series("clean:fixtures", "generate-fixtures"));
+
 gulp.task("test", gulp.series("lint", "generate-fixtures", "mocha"));

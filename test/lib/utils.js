@@ -10,7 +10,8 @@
 
 "use strict";
 
-var fs = require("fs"),
+var exists = require("path-exists").sync,
+    fs = require("fs"),
     path = require("path"),
     reporter = require("../../lib/reporter"),
     Runner = require("../../lib/runner");
@@ -150,7 +151,17 @@ exports.makeDescribes = function(data, pathPrefix)
         var info = data[i],
             description = info[0],
             should = info[1],
-            fixture = path.join(pathPrefix, info[2] ? info[2] : info[0]);
+            filename = info[2],
+            fixture = path.join(pathPrefix, filename ? filename : description.replace(" ", "-"));
+
+        if (!exists(fixture))
+        {
+            // If the description ends with "-statements", trim that off
+            var matches = fixture.match(/(.+)-statements$/);
+
+            if (matches !== null)
+                fixture = path.join(path.dirname(fixture), matches[0]);
+        }
 
         makeDescribe(description, should, fixture);
     }

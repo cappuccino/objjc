@@ -55,6 +55,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.3",
     "lodash": "^3.8.0",
+    "path-exists": "^1.0.0",
     "through2": "^0.6.5"
   },
   "scripts": {

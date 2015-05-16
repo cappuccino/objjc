@@ -18,7 +18,7 @@ var path = require("path"),
     utils = require("./lib/utils");
 
 var data = [
-    ["source-map option", "should generate a properly named source map file with correct file references", "source-map"],
+    ["source-map option", "should generate a properly named source map file with correct file references", "source-maps"],
 ];
 
 function makeDescribe(description, should, prefix)

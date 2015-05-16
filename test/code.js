@@ -21,6 +21,7 @@ var data = [
     ["@ref / @deref", "should generate a function for @ref, function calls for @deref, and correctly deal with pre- or post-increment/decrement", "reference"],
     ["@selector", "should generate sel_getUid calls"],
     ["accessors", "should be generated according to attributes"],
+    ["binary expressions", "should have redundant parentheses removed", "binary-expressions"],
     ["class declarations", "should generate well-formatted and commented code for ivars, instance methods and class methods", "class-declaration"],
     ["literals", "should generate regular Javascript literals", "literal"],
     ["message sends", "should generate msgSend[N] calls and receiver temp vars in the proper scope", "message-send"],

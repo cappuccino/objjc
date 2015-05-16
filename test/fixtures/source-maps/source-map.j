@@ -1,5 +1,5 @@
 /*
-    This is a test of source maps.
+    This is a test of source maps!
 */
 @class CPString
 

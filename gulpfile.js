@@ -14,7 +14,12 @@ gulp.task("clean:build", function(done)
     del("build/*", done);
 });
 
-gulp.task("clean", gulp.series("clean:build"));
+gulp.task("clean:fixtures", function(done)
+{
+    del("test/fixtures/**/*.{js,txt,map}", done);
+});
+
+gulp.task("clean", gulp.parallel("clean:build", "clean:fixtures"));
 
 // linting
 
@@ -67,31 +72,34 @@ gulp.task("generate-fixtures", function()
     var normalFilter = plugins.filter("**/{code,formats}/*.j"),
         warningsFilter = plugins.filter("**/warnings/*.j"),
         sourceMapsFilter = plugins.filter("**/source-maps/*.j"),
-        cwd = "test/fixtures";
+        dest = "test/fixtures";
 
-    fixturesPath = path.resolve(cwd);
+    fixturesPath = path.resolve(dest);
 
     // Don't read the files, we only need the paths for the compiler
-    return gulp.src("./**/*.j", { cwd: cwd, read: false })
+    return gulp.src("./**/*.j", { cwd: dest, read: false })
         // Compile files that need no special treatment
         .pipe(normalFilter)
+        .pipe(plugins.newer({ dest: dest, ext: ".js" }))
         .pipe(through(partialRight(compileFixture, {})))
         .pipe(plugins.rename({ extname: ".js" }))
-        .pipe(gulp.dest(".", { cwd: cwd }))
+        .pipe(gulp.dest(dest))
         .pipe(normalFilter.restore())
 
         // Compile warnings, save the warnings as .txt files
         .pipe(warningsFilter)
+        .pipe(plugins.newer({ dest: dest, ext: ".txt" }))
         .pipe(through(partialRight(compileFixture, { captureStdout: true })))
         .pipe(plugins.rename({ extname: ".txt" }))
-        .pipe(gulp.dest(".", { cwd: cwd }))
+        .pipe(gulp.dest(dest))
         .pipe(warningsFilter.restore())
 
         // Compile files that save source maps
         .pipe(sourceMapsFilter)
+        .pipe(plugins.newer({ dest: dest, ext: ".js" }))
         .pipe(through(partialRight(compileFixture, { sourceMap: true })))
         .pipe(plugins.rename({ extname: ".js" }))
-        .pipe(gulp.dest(".", { cwd: cwd }));
+        .pipe(gulp.dest(dest));
 });
 
-gulp.task("test", gulp.series("lint", "mocha"));
+gulp.task("test", gulp.series("lint", "generate-fixtures", "mocha"));

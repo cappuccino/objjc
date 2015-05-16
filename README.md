@@ -7,7 +7,7 @@ A tiny, fast JavaScript and/or [Objective-J][objj] compiler with built in prepro
 
 It uses a parser extended from the [Acorn][objj-acorn] JavaScript parser by Marijn Haverbeke.
 
-[objj-acorn]: https://github.com/mrcarlberg/acorn
+[objj-acorn]: https://github.com/cappuccino/objj-acorn
 
 ## Format generated code
 

@@ -6,22 +6,22 @@ objj_registerProtocol($the_protocol);
 protocol_addMethodDescriptions($the_protocol,
 [    
     // -setFirstName:lastName:
-    new objj_method(sel_getUid("setFirstName:lastName:"), Nil,
+    new objj_method(sel_getUid("setFirstName:lastName:"), null,
     // argument types
     ["void", "CPString", "CPString"]),
     
     // -firstName
-    new objj_method(sel_getUid("firstName"), Nil,
+    new objj_method(sel_getUid("firstName"), null,
     // argument types
     ["CPString"]),
     
     // -lastName
-    new objj_method(sel_getUid("lastName"), Nil,
+    new objj_method(sel_getUid("lastName"), null,
     // argument types
     ["CPString"]),
     
     // -fullName
-    new objj_method(sel_getUid("fullName"), Nil,
+    new objj_method(sel_getUid("fullName"), null,
     // argument types
     ["CPString"]),
 ],
@@ -34,12 +34,12 @@ objj_registerProtocol($the_protocol);
 protocol_addMethodDescriptions($the_protocol,
 [    
     // -adopt:
-    new objj_method(sel_getUid("adopt:"), Nil,
+    new objj_method(sel_getUid("adopt:"), null,
     // argument types
     ["void", "Person"]),
     
     // -children
-    new objj_method(sel_getUid("children"), Nil,
+    new objj_method(sel_getUid("children"), null,
     // argument types
     ["CPArray"]),
 ],

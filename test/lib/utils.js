@@ -85,7 +85,7 @@ exports.readFixture = function(name)
 
     try
     {
-        return fs.readFileSync(fixturePath);
+        return fs.readFileSync(fixturePath, { encoding: "utf8" });
     }
     catch (e)
     {

@@ -1,4 +1,3 @@
-/*
 if (false) if (true) { foo }
 if (foo)
     if (!bar) {
@@ -15,7 +14,6 @@ if (7 === 13);
 if (13 !== 27); else ;
 
 if (foo) bar; else { baz(); }
-*/
 function test() {
     if (true)
         return true;

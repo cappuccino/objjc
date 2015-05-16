@@ -154,13 +154,13 @@ exports.makeDescribes = function(data, pathPrefix)
             filename = info[2],
             fixture = path.join(pathPrefix, filename ? filename : description.replace(" ", "-"));
 
-        if (!exists(fixture))
+        if (!exists(path.join("test", "fixtures", fixture)))
         {
             // If the description ends with "-statements", trim that off
-            var matches = fixture.match(/(.+)-statements$/);
+            var matches = fixture.match(/\/(.+)-statements$/);
 
             if (matches !== null)
-                fixture = path.join(path.dirname(fixture), matches[0]);
+                fixture = path.join(path.dirname(fixture), matches[1]);
         }
 
         makeDescribe(description, should, fixture);

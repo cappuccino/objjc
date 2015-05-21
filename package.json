@@ -38,7 +38,7 @@
     "lodash.template": "^3.5.1",
     "lodash.trimright": "^3.0.2",
     "mkdirp": ">=0.5.1",
-    "objj-acorn": ">=0.5.1",
+    "objj-acorn": "^1.0.0-beta.1",
     "optionator": "~0.6.0",
     "source-map": "~0.4.2"
   },

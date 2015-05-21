@@ -21,11 +21,10 @@
   },
   "bugs": "https://github.com/cappuccino/objjc/issues",
   "license": "MIT",
-  "main": "lib/compiler.js",
+  "main": "index.js",
   "bin": {
     "objjc": "./bin/objjc"
   },
-  "preferGlobal": true,
   "engines": {
     "node": ">=0.10.0"
   },

@@ -21,7 +21,6 @@
   },
   "bugs": "https://github.com/cappuccino/objjc/issues",
   "license": "MIT",
-  "main": "index.js",
   "bin": {
     "objjc": "./bin/objjc"
   },

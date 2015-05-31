@@ -37,7 +37,7 @@ function makeDescribe(description, should, prefix)
         {
             var output = utils.compiledFixture(prefix, { captureStdout: true });
 
-            output.stdout.should.equal(utils.readFixture(prefix + ".txt"));
+            output.stdout.should.equalFixture(prefix + ".txt");
         });
     });
 }

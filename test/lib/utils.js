@@ -10,15 +10,81 @@
 
 "use strict";
 
-var exists = require("path-exists").sync,
+var chai = require("chai"),
+    exists = require("path-exists").sync,
     fs = require("fs"),
     path = require("path"),
     reporter = require("../../lib/reporter"),
-    Runner = require("../../lib/runner");
+    Runner = require("../../lib/runner"),
+    format = require("util").format;
 
-require("chai").should();
+chai.should();
 
-exports.compiledFixture = function(file, options)
+chai.Assertion.addMethod("equalFixture", function(name)
+{
+    var obj = this._obj;
+
+    new chai.Assertion(typeof obj).to.equal("string");
+
+    var parsed = path.parse(name),
+        type;
+
+    switch (parsed.ext)
+    {
+        case ".txt":
+            type = "compiler warnings/errors";
+            break;
+
+        case ".map":
+            type = "source map";
+            parsed.name = path.basename(parsed.name, path.extname(parsed.name));
+            parsed.ext = ".js.map";
+            break;
+
+        default:
+            type = "compiled code";
+    }
+
+    var sourceName = parsed.name + ".j",
+        sourcePath = path.join("test", "fixtures", parsed.dir, sourceName),
+        filename = parsed.base,
+        fixturePath = path.join("test", "fixtures", parsed.dir, filename),
+        contents;
+
+    try
+    {
+        contents = fs.readFileSync(fixturePath, { encoding: "utf8" });
+    }
+    catch (e)
+    {
+        var error;
+
+        if (e.code === "ENOENT")
+            error = "expected to find the fixture '" + fixturePath + "'";
+        else
+            error = e.message;
+
+        this.assert(
+            false,
+            error,
+            error,
+            null,
+            null,
+            false
+        );
+    }
+
+    this.assert(
+        obj === contents,
+        format("expected %s of %s to match %s", type, sourcePath, fixturePath),
+        format("expected %s of %s to not match %s", type, sourcePath, fixturePath),
+        obj, // expected
+        contents, // actual
+        true  // show diff
+    );
+});
+
+var compiledFixture = function(file, options)
 {
     if (path.extname(file) === "")
         file += ".j";
@@ -35,7 +101,7 @@ exports.compiledFixture = function(file, options)
     try
     {
         if (options.captureStdout)
-            hook = exports.captureStream(process.stdout, true);
+            hook = captureStream(process.stdout, true);
 
         options = {
             sourceMap: options.sourceMap,
@@ -78,33 +144,9 @@ exports.compiledFixture = function(file, options)
     return { code: "", map: "", stdout: "" };
 };
 
-exports.readFixture = function(name)
-{
-    var extension = path.extname(name),
-        filename = extension ? name : name + ".js",
-        fixturePath = path.join("test", "fixtures", filename);
+exports.compiledFixture = compiledFixture;
 
-    try
-    {
-        return fs.readFileSync(fixturePath, { encoding: "utf8" });
-    }
-    catch (e)
-    {
-        if (e.code === "ENOENT")
-            console.error("No such fixture '" + fixturePath + "'");
-        else
-            console.error(e.message);
-    }
-
-    return "";
-};
-
-exports.compareWithFixture = function(fixture)
-{
-    exports.compiledFixture(fixture).code.should.equal(exports.readFixture(fixture));
-};
-
-exports.captureStream = function(stream, silent)
+var captureStream = function(stream, silent)
 {
     var oldWrite = stream.write,
         buffer = "";
@@ -129,6 +171,8 @@ exports.captureStream = function(stream, silent)
     };
 };
 
+exports.captureStream = captureStream;
+
 /* global describe, it */
 /* jshint loopfunc: true */
 /*eslint-disable max-nested-callbacks, no-loop-func */
@@ -139,7 +183,7 @@ function makeDescribe(description, should, fixture)
     {
         it(should, function()
         {
-            exports.compareWithFixture(fixture);
+            compiledFixture(fixture).code.should.equalFixture(fixture + ".js");
         });
     });
 }

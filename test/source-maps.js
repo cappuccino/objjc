@@ -33,8 +33,8 @@ function makeDescribe(description, should, prefix)
                 },
                 output = utils.compiledFixture(prefix, options);
 
-            output.code.should.equal(utils.readFixture(prefix + ".js"));
-            output.map.should.equal(utils.readFixture(prefix + ".js.map"));
+            output.code.should.equalFixture(prefix + ".js");
+            output.map.should.equalFixture(prefix + ".js.map");
         });
     });
 }

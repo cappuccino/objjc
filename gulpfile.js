@@ -5,6 +5,7 @@ var del = require("del"),
     gulp = require("gulp"),
     loadPlugins = require("gulp-load-plugins"),
     path = require("path"),
+    runSequence = require("run-sequence"),
     stylish = require("gulp-jscs-stylish");
 
 // jscs: disable requireMultipleVarDecl
@@ -25,18 +26,34 @@ gulp.task("clean:fixtures", function(done)
     del("test/fixtures/**/*.{js,txt,map}", done);
 });
 
-gulp.task("clean", gulp.parallel("clean:build", "clean:fixtures"));
+gulp.task("clean", function(cb)
+{
+    runSequence("clean:build", "clean:fixtures", cb);
+});
+
 // Linting
 
+var sourceFiles = ["gulpfile.js", "lib/*.js", "test/*.js"];
 
 gulp.task("lint:eslint", function()
 {
-    return gulp.src(["gulpfile.js", "lib/*.js", "test/*.js"])
+    return gulp.src(sourceFiles)
         .pipe(plugins.eslint())
         .pipe(plugins.eslint.format("stylish"));
 });
 
-gulp.task("lint", gulp.series("lint:eslint"));
+gulp.task("lint:jscs", function()
+{
+    return gulp.src(sourceFiles)
+        .pipe(plugins.jscs())
+        .on("error", function() {})
+        .pipe(stylish());
+});
+
+gulp.task("lint", function(cb)
+{
+    runSequence("lint:eslint", "lint:jscs", cb);
+});
 
 gulp.task("mocha", function()
 {
@@ -111,6 +128,12 @@ gulp.task("generate-fixtures", function()
         .pipe(gulp.dest(dest));
 });
 
-gulp.task("regenerate-fixtures", gulp.series("clean:fixtures", "generate-fixtures"));
+gulp.task("regenerate-fixtures", function(cb)
+{
+    runSequence("clean:fixtures", "generate-fixtures", cb);
+});
 
-gulp.task("test", gulp.series("lint", "generate-fixtures", "mocha"));
+gulp.task("test", function(cb)
+{
+    runSequence("lint", "generate-fixtures", "mocha", cb);
+});

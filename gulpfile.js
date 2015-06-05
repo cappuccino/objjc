@@ -10,7 +10,7 @@ var del = require("del"),
 
 // jscs: disable requireMultipleVarDecl
 
-var plugins = loadPlugins();
+var $ = loadPlugins();
 
 // jscs: enable
 
@@ -38,14 +38,14 @@ var sourceFiles = ["gulpfile.js", "lib/*.js", "test/*.js"];
 gulp.task("lint:eslint", function()
 {
     return gulp.src(sourceFiles)
-        .pipe(plugins.eslint())
-        .pipe(plugins.eslint.format("stylish"));
+        .pipe($.eslint())
+        .pipe($.eslint.format("stylish"));
 });
 
 gulp.task("lint:jscs", function()
 {
     return gulp.src(sourceFiles)
-        .pipe(plugins.jscs())
+        .pipe($.jscs())
         .on("error", function() {})
         .pipe(stylish());
 });
@@ -58,7 +58,7 @@ gulp.task("lint", function(cb)
 gulp.task("mocha", function()
 {
     return gulp.src("test/*.js")
-        .pipe(plugins.mocha({ reporter: "dot" }));
+        .pipe($.mocha({ reporter: "dot" }));
 });
 
 // Fixtures
@@ -92,9 +92,9 @@ gulp.task("generate-fixtures", function()
 
     // jscs: disable requireMultipleVarDecl
 
-    var normalFilter = plugins.filter("**/{code,formats}/*.j"),
-        warningsFilter = plugins.filter("**/warnings/*.j"),
-        sourceMapsFilter = plugins.filter("**/source-maps/*.j"),
+    var normalFilter = $.filter("**/{code,formats}/*.j"),
+        warningsFilter = $.filter("**/warnings/*.j"),
+        sourceMapsFilter = $.filter("**/source-maps/*.j"),
         dest = "test/fixtures";
 
     // jscs: enable
@@ -106,25 +106,25 @@ gulp.task("generate-fixtures", function()
 
         // Compile files that need no special treatment
         .pipe(normalFilter)
-        .pipe(plugins.newer({ dest: dest, ext: ".js" }))
+        .pipe($.newer({ dest: dest, ext: ".js" }))
         .pipe(through(partialRight(compileFixture, {})))
-        .pipe(plugins.rename({ extname: ".js" }))
+        .pipe($.rename({ extname: ".js" }))
         .pipe(gulp.dest(dest))
         .pipe(normalFilter.restore())
 
         // Compile warnings, save the warnings as .txt files
         .pipe(warningsFilter)
-        .pipe(plugins.newer({ dest: dest, ext: ".txt" }))
+        .pipe($.newer({ dest: dest, ext: ".txt" }))
         .pipe(through(partialRight(compileFixture, { captureStdout: true })))
-        .pipe(plugins.rename({ extname: ".txt" }))
+        .pipe($.rename({ extname: ".txt" }))
         .pipe(gulp.dest(dest))
         .pipe(warningsFilter.restore())
 
         // Compile files that save source maps
         .pipe(sourceMapsFilter)
-        .pipe(plugins.newer({ dest: dest, ext: ".js" }))
+        .pipe($.newer({ dest: dest, ext: ".js" }))
         .pipe(through(partialRight(compileFixture, { sourceMap: true })))
-        .pipe(plugins.rename({ extname: ".js" }))
+        .pipe($.rename({ extname: ".js" }))
         .pipe(gulp.dest(dest));
 });
 

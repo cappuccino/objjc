@@ -1,13 +1,19 @@
 "use strict";
 
 var del = require("del"),
+    fs = require("fs"),
     gulp = require("gulp"),
     loadPlugins = require("gulp-load-plugins"),
-    path = require("path");
+    path = require("path"),
+    stylish = require("gulp-jscs-stylish");
+
+// jscs: disable requireMultipleVarDecl
 
 var plugins = loadPlugins();
 
-// cleaning
+// jscs: enable
+
+// Cleaning
 
 gulp.task("clean:build", function(done)
 {
@@ -20,8 +26,8 @@ gulp.task("clean:fixtures", function(done)
 });
 
 gulp.task("clean", gulp.parallel("clean:build", "clean:fixtures"));
+// Linting
 
-// linting
 
 gulp.task("lint:eslint", function()
 {
@@ -38,7 +44,7 @@ gulp.task("mocha", function()
         .pipe(plugins.mocha({ reporter: "dot" }));
 });
 
-// fixtures
+// Fixtures
 
 var fixturesPath;
 
@@ -54,8 +60,6 @@ function compileFixture(file, encoding, cb, options)
 
     if (options.sourceMap)
     {
-        var fs = require("fs");
-
         var parsed = path.parse(file.path);
 
         fs.writeFileSync(path.join(parsed.dir, parsed.name + ".js.map"), output.map);
@@ -69,15 +73,20 @@ gulp.task("generate-fixtures", function()
     var partialRight = require("lodash/function/partialright"),
         through = require("through2").obj;
 
+    // jscs: disable requireMultipleVarDecl
+
     var normalFilter = plugins.filter("**/{code,formats}/*.j"),
         warningsFilter = plugins.filter("**/warnings/*.j"),
         sourceMapsFilter = plugins.filter("**/source-maps/*.j"),
         dest = "test/fixtures";
 
+    // jscs: enable
+
     fixturesPath = path.resolve(dest);
 
     // Don't read the files, we only need the paths for the compiler
     return gulp.src("./**/*.j", { cwd: dest, read: false })
+
         // Compile files that need no special treatment
         .pipe(normalFilter)
         .pipe(plugins.newer({ dest: dest, ext: ".js" }))

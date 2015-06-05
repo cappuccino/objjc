@@ -70,7 +70,7 @@ chai.Assertion.addMethod("equalFixture", function(name)
         format("expected %s of %s to not match %s", type, sourcePath, fixturePath),
         obj, // expected
         contents, // actual
-        true  // show diff
+        true // show diff
     );
 });
 
@@ -164,8 +164,6 @@ var captureStream = function(stream, silent)
 exports.captureStream = captureStream;
 
 /* global describe, it */
-/* jshint loopfunc: true */
-/*eslint-disable max-nested-callbacks, no-loop-func */
 
 function makeDescribe(description, should, fixture)
 {

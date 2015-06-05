@@ -1,20 +1,34 @@
 "use strict";
 
-/*global describe, it */
-/* jshint loopfunc: true */
+/* global describe, it */
 /* eslint-disable max-nested-callbacks, no-loop-func */
 
 var path = require("path"),
     utils = require("./lib/utils");
 
+// jscs: disable requireMultipleVarDecl
+
 var data = [
     ["@deref", "should check for reference expressions that have side effects and generate an error"],
     ["@protocol", "should check for existence and generate an error"],
     ["acorn errors", "should be caught and show where the error occurred", "acorn"],
-    ["classes", "should be checked for duplicate methods/ivars, conflicting return/parameter types, and conflicting accessors, and specific warnings should be given", "class-declaration"],
-    ["global symbols", "should be checked for redefinition as a different type and specific warnings should be given", "redefinition"],
+    [
+        "classes",
+        "should be checked for duplicate methods/ivars, conflicting return/parameter types," +
+            " and conflicting accessors, and specific warnings should be given",
+        "class-declaration"
+    ],
+    [
+        "global symbols",
+        "should be checked for redefinition as a different type and specific warnings should be given",
+        "redefinition"
+    ],
     ["identifiers", "should be checked for existence and shadowing, and specific warnings should be given"],
-    ["ivars and method parameters", "should be checked for unknown types and specific warnings should be given", "protocols"],
+    [
+        "ivars and method parameters",
+        "should be checked for unknown types and specific warnings should be given",
+        "protocols"
+    ],
     ["protocols", "should be checked for existence and conformance and specific warnings should be given"],
     ["types", "should be known"],
 ];

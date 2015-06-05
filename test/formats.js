@@ -1,8 +1,10 @@
 "use strict";
 
-/*global describe */
+/* global describe */
 
 var utils = require("./lib/utils");
+
+// jscs: disable requireMultipleVarDecl
 
 var data = [
     ["assignments", "should have spaces around = and generate code for @deref"],
@@ -16,13 +18,19 @@ var data = [
     ["JavaScript objects", "should have formatted keys and values"],
     ["new statements", "should have formatted arguments and parens"],
     ["sequential var statements", "should be separated by a blank line", "var-sequence"],
-    ["block statements", "should have braces on separate lines, a blank line after non-nested blocks, and indent nested blocks"],
+    [
+        "block statements",
+        "should have braces on separate lines, a blank line after non-nested blocks," +
+        " and indent nested blocks"
+    ],
     ["switch statements", "should have cases and braces on separate lines, and indent cases and their blocks"],
     ["try statements", "should have braces on separate lines"],
     ["var statement with multiple declarations", "should be on multiple lines", "var-multiple"],
     ["var within a for init", "should be on one line", "var-for"],
     ["with statements", "should indent the dependent statements"],
 ];
+
+// jscs: enable
 
 describe("Formatting", function() {
     utils.makeDescribes(data, "formats");

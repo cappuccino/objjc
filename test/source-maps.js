@@ -1,15 +1,22 @@
 "use strict";
 
-/*global describe, it */
-/* jshint loopfunc: true */
+/* global describe, it */
 /* eslint-disable max-nested-callbacks, no-loop-func */
 
 var path = require("path"),
     utils = require("./lib/utils");
 
+// jscs: disable requireMultipleVarDecl
+
 var data = [
-    ["source-map option", "should generate a properly named source map file with correct file references", "source-maps"],
+    [
+        "source-map option",
+        "should generate a properly named source map file with correct file references",
+        "source-maps"
+    ],
 ];
+
+// jscs: enable
 
 function makeDescribe(description, should, prefix)
 {

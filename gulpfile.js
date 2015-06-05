@@ -35,7 +35,7 @@ gulp.task("lint", gulp.series("lint:eslint"));
 gulp.task("mocha", function()
 {
     return gulp.src("test/*.js")
-        .pipe(plugins.mocha({ reporter: "spec" }));
+        .pipe(plugins.mocha({ reporter: "dot" }));
 });
 
 // fixtures

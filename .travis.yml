@@ -1,0 +1,17 @@
+language: node_js
+
+# Use container-based infrastructure
+sudo: false
+
+# node versions to test
+node_js:
+  - "5"  # Minimum version
+
+# If any version fails, cancel the others
+matrix:
+  fast_finish: true
+
+before_script:
+  - npm install -g gulp-cli istanbul mocha
+
+script: gulp

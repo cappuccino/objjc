@@ -1,3 +1,11 @@
-node_modules/
-.idea/
+# Logs
+*.log
+
+# Coverage directory used by tools like istanbul
 coverage/
+
+# Dependency directory
+node_modules/
+
+# WebStorm IDE
+.idea/workspace.xml

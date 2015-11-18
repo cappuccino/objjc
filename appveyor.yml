@@ -1,0 +1,34 @@
+# Version format
+version: "{build}"
+
+# node versions to test against
+environment:
+  matrix:
+    - nodejs_version: "5"  # Minimum verion
+
+# If any node versions fail, stop the others
+matrix:
+  fast_finish: true
+
+# Install runtime environment
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - set CI=true
+  - npm -g install npm@latest
+  - npm -g install gulp-cli mocha
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install
+
+# Download a zip of the repo
+shallow_clone: true
+
+# Don't need the repo history
+clone_depth: 1
+
+# Nothing to build before testing
+build: off
+
+test_script:
+  - node --version
+  - npm --version
+  - gulp

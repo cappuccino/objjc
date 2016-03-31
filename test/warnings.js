@@ -1,14 +1,13 @@
 "use strict";
 
-/* global describe, it */
 /* eslint-disable max-nested-callbacks, no-loop-func */
 
-var path = require("path"),
+const
+    expect = require("code").expect,
+    path = require("path"),
     utils = require("./lib/utils");
 
-// jscs: disable requireMultipleVarDecl
-
-var data = [
+const data = [ // jscs: ignore requireMultipleVarDecl
     ["@deref", "should check for reference expressions that have side effects and generate an error"],
     ["@protocol", "should check for existence and generate an error"],
     ["acorn errors", "should be caught and show where the error occurred", "acorn"],
@@ -35,22 +34,22 @@ var data = [
 
 function makeDescribe(description, should, prefix)
 {
-    describe(description, function()
+    describe(description, () =>
     {
-        it(should, function()
+        it(should, () =>
         {
-            var output = utils.compiledFixture(prefix, { captureStdout: true });
+            const output = utils.compiledFixture(prefix, { captureStdout: true });
 
-            output.stdout.should.equalFixture(prefix + ".txt");
+            expect(output.stdout).to.equal(utils.readFixture(prefix + ".txt"));
         });
     });
 }
 
-describe("Compiler warnings", function()
+describe("Compiler warnings", () =>
 {
-    for (var i = 0; i < data.length; ++i)
+    for (const info of data)
     {
-        var info = data[i],
+        const
             description = info[0],
             should = info[1],
             prefix = path.join("warnings", info[2] ? info[2] : info[0]);

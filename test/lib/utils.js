@@ -1,195 +1,136 @@
 "use strict";
 
-var chai = require("chai"),
+const
+    captureStream = require("capture-stream"),
     exists = require("path-exists").sync,
+    expect = require("code").expect,
     fs = require("fs"),
+    issueHandler = require("acorn-issue-handler"),
     path = require("path"),
-    reporter = require("../../lib/reporter"),
-    Runner = require("../../lib/runner"),
-    format = require("util").format;
+    Runner = require("../../lib/runner");
 
-chai.should();
-
-chai.Assertion.addMethod("equalFixture", function(name)
+exports.readFixture = function(name)
 {
-    var obj = this._obj;
+    const parsed = path.parse(name);
 
-    new chai.Assertion(typeof obj).to.equal("string");
-
-    var parsed = path.parse(name),
-        type;
-
-    switch (parsed.ext)
+    if (parsed.ext === ".map")
     {
-        case ".txt":
-            type = "compiler warnings/errors";
-            break;
-
-        case ".map":
-            type = "source map";
-            parsed.name = path.basename(parsed.name, path.extname(parsed.name));
-            parsed.ext = ".js.map";
-            break;
-
-        default:
-            type = "compiled code";
+        parsed.name = path.basename(parsed.name, path.extname(parsed.name));
+        parsed.ext = ".js.map";
     }
 
-    var sourceName = parsed.name + ".j",
-        sourcePath = path.join("test", "fixtures", parsed.dir, sourceName),
-        filename = parsed.base,
-        fixturePath = path.join("test", "fixtures", parsed.dir, filename),
-        contents;
+    const fixturePath = path.join("test", "fixtures", parsed.dir, parsed.base);
 
-    try
-    {
-        contents = fs.readFileSync(fixturePath, { encoding: "utf8" });
-    }
-    catch (e)
-    {
-        var error;
+    expect(exists(fixturePath)).to.be.true();
 
-        if (e.code === "ENOENT")
-            error = "expected to find the fixture '" + fixturePath + "'";
-        else
-            error = e.message;
+    let fixture = fs.readFileSync(fixturePath, { encoding: "utf8" });
 
-        this.assert(
-            false,
-            error,
-            error,
-            null,
-            null,
-            false
-        );
-    }
+    // Fix file paths on Windows
+    if (parsed.ext === ".txt" && process.platform === "win32")
+        fixture = fixture.replace(/^\s*[^:]+/, match => match.replace(/\//g, "\\"));
 
-    this.assert(
-        obj === contents,
-        format("expected %s of %s to match %s", type, sourcePath, fixturePath),
-        format("expected %s of %s to not match %s", type, sourcePath, fixturePath),
-        obj, // expected
-        contents, // actual
-        true // show diff
-    );
-});
+    return fixture;
+};
 
-var compiledFixture = function(file, options)
+function compiledSourceOrFixture(source, file, options)
 {
-    if (path.extname(file) === "")
-        file += ".j";
+    const defaultOptions = {
+        acornOptions: {},
+        maxErrors: 100,
+        quiet: true,
+        warnings: ["all"]
+    };
 
-    var sourcePath = file;
+    options = Object.assign({}, defaultOptions, options);
 
-    if (!path.isAbsolute(file))
-        sourcePath = path.resolve(path.join("test", "fixtures", file));
-
-    options = options || {};
-
-    var hook;
+    let restore;
 
     try
     {
         if (options.captureStdout)
-            hook = captureStream(process.stdout, true);
-
-        options = {
-            sourceMap: options.sourceMap,
-            acornOptions: {},
-            quiet: true,
-            warnings: options.warnings || ["all"],
-            maxErrors: options.maxErrors || 100,
-            reporter: options.captureStdout ? reporter.StandardReporter : reporter.SilentReporter
-        };
-
-        var runner = new Runner(options),
-            stdout;
-
-        runner.compileFile(sourcePath);
-
-        if (hook)
         {
-            stdout = hook.captured();
-            hook.unhook();
+            restore = captureStream(process.stdout);
+            options.reporter = issueHandler.StandardReporter
         }
+        else
+            options.reporter = issueHandler.SilentReporter;
+
+        delete options.captureStdout;
+
+        const runner = new Runner(options);
+        let stdout;
+
+        runner.compileFileOrSource(file, source);
+
+        if (restore)
+            stdout = restore(true);
         else
             stdout = "";
 
-        var compiler = runner.getCompiler();
+        const compiler = runner.getCompiler();
 
         return {
             code: compiler ? compiler.getCode() : "",
             map: (compiler && options.sourceMap) ? compiler.getSourceMap() : "",
-            stdout: stdout
+            stdout
         };
     }
     catch (ex)
     {
-        if (hook)
-            hook.unhook();
+        if (restore)
+            restore();
 
         console.error(ex.message);
     }
 
     return { code: "", map: "", stdout: "" };
-};
+}
 
-exports.compiledFixture = compiledFixture;
-
-var captureStream = function(stream, silent)
+exports.compiledFixture = function(file, options)
 {
-    var oldWrite = stream.write,
-        buffer = "";
+    if (path.extname(file) === "")
+        file += ".j";
 
-    stream.write = function(chunk)
-    {
-        buffer += chunk.toString(); // chunk is a String or Buffer
+    let sourcePath = file;
 
-        if (!silent)
-            oldWrite.apply(stream, arguments);
-    };
+    if (!path.isAbsolute(file))
+        sourcePath = path.resolve(path.join("test", "fixtures", file));
 
-    return {
-        unhook: function unhook()
-        {
-            stream.write = oldWrite;
-        },
-        captured: function()
-        {
-            return buffer;
-        }
-    };
+    return compiledSourceOrFixture("", sourcePath, options);
 };
 
-exports.captureStream = captureStream;
-
-/* global describe, it */
+exports.compiledSource = function(source, options)
+{
+    return compiledSourceOrFixture(source, "", options);
+};
 
 function makeDescribe(description, should, fixture)
 {
-    describe(description, function()
+    describe(description, () =>
     {
-        it(should, function()
+        it(should, () =>
         {
-            compiledFixture(fixture).code.should.equalFixture(fixture + ".js");
+            expect(exports.compiledFixture(fixture).code).to.equal(exports.readFixture(fixture + ".js"));
         });
     });
 }
 
 exports.makeDescribes = function(data, pathPrefix)
 {
-    for (var i = 0; i < data.length; ++i)
+    for (let i = 0; i < data.length; i++)
     {
-        var info = data[i],
+        const
+            info = data[i],
             description = info[0],
             should = info[1],
-            filename = info[2],
-            fixture = path.join(pathPrefix, filename ? filename : description.replace(" ", "-"));
+            filename = info[2];
+
+        let fixture = path.join(pathPrefix, filename ? filename : description.replace(" ", "-"));
 
         if (!exists(path.join("test", "fixtures", fixture)))
         {
             // If the description ends with "-statements", trim that off
-            var matches = fixture.match(/\/(.+)-statements$/);
+            const matches = fixture.match(/\/(.+)-statements$/);
 
             if (matches !== null)
                 fixture = path.join(path.dirname(fixture), matches[1]);
@@ -197,4 +138,31 @@ exports.makeDescribes = function(data, pathPrefix)
 
         makeDescribe(description, should, fixture);
     }
+};
+
+exports.setCompilerOptions = (options, file) =>
+{
+    options = Object.assign({}, options);
+
+    const filename = path.basename(file);
+
+    switch (filename)
+    {
+        case "inline-msg-send-expression.j":
+            options.inlineMsgSend = true;
+            break;
+
+        case "no-types.j":
+            options.generateTypeSignatures = false;
+            break;
+
+        case "no-method-names.j":
+            options.generateMethodNames = false;
+            break;
+
+        default:
+            break;
+    }
+
+    return options;
 };

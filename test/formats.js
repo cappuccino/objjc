@@ -1,12 +1,8 @@
 "use strict";
 
-/* global describe */
+const utils = require("./lib/utils");
 
-var utils = require("./lib/utils");
-
-// jscs: disable requireMultipleVarDecl
-
-var data = [
+const data = [ // jscs: ignore requireMultipleVarDecl
     ["assignments", "should have spaces around = and generate code for @deref"],
     ["binary expressions", "should have spaces around operator and remove unnecessary parens"],
     ["break statements", "should have a space before a label"],
@@ -30,8 +26,4 @@ var data = [
     ["with statements", "should indent the dependent statements"],
 ];
 
-// jscs: enable
-
-describe("Formatting", function() {
-    utils.makeDescribes(data, "formats");
-});
+describe("Formatting", () => utils.makeDescribes(data, "formats"));

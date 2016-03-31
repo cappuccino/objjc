@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+"use strict";
 
-// Use process.argv for args, use process.exit to exit
-require("../lib/cli.js").run(null, true);
+const cli = require("../lib/cli.js");
+
+process.exit(cli.run(process.argv));

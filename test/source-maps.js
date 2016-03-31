@@ -1,14 +1,13 @@
 "use strict";
 
-/* global describe, it */
 /* eslint-disable max-nested-callbacks, no-loop-func */
 
-var path = require("path"),
+const
+    expect = require("code").expect,
+    path = require("path"),
     utils = require("./lib/utils");
 
-// jscs: disable requireMultipleVarDecl
-
-var data = [
+const data = [ // jscs: ignore requireMultipleVarDecl
     [
         "source-map option",
         "should generate a properly named source map file with correct file references",
@@ -16,31 +15,30 @@ var data = [
     ],
 ];
 
-// jscs: enable
-
 function makeDescribe(description, should, prefix)
 {
-    describe(description, function()
+    describe(description, () =>
     {
-        it(should, function()
+        it(should, () =>
         {
-            var options = {
+            const
+                options = {
                     sourceMap: true,
                     warnings: "none"
                 },
                 output = utils.compiledFixture(prefix, options);
 
-            output.code.should.equalFixture(prefix + ".js");
-            output.map.should.equalFixture(prefix + ".js.map");
+            expect(output.code).to.equal(utils.readFixture(prefix + ".js"));
+            expect(output.map).to.equal(utils.readFixture(prefix + ".js.map"));
         });
     });
 }
 
-describe("Source maps", function()
+describe("Source maps", () =>
 {
-    for (var i = 0; i < data.length; ++i)
+    for (const info of data)
     {
-        var info = data[i],
+        const
             description = info[0],
             should = info[1],
             prefix = path.join("source-maps", info[2]);

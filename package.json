@@ -1,82 +1,68 @@
 {
-  "name": "cappuccino-objjc",
-  "description": "JavaScript (ECMAScript) and Objective-J compiler with preprocessor",
-  "version": "1.0.0-beta.1",
+  "name": "objjc",
+  "version": "1.0.0",
+  "description": "JavaScript (ECMAScript) and Objective-J compiler",
   "homepage": "https://github.com/cappuccino/objjc",
-  "contributors": [
-    {
-      "name": "Martin Carlberg",
-      "email": "martin@carlberg.org",
-      "web": "http://carlberg.org"
-    },
-    {
-      "name": "Aparajita Fishman",
-      "email": "aparajita@aparajita.com",
-      "web": "http://www.aparajita.com"
-    }
+  "keywords": [
+    "JavaScript",
+    "ECMAScript",
+    "Objective-J",
+    "Cappuccino",
+    "compiler"
   ],
+  "contributors": [
+    "Martin Carlberg <martin@carlberg.org> (http://carlberg.org)",
+    "Aparajita Fishman (http://www.aparajita.com)"
+  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/cappuccino/objjc.git"
   },
   "bugs": "https://github.com/cappuccino/objjc/issues",
-  "license": "MIT",
+  "engines": {
+    "node": ">=5"
+  },
   "bin": {
     "objjc": "./bin/objjc.js"
   },
-  "engines": {
-    "node": ">=0.10.0"
+  "scripts": {
+    "test": "gulp test",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "dependencies": {
-    "chalk": "^1.0.0",
-    "lodash.capitalize": "^3.0.0",
-    "lodash.last": "^3.0.0",
-    "lodash.merge": "^3.2.1",
-    "lodash.repeat": "^3.0.0",
-    "lodash.startswith": "^3.0.1",
-    "lodash.template": "^3.5.1",
-    "lodash.trimright": "^3.0.2",
+    "acorn": "^3.0.4",
+    "acorn-issue-handler": "^1.0.2",
+    "acorn-objj": "^1.0.1",
+    "chalk": "^1.1.1",
+    "lodash.template": "^4.2.2",
     "mkdirp": ">=0.5.1",
-    "objj-acorn": "^1.0.0-beta.1",
-    "optionator": "~0.6.0",
-    "source-map": "~0.4.2"
+    "optionator": "^0.8.1",
+    "source-map": "^0.5.3"
   },
   "devDependencies": {
-    "chai": "^3.0.0",
-    "del": "^1.1.1",
-    "gulp": "^3.9.0",
-    "gulp-eslint": "^0",
-    "gulp-filter": "^2.0.2",
-    "gulp-istanbul": "^0.9.0",
-    "gulp-jscs": "^1.6.0",
-    "gulp-jscs-stylish": "^1.1.0",
-    "gulp-load-plugins": "^0.10.0",
+    "capture-stream": "^0.1.2",
+    "code": "^2.1.1",
+    "del": "^2.1.0",
+    "eslint": "^2.5.3",
+    "eslint-clang-formatter": "^1.2.2",
+    "eslint-config-cappuccino": "^1.3.6",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-load-plugins": "^1.2.0",
     "gulp-mocha": "^2.0.1",
-    "gulp-newer": "^0.5.0",
+    "gulp-newer": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.3",
-    "lodash": "^3.8.0",
-    "path-exists": "^1.0.0",
+    "istanbul": "^0.4.2",
+    "jscs": "^2.11.0",
+    "jscs-cappuccino": "^1.1.0",
+    "jscs-clang-reporter": "^1.1.11",
+    "mocha": "^2.4.5",
+    "path-exists": "^2.1.0",
     "run-sequence": "^1.1.0",
-    "through2": "^0.6.5"
-  },
-  "scripts": {
-    "test": "gulp test"
-  },
-  "keywords": [
-    "source",
-    "source code",
-    "JavaScript",
-    "ECMAScript",
-    "Objective-J",
-    "Cappuccino",
-    "preprocessor",
-    "pre-processor",
-    "pre processor",
-    "processor",
-    "compiler",
-    "utility",
-    "beautifier",
-    "formatter"
-  ]
+    "through2": "^2.0.1"
+  }
 }

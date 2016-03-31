@@ -1,35 +1,44 @@
 "use strict";
 
-/* global describe */
+const
+    expect = require("code").expect,
+    fs = require("fs"),
+    path = require("path"),
+    utils = require("./lib/utils.js");
 
-var utils = require("./lib/utils");
+function makeTest(prefix, file, destExtension, options)
+{
+    const
+        srcName = path.basename(file),
+        baseName = path.basename(file, path.extname(file)),
+        fixture = `${prefix}/src/${srcName}`,
+        dest = `${prefix}/dest/${baseName}${destExtension}`,
+        output = `test/fixtures/${prefix}/dest`;
 
-// jscs: disable requireMultipleVarDecl
+    it(baseName.replace(/-/g, " "), () =>
+    {
+        const
+            baseOptions = {
+                ignoreWarnings: !prefix.startsWith("warnings"),
+                output
+            },
+            compileOptions = Object.assign({}, baseOptions, utils.setCompilerOptions(options, srcName)),
+            code = utils.compiledFixture(fixture, compileOptions).code;
 
-var data = [
-    ["@[] array literals", "should generate Objective-J code", "array-literals"],
-    ["@{} dictionary literals", "should generate Objective-J code", "dictionary-literals"],
-    ["@protocol", "should generate objj_getProtocol calls", "@protocol"],
-    [
-        "@ref / @deref",
-        "should generate a function for @ref, function calls for @deref," +
-        " and correctly deal with pre- or post-increment/decrement",
-        "references"
-    ],
-    ["@selector", "should generate sel_getUid calls"],
-    ["accessors", "should be generated according to attributes"],
-    ["binary expressions", "should have redundant parentheses removed"],
-    [
-        "class declarations",
-        "should generate well-formatted and commented code for ivars, instance methods and class methods"
-    ],
-    ["literals", "should generate regular Javascript literals"],
-    ["message sends", "should generate msgSend[N] calls and receiver temp vars in the proper scope"],
-    ["protocols", "should generate well-formatted and commented code"],
-];
+        expect(code).to.equal(utils.readFixture(dest));
+    });
+}
 
-// jscs: enable
+function makeDescribe(title, prefix, destExtension, options)
+{
+    describe(title, () =>
+    {
+        const files = fs.readdirSync(`test/fixtures/${prefix}/src`);
 
-describe("Code generation", function() {
-    utils.makeDescribes(data, "code");
-});
+        for (let file of files)
+            makeTest(prefix, file, destExtension, options);
+    });
+}
+
+makeDescribe("Javascript code generation", "js-nodes", ".js");
+makeDescribe("Objective-J code generation", "objj-nodes", ".js");

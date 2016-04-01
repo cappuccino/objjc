@@ -50,7 +50,7 @@ function compiledSourceOrFixture(source, file, options)
         if (options.captureStdout)
         {
             restore = captureStream(process.stdout);
-            options.reporter = issueHandler.StandardReporter
+            options.reporter = issueHandler.StandardReporter;
         }
         else
             options.reporter = issueHandler.SilentReporter;

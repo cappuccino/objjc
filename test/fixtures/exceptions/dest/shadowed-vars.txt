@@ -1,0 +1,48 @@
+
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m17:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'someGlobal' hides a @global declaration[22m
+var someGlobal = 27;
+    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m14:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+@global someGlobal
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m22:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'x' hides a file variable[22m
+    var x = 13;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m1:5[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+var x = 7;
+    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m30:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'foo' hides a @global declaration[22m
+    var foo = 7;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m25:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+@global foo
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m38:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'someClass' hides a class[22m
+    var someClass = "oops!";
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m33:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+@class someClass
+       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m47:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'Test' hides a class[22m
+    var Test = "hidden";
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m41:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+@implementation Test
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m56:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'TestProtocol' hides a protocol[22m
+    var TestProtocol = "hidden";
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m50:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+@protocol TestProtocol
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m64:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'colorScheme' hides a typedef[22m
+    var colorScheme = null;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m59:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+@typedef colorScheme
+         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m68:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'window' hides a predefined global[22m
+var window = null;
+    [32m[1m^[22m[39m
+
+8 warnings generated.

@@ -52,9 +52,9 @@ gulp.task("lint", cb => runSequence("lint:eslint", "lint:jscs", cb));
 
 // Fixtures
 
-function compileFixture(fixturesSrc, options, file, encoding, cb)
+function compileFixture(srcDir, options, file, encoding, cb)
 {
-    console.log(path.relative(fixturesSrc, file.path));
+    console.log(path.relative(srcDir, file.path));
 
     const output = utils.compiledFixture(file.path, utils.setCompilerOptions(options, file.path));
 
@@ -64,38 +64,39 @@ function compileFixture(fixturesSrc, options, file, encoding, cb)
     {
         const parsed = path.parse(file.path);
 
-        fs.writeFileSync(path.join(parsed.dir, parsed.name + ".js.map"), output.map);
+        fs.writeFileSync(path.join(path.dirname(parsed.dir), "dest", parsed.name + ".js.map"), output.map);
     }
 
     cb(null, file);
 }
 
-function generateFixtures(fixturesSrc, renameSpec, options)
+function generateFixtures(fixturesDir, renameSpec, options)
 {
     /*
         gulp.src/dest config is a bit tricky here because we want to put
         the destination files in a sibling directory of the source.
     */
-    fixturesSrc = path.join(paths.fixturesBase, fixturesSrc);
+    const srcDir = path.join(paths.fixturesBase, fixturesDir, "src");
+
     options = options || {};
-    options.ignoreWarnings = !fixturesSrc.startsWith("warnings");
+    options.ignoreWarnings = fixturesDir !== "exceptions";
 
     const extension = (renameSpec.suffix || "") + renameSpec.extname;
 
     // Since we only need paths for the compiler, no need to read the file source.
-    return gulp.src("./*", { cwd: fixturesSrc, base: fixturesSrc, read: false })
+    return gulp.src("./*", { cwd: srcDir, base: srcDir, read: false })
 
         // Only generate fixtures whose source has changed
-        .pipe($.newer(makeNewerOptions(fixturesSrc, extension)))
+        .pipe($.newer(makeNewerOptions(srcDir, extension)))
 
         // Compile with the given options, save the result in the vinyl file.content
-        .pipe(through(compileFixture.bind(null, fixturesSrc, options)))
+        .pipe(through(compileFixture.bind(null, srcDir, options)))
 
         // Rename the compiled file
         .pipe($.rename(renameSpec))
 
         // Save the compiled code into the sibling dest directory
-        .pipe(gulp.dest("../dest", { cwd: fixturesSrc }));
+        .pipe(gulp.dest("../dest", { cwd: srcDir }));
 }
 
 /**
@@ -128,14 +129,28 @@ gulp.task("generate-fixtures:js", () =>
 {
     const renameSpec = { extname: ".js" };
 
-    return generateFixtures("js-nodes/src", renameSpec);
+    return generateFixtures("js-nodes", renameSpec);
 });
 
 gulp.task("generate-fixtures:objj", () =>
 {
     const renameSpec = { extname: ".js" };
 
-    return generateFixtures("objj-nodes/src", renameSpec);
+    return generateFixtures("objj-nodes", renameSpec);
+});
+
+gulp.task("generate-fixtures:exceptions", () =>
+{
+    const renameSpec = { extname: ".txt" };
+
+    return generateFixtures("exceptions", renameSpec, { captureStdout: true });
+});
+
+gulp.task("generate-fixtures:source-maps", () =>
+{
+    const renameSpec = { extname: ".js" };
+
+    return generateFixtures("source-maps", renameSpec, { sourceMap: true });
 });
 
 gulp.task("generate-fixtures", cb =>
@@ -143,25 +158,10 @@ gulp.task("generate-fixtures", cb =>
     runSequence(
         "generate-fixtures:js",
         "generate-fixtures:objj",
+        "generate-fixtures:exceptions",
+        // "generate-fixtures:source-maps",
         cb
     );
-
-    // Compile warnings, save the warnings as .txt files
-        /*
-        .pipe(warningsFilter)
-        .pipe($.newer({ dest, ext: ".txt" }))
-        .pipe(through(partialRight(compileFixture, { captureStdout: true })))
-        .pipe($.rename({ extname: ".txt" }))
-        .pipe(gulp.dest(dest))
-        .pipe(warningsFilter.restore)
-
-        // Compile files that save source maps
-        .pipe(sourceMapsFilter)
-        .pipe($.newer({ dest, ext: ".js" }))
-        .pipe(through(partialRight(compileFixture, { sourceMap: true })))
-        .pipe($.rename({ extname: ".js" }))
-        .pipe(gulp.dest(dest));
-        */
 });
 
 gulp.task("regenerate-fixtures", cb => runSequence("clean:fixtures", "generate-fixtures", cb));

@@ -1,0 +1,6 @@
+
+[36m[1mtest/fixtures/exceptions/src/debugger.j[22m[39m[2m:[22m1:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mdebugger statement[22m
+debugger;
+[32m[1m^[22m[39m
+
+1 warning generated.

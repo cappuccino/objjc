@@ -122,7 +122,7 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("init"),    
     function $Methods__init(self, _cmd)
     {
-        self = objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Methods").super_class }, "init");
+        self = /* [super init] */ objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Methods").super_class }, "init");
 
         if (self)
             initCount++;

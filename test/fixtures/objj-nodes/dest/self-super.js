@@ -9,13 +9,13 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("test"),    
     function $Test__test(self, _cmd)
     {
-        self.isa.objj_msgSend0(self, "doSomething");
-        objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Test").super_class }, "doSomething");
+        /* [self doSomething] */ self.isa.objj_msgSend0(self, "doSomething");
+        /* [super doSomething] */ objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Test").super_class }, "doSomething");
 
         function testme()
         {
-            (self == null ? null : self.isa.objj_msgSend0(self, "doSomething"));
-            objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Test").super_class }, "doSomething");
+            /* [self doSomething] */ (self == null ? null : self.isa.objj_msgSend0(self, "doSomething"));
+            /* [super doSomething] */ objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Test").super_class }, "doSomething");
         }
     },
     // argument types

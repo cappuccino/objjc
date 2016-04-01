@@ -75,8 +75,6 @@ function generateFixtures(fixturesSrc, renameSpec, options)
     /*
         gulp.src/dest config is a bit tricky here because we want to put
         the destination files in a sibling directory of the source.
-
-        Since we only need paths for the compiler, no need to read the file source.
     */
     fixturesSrc = path.join(paths.fixturesBase, fixturesSrc);
     options = options || {};
@@ -84,6 +82,7 @@ function generateFixtures(fixturesSrc, renameSpec, options)
 
     const extension = (renameSpec.suffix || "") + renameSpec.extname;
 
+    // Since we only need paths for the compiler, no need to read the file source.
     return gulp.src("./*", { cwd: fixturesSrc, base: fixturesSrc, read: false })
 
         // Only generate fixtures whose source has changed
@@ -99,16 +98,28 @@ function generateFixtures(fixturesSrc, renameSpec, options)
         .pipe(gulp.dest("../dest", { cwd: fixturesSrc }));
 }
 
+/**
+ * Create options for gulp-newer that will return a path in sourceDir/../dest
+ *
+ * @param {String} sourceDir - A relative path from the project root to the fixture source directory,
+ * e.g. "test/fixtures/js-nodes/src".
+ * @param {String} extension - Destination file suffix + extension.
+ * @returns {{map: (function())}} - Absolute path to destination file to compare against.
+ */
 function makeNewerOptions(sourceDir, extension)
 {
+    const destDir = path.join(path.dirname(sourceDir), "dest");
+
     return {
-        map: relativePath =>
+        // Because cwd and base are set to the directory of the fixture source,
+        // the relative path passed to the map function is actually just the filename.
+        map: filename =>
         {
-            relativePath = path.basename(relativePath, path.extname(relativePath)) + extension;
+            // Strip the source filename extension, then add the destination suffix + extension
+            filename = path.basename(filename, path.extname(filename)) + extension;
 
-            const dir = path.dirname(path.resolve(relativePath));
-
-            return path.join(dir, path.dirname(sourceDir), "dest", relativePath);
+            // Return an absolute path to the destination file to compare against
+            return path.join(process.cwd(), destDir, filename);
         }
     };
 }

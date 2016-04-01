@@ -1,5 +1,8 @@
-// @typedef ColorType;
-// @typedef ViewType, DataSource;
+// @typedef ColorType
+objj_registerTypeDef(objj_allocateTypeDef("ColorType"));
+// @typedef ViewType, DataSource
+objj_registerTypeDef(objj_allocateTypeDef("ViewType"));
+objj_registerTypeDef(objj_allocateTypeDef("DataSource"));
 
 // @implementation Test
 var $the_class = objj_allocateClassPair(Nil, "Test");

@@ -15,9 +15,11 @@ function makeTest(should, filename)
 {
     it(should, () =>
     {
-        const output = utils.compiledFixture(`exceptions/src/${filename}`, { captureStdout: true });
+        const 
+            output = utils.compiledFixture(`exceptions/src/${filename}`, { captureStdout: true }),
+            text = utils.convertToPosixPaths(output.stdout);
 
-        expect(output.stdout).to.equal(utils.readFixture(`exceptions/dest/${filename}.txt`));
+        expect(text).to.equal(utils.readFixture(`exceptions/dest/${filename}.txt`));
     });
 }
 

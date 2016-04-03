@@ -8,7 +8,7 @@ const
     path = require("path"),
     runSequence = require("run-sequence"),
     through = require("through2").obj,
-    utils = require("./test/lib/utils");
+    utils = require("./test/lib/utils.js");
 
 const // jscs: ignore requireMultipleVarDecl
     $ = loadPlugins(),
@@ -52,13 +52,17 @@ gulp.task("lint", cb => runSequence("lint:eslint", "lint:jscs", cb));
 
 // Fixtures
 
-function compileFixture(srcDir, options, file, encoding, cb)
+function compileFixture(fixturesDir, options, file, encoding, cb)
 {
-    console.log(path.relative(srcDir, file.path));
+    console.log(path.basename(file.path));
 
     const output = utils.compiledFixture(file.path, utils.setCompilerOptions(options, file.path));
+    let text = options.captureStdout ? output.stdout : output.code;
 
-    file.contents = new Buffer(options.captureStdout ? output.stdout : output.code);
+    if (fixturesDir === "exceptions")
+        text = utils.convertToPosixPaths(text);
+
+    file.contents = new Buffer(text);
 
     if (options.sourceMap)
     {
@@ -90,7 +94,7 @@ function generateFixtures(fixturesDir, renameSpec, options)
         .pipe($.newer(makeNewerOptions(srcDir, extension)))
 
         // Compile with the given options, save the result in the vinyl file.content
-        .pipe(through(compileFixture.bind(null, srcDir, options)))
+        .pipe(through(compileFixture.bind(null, fixturesDir, options)))
 
         // Rename the compiled file
         .pipe($.rename(renameSpec))

@@ -23,13 +23,7 @@ exports.readFixture = name =>
 
     expect(exists(fixturePath)).to.be.true();
 
-    let fixture = fs.readFileSync(fixturePath, { encoding: "utf8" });
-
-    // Fix file paths on Windows
-    if (parsed.ext === ".txt" && process.platform === "win32")
-        fixture = fixture.replace(/^\s*[^:]+/, match => match.replace(/\//g, "\\"));
-
-    return fixture;
+    return fs.readFileSync(fixturePath, { encoding: "utf8" });
 };
 
 function compiledSourceOrFixture(source, file, options)
@@ -163,3 +157,5 @@ exports.setCompilerOptions = (options, file) =>
 
     return options;
 };
+
+exports.convertToPosixPaths = text => text.replace(/^\s*[^:]+/gm, match => match.replace(/\\/g, "/"));

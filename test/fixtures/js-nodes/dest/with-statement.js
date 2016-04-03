@@ -1,5 +1,5 @@
 o = {
-    first: "Francisco", 
+    first: "Francisco",
     last: "Tolmasky"
 };
 

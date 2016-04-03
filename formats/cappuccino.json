@@ -243,7 +243,8 @@
         },
         "before-property": "\n",
         "before-colon": "",
-        "after-colon": " "
+        "after-colon": " ",
+        "after-comma": ""
     },
     "objective-j type": {},
     "return": {

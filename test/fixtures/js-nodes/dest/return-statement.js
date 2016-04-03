@@ -8,7 +8,7 @@ function test2()
     doSomething();
 
     return {
-        first: "Francisco", 
+        first: "Francisco",
         last: "Tolmasky"
     };
 }

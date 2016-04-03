@@ -11,6 +11,6 @@ test = function()
 };
 
 var lambdas = {
-        empty: function() { }, 
+        empty: function() { },
         oneline: function() { doSomething(); }
     };

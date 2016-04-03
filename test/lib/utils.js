@@ -9,7 +9,7 @@ const
     path = require("path"),
     Runner = require("../../lib/runner");
 
-exports.readFixture = function(name)
+exports.readFixture = name =>
 {
     const parsed = path.parse(name);
 
@@ -86,7 +86,7 @@ function compiledSourceOrFixture(source, file, options)
     return { code: "", map: "", stdout: "" };
 }
 
-exports.compiledFixture = function(file, options)
+exports.compiledFixture = (file, options) =>
 {
     if (path.extname(file) === "")
         file += ".j";
@@ -99,10 +99,7 @@ exports.compiledFixture = function(file, options)
     return compiledSourceOrFixture("", sourcePath, options);
 };
 
-exports.compiledSource = function(source, options)
-{
-    return compiledSourceOrFixture(source, "", options);
-};
+exports.compiledSource = (source, options) => compiledSourceOrFixture(source, "", options);
 
 function makeDescribe(description, should, fixture)
 {
@@ -115,7 +112,7 @@ function makeDescribe(description, should, fixture)
     });
 }
 
-exports.makeDescribes = function(data, pathPrefix)
+exports.makeDescribes = (data, pathPrefix) =>
 {
     for (let i = 0; i < data.length; i++)
     {

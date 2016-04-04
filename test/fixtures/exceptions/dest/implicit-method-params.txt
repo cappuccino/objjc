@@ -1,0 +1,15 @@
+
+[36m[1mtest/fixtures/exceptions/src/implicit-method-params.j[22m[39m[2m:[22m16:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mimplicit method parameter 'self' used as a variable name[22m
+    var self = 7,
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/implicit-method-params.j[22m[39m[2m:[22m17:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mimplicit method parameter '_cmd' used as a variable name[22m
+        _cmd = 13;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/implicit-method-params.j[22m[39m[2m:[22m22:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mimplicit method parameter 'self' used as a variable name[22m
+        var self = 27,
+            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/implicit-method-params.j[22m[39m[2m:[22m23:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mimplicit method parameter '_cmd' used as a variable name[22m
+            _cmd = 31;
+            [32m[1m^[22m[39m
+
+4 errors generated.

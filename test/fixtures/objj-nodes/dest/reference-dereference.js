@@ -4,9 +4,9 @@ objj_registerClassPair($the_class);
 
 // Instance methods
 class_addMethods($the_class,
-[    
+[
     // -mungeRef:
-    new objj_method(sel_getUid("mungeRef:"),    
+    new objj_method(sel_getUid("mungeRef:"),
     function $Reference__mungeRef_(self, _cmd, ref)
     {
         var i = /* ++@deref(ref) */(ref)(ref() + 1);
@@ -18,9 +18,9 @@ class_addMethods($the_class,
     },
     // argument types
     ["void", "intRef"]),
-    
+
     // -test
-    new objj_method(sel_getUid("test"),    
+    new objj_method(sel_getUid("test"),
     function $Reference__test(self, _cmd)
     {
         var i = 13;

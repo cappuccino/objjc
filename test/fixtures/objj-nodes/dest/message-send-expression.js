@@ -15,7 +15,7 @@ objj_registerClassPair($the_class);
 
 // @class CPArray;
 
-var fileVar = /* [[CPApplication sharedApplication] mainWindow] */((___r1 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "mainWindow"));
+var fileVar = /* [[CPApplication sharedApplication] mainWindow] */ ((___r1 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "mainWindow"));
 
 // @implementation Super
 var $the_class = objj_allocateClassPair(Nil, "Super");
@@ -40,7 +40,7 @@ objj_registerClassPair($the_class);
 
 class_addIvars($the_class,
 [
-    new objj_ivar("field", "CPTextField"),
+    new objj_ivar("field", "CPTextField")
 ]);
 
 // Instance methods

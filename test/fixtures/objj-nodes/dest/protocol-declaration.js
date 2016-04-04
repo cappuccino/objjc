@@ -4,12 +4,12 @@ var $the_protocol = objj_allocateProtocol("Parent");
 objj_registerProtocol($the_protocol);
 
 protocol_addMethodDescriptions($the_protocol,
-[    
+[
     // -one
     new objj_method(sel_getUid("one"), null,
     // argument types
     ["void"]),
-    
+
     // -two
     new objj_method(sel_getUid("two"), null,
     // argument types
@@ -17,7 +17,7 @@ protocol_addMethodDescriptions($the_protocol,
 ],
 true, true);
 protocol_addMethodDescriptions($the_protocol,
-[    
+[
     // +classMethod
     new objj_method(sel_getUid("classMethod"), null,
     // argument types
@@ -39,12 +39,12 @@ protocol_addProtocol($the_protocol, $the_inherited_protocol);
 objj_registerProtocol($the_protocol);
 
 protocol_addMethodDescriptions($the_protocol,
-[    
+[
     // -three
     new objj_method(sel_getUid("three"), null,
     // argument types
     ["float"]),
-    
+
     // -required
     new objj_method(sel_getUid("required"), null,
     // argument types

@@ -117,9 +117,9 @@ var initialized = false,
 
 // Instance methods
 class_addMethods($the_class,
-[    
+[
     // -init
-    new objj_method(sel_getUid("init"),    
+    new objj_method(sel_getUid("init"),
     function $Methods__init(self, _cmd)
     {
         self = /* [super init] */ objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Methods").super_class }, "init");
@@ -135,9 +135,9 @@ class_addMethods($the_class,
 
 // Class methods
 class_addMethods($the_class.isa,
-[    
+[
     // +initialize
-    new objj_method(sel_getUid("initialize"),    
+    new objj_method(sel_getUid("initialize"),
     function $Methods__initialize(self, _cmd)
     {
         initialized = true;

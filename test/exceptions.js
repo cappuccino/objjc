@@ -10,6 +10,7 @@ const data = [ // jscs: ignore requireMultipleVarDecl
     ["debugger", "debugger statements should generate a warning"],
     ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"],
     ["implicit-method-params", "'self' or '_cmd' used as a variable name within an Objective-J method should generate an error"],
+    ["read-only-globals", "assigning to a read-only predefined global should generate a warning"]
 ];
 
 function makeTest(should, filename)

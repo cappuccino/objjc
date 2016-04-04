@@ -1,0 +1,9 @@
+
+[36m[1mtest/fixtures/exceptions/src/read-only-globals.j[22m[39m[2m:[22m5:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1massigning to a read-only predefined global[22m
+undefined = 7;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/read-only-globals.j[22m[39m[2m:[22m8:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1massigning to a read-only predefined global[22m
+window = 13;
+[32m[1m^[22m[39m
+
+2 warnings generated.

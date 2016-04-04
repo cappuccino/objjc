@@ -14,7 +14,7 @@ class_addMethods($the_class,
 
         function testme()
         {
-            /* [self doSomething] */ (self == null ? null : self.isa.objj_msgSend0(self, "doSomething"));
+            /* [self doSomething] */ self.isa.objj_msgSend0(self, "doSomething");
             /* [super doSomething] */ objj_msgSendSuper0({ receiver: self, super_class: objj_getClass("Test").super_class }, "doSomething");
         }
     },

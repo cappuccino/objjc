@@ -135,24 +135,22 @@ exports.setCompilerOptions = (options, file) =>
 {
     options = Object.assign({}, options);
 
-    const filename = path.basename(file);
+    const filename = path.basename(file, path.extname(file));
 
     switch (filename)
     {
-        case "inline-msg-send-expression.j":
-            options.inlineMsgSend = true;
-            break;
-
-        case "no-types.j":
+        case "no-types":
             options.generateTypeSignatures = false;
             break;
 
-        case "no-method-names.j":
+        case "no-method-names":
             options.generateMethodNames = false;
             break;
 
         default:
+            options.inlineMsgSend = filename.startsWith("inline-") || filename.endsWith("-inline");
             break;
+
     }
 
     return options;

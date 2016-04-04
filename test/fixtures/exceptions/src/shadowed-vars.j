@@ -69,3 +69,49 @@ var window = null;
 
 // No warning, this is defined to ignore shadowing
 var location = "here";
+
+function testParameters(one, two)
+{
+    // Local declaracion hides a function parameter
+    var one = 7,
+        two = 13;
+}
+
+@implementation TestMethodParameters
+
+- (void)testMethodParameters:(int)first two:(int)second
+{
+    // Local declaration hides a method parameter
+    var first = 7,
+        second = 13;
+}
+
+@end
+
+// Within an Objective-J method, 'self' and '_cmd' are implicit parameters,
+// and should not be hidden by a local variable.
+
+function outer()
+{
+    // Outside of a method, using 'self' or '_cmd' as a variable is legal
+    var self = 7,
+        _cmd = 13;
+}
+
+@implementation TestImplicit
+
+- (void)test
+{
+    // errors
+    var self = 7,
+        _cmd = 13;
+
+    function inner()
+    {
+        // errors
+        var self = 27,
+            _cmd = 31;
+    }
+}
+
+@end

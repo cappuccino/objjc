@@ -44,5 +44,41 @@ var x = 7;
 [36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m68:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'window' hides a predefined global[22m
 var window = null;
     [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m76:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides a function parameter[22m
+    var one = 7,
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m73:25[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+function testParameters(one, two)
+                        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m77:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides a function parameter[22m
+        two = 13;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m73:30[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+function testParameters(one, two)
+                             [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m85:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'first' hides a method parameter[22m
+    var first = 7,
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m82:35[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+- (void)testMethodParameters:(int)first two:(int)second
+                                  [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m86:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'second' hides a method parameter[22m
+        second = 13;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m82:50[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdeclaration is here[22m
+- (void)testMethodParameters:(int)first two:(int)second
+                                                 [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m106:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of 'self' hides implicit method parameter[22m
+    var self = 7,
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m107:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of '_cmd' hides implicit method parameter[22m
+        _cmd = 13;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m112:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of 'self' hides implicit method parameter[22m
+        var self = 27,
+            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m113:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of '_cmd' hides implicit method parameter[22m
+            _cmd = 31;
+            [32m[1m^[22m[39m
 
-8 warnings generated.
+12 warnings and 4 errors generated.

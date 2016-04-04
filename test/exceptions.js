@@ -8,14 +8,15 @@ const
 
 const data = [ // jscs: ignore requireMultipleVarDecl
     ["debugger", "debugger statements should generate a warning"],
-    ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"]
+    ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"],
+    ["self", "'self' used as a variable name within an Objective-J method should generate an error"]
 ];
 
 function makeTest(should, filename)
 {
     it(should, () =>
     {
-        const 
+        const
             output = utils.compiledFixture(`exceptions/src/${filename}`, { captureStdout: true }),
             text = utils.convertToPosixPaths(output.stdout);
 

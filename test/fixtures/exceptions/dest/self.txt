@@ -1,0 +1,6 @@
+
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m12:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'self' used as a variable name within a method[22m
+    var self = 7;
+        [32m[1m^[22m[39m
+
+1 error generated.

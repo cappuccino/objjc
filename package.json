@@ -35,7 +35,6 @@
     "acorn-issue-handler": "^1.0.2",
     "acorn-objj": "^1.0.1",
     "chalk": "^1.1.1",
-    "lodash.template": "^4.2.2",
     "mkdirp": ">=0.5.1",
     "optionator": "^0.8.1",
     "source-map": "^0.5.3"

@@ -1,0 +1,12 @@
+
+[36m[1mtest/fixtures/exceptions/src/reserved-words.j[22m[39m[2m:[22m1:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreserved word used as a variable name[22m
+var arguments = false,
+    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/reserved-words.j[22m[39m[2m:[22m2:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreserved word used as a variable name[22m
+    NaN = false,
+    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/reserved-words.j[22m[39m[2m:[22m3:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreserved word used as a variable name[22m
+    undefined = false;
+    [32m[1m^[22m[39m
+
+3 warnings generated.

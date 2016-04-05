@@ -4,7 +4,7 @@
 
 const
     expect = require("code").expect,
-    utils = require("./lib/utils");
+    utils = require("./lib/utils.js");
 
 const data = [ // jscs: ignore requireMultipleVarDecl
     ["debugger", "debugger statements should generate a warning"],

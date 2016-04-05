@@ -177,6 +177,21 @@ function outer()
     return one + two;
 }
 
+- (void)nested
+{
+    // function parameter hides instance variable
+    function nestParams(one, two)
+    {
+    }
+
+    function nestVars()
+    {
+        // local declaration hides instance variable
+        var one,
+            two;
+    }
+}
+
 // no warning, instance variables are not visible here
 function bad(one, two)
 {
@@ -201,3 +216,16 @@ function bad(one, two)
 }
 
 @end
+
+function nestingTest()
+{
+    var one = 7,
+        two = 13;
+
+    function nested()
+    {
+        // local declaration hides a variable in a containing closure
+        var one = 27,
+            two = 31;
+    }
+}

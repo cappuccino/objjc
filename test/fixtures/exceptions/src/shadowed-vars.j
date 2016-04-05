@@ -1,5 +1,16 @@
 var x = 7;
 
+function hiddenFileVar()
+{
+    // local declaration hides file var
+    var x = 13;
+}
+
+// function parameter hides file var
+function hiddenFileVarParam(x)
+{
+}
+
 function implicitGlobal()
 {
     // This generates an implicit global warning which is removed
@@ -13,29 +24,37 @@ function implicitGlobal()
 
 @global someGlobal
 
-// Hidden @global warning
+// local declaration hides global
 var someGlobal = 27;
 
-function hiddenFileVar()
-{
-    // Hidden file var warning
-    var x = 13;
-}
-
 @global foo
+ActualGlobal = 31;
 
 function hiddenGlobal()
 {
-    // Hidden @global warning
+    // local declaration hides global
     var foo = 7;
+
+    // local declaration hides global
+    var ActualGlobal = 31;
+}
+
+// function parameter hides global
+function hiddenGlobalParam(foo, ActualGlobal)
+{
 }
 
 @class someClass
 
 function hiddenClassStatement()
 {
-    // Hidden class warning
+    // local declaration hides class
     var someClass = "oops!";
+}
+
+// function parameter hides class
+function hiddenClassStatementParam(someClass)
+{
 }
 
 @implementation Test
@@ -43,8 +62,13 @@ function hiddenClassStatement()
 
 function hiddenImplementation()
 {
-    // Hidden class warning
+    // local declaration hides class
     var Test = "hidden";
+}
+
+// function parameter hides class
+function hiddenImplementationParam(Test)
+{
 }
 
 @protocol TestProtocol
@@ -52,27 +76,38 @@ function hiddenImplementation()
 
 function hiddenProtocol()
 {
-    // Hidden protocol warning
+    // local declaration hides protocol
     var TestProtocol = "hidden";
 }
 
-@typedef colorScheme
-
-function hiddenGlobal()
+// function parameter hides protocol
+function hiddenProtocolParam(TestProtocol)
 {
-    // Hidden typedef warning
-    var colorScheme = null;
 }
 
-// Hidden predefined global
+@typedef colorScheme, typedef
+
+function hiddenTypedef()
+{
+    // local declaration hides typedef
+    var colorScheme = null,
+        typedef = "Homer";
+}
+
+// function parameter hides typedef
+function hiddenTypedefParam(colorScheme)
+{
+}
+
+// local declaration hides predefined global
 var window = null;
 
-// No warning, this is defined to ignore shadowing
+// no warning, this predefined global is defined to ignore shadowing
 var location = "here";
 
 function testParameters(one, two)
 {
-    // Local declaracion hides a function parameter
+    // local declaration hides a function parameter
     var one = 7,
         two = 13;
 }
@@ -81,7 +116,7 @@ function testParameters(one, two)
 
 - (void)testMethodParameters:(int)first two:(int)second
 {
-    // Local declaration hides a method parameter
+    // local declaration hides a method parameter
     var first = 7,
         second = 13;
 }
@@ -102,16 +137,67 @@ function outer()
 
 - (void)test
 {
-    // errors
+    // local declaration hides implicit method parameter
     var self = 7,
         _cmd = 13;
 
     function inner()
     {
-        // errors
+        // local declaration hides implicit method parameter
         var self = 27,
             _cmd = 31;
     }
+}
+
+@end
+
+@implementation IvarTest
+{
+    int one;
+    int two;
+}
+
+- (void)test
+{
+    // local reference hides instance variable
+    two = 13;
+    two = 4 / 13/ 1964;
+
+    // local declaration + reference hides instance variable
+    var two = one + 27;
+
+    // local declaration hides instance variable
+    var one = 7;
+}
+
+// method parameter hides instance variable
+- (int)test:(int)one and:(int)two
+{
+    // local reference hides instance variable
+    return one + two;
+}
+
+// no warning, instance variables are not visible here
+function bad(one, two)
+{
+    return one + two;
+}
+
+@end
+
+@implementation TestHiddenTypes
+
+- (void)testFileVar:(int)x
+       actualGlobal:(int)ActualGlobal
+    globalStatement:(int)foo
+     classStatement:(int)someClass
+   classDeclaration:(int)Test
+           protocol:(int)TestProtocol
+            typedef:(int)colorScheme
+           typedef2:(int)typedef
+           document:(int)document // ignores shadow, no warning
+              event:(int)event
+{
 }
 
 @end

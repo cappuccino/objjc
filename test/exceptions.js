@@ -11,7 +11,8 @@ const data = [ // jscs: ignore requireMultipleVarDecl
     ["duplicate-definitions", "duplicate definitions should generate a warning"],
     ["read-only-globals", "assigning to a read-only predefined global should generate a warning"],
     ["reserved-words", "using a reserved word as a variable name should generate a warning"],
-    ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"]
+    ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"],
+    ["symbol-redefinition", "redefining a global symbol as a different type should generate an error"]
 ];
 
 function makeTest(should, filename)

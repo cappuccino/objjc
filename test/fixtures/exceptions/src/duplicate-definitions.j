@@ -48,3 +48,9 @@ SomeGlobal = 7;
 
 // duplicate definition is ignored
 @global SomeGlobal
+
+// duplicate predefined global definition is ignored
+@global Node
+
+// reserved word used as a variable name
+var NaN = 7;

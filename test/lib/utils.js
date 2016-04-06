@@ -30,7 +30,7 @@ function compiledSourceOrFixture(source, file, options)
 {
     const defaultOptions = {
         acornOptions: {},
-        maxErrors: 100,
+        maxErrors: 0,
         quiet: true,
         warnings: ["all"]
     };

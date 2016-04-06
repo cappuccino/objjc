@@ -120,11 +120,8 @@ exports.makeDescribes = (data, pathPrefix) =>
 
         if (!exists(path.join("test", "fixtures", fixture)))
         {
-            // If the description ends with "-statements", trim that off
-            const matches = fixture.match(/\/(.+)-statements$/);
-
-            if (matches !== null)
-                fixture = path.join(path.dirname(fixture), matches[1]);
+            console.warn("No such fixture: %s", fixture);
+            continue;
         }
 
         makeDescribe(description, should, fixture);

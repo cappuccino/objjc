@@ -11,248 +11,260 @@ function hiddenFileVarParam(x)
 [36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m1:5[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 var x = 7;
     [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m28:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'someGlobal' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m15:35[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'arg' hides a function parameter[22m
+function duplicateArgs(arg, arg2, arg)
+                                  [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m15:24[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+function duplicateArgs(arg, arg2, arg)
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m33:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'someGlobal' hides a global[22m
 var someGlobal = 27;
     [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m25:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m30:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @global someGlobal
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m36:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'foo' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m41:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'foo' hides a global[22m
     var foo = 7;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m30:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m35:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @global foo
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m39:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'ActualGlobal' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m44:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'ActualGlobal' hides a global[22m
     var ActualGlobal = 31;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m31:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m36:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 ActualGlobal = 31;
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m43:28[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'foo' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m48:28[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'foo' hides a global[22m
 function hiddenGlobalParam(foo, ActualGlobal)
                            [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m30:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m35:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @global foo
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m43:33[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'ActualGlobal' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m48:33[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'ActualGlobal' hides a global[22m
 function hiddenGlobalParam(foo, ActualGlobal)
                                 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m31:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m36:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 ActualGlobal = 31;
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m52:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'someClass' hides a class[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m57:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'someClass' hides a class[22m
     var someClass = "oops!";
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m47:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m52:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @class someClass
        [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m56:36[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'someClass' hides a class[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m61:36[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'someClass' hides a class[22m
 function hiddenClassStatementParam(someClass)
                                    [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m47:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m52:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @class someClass
        [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m66:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'Test' hides a class[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m71:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'Test' hides a class[22m
     var Test = "hidden";
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m60:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m65:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @implementation Test
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m70:36[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'Test' hides a class[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m75:36[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'Test' hides a class[22m
 function hiddenImplementationParam(Test)
                                    [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m60:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m65:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @implementation Test
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m80:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'TestProtocol' hides a protocol[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m85:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'TestProtocol' hides a protocol[22m
     var TestProtocol = "hidden";
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m74:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m79:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @protocol TestProtocol
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m84:30[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'TestProtocol' hides a protocol[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m89:30[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'TestProtocol' hides a protocol[22m
 function hiddenProtocolParam(TestProtocol)
                              [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m74:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m79:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @protocol TestProtocol
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m93:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'colorScheme' hides a typedef[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m98:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'colorScheme' hides a typedef[22m
     var colorScheme = null,
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m88:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m93:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @typedef colorScheme, typedef
          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m94:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'typedef' hides a typedef[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m99:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'typedef' hides a typedef[22m
         typedef = "Homer";
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m88:23[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m93:23[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @typedef colorScheme, typedef
                       [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m98:29[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'colorScheme' hides a typedef[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m103:29[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'colorScheme' hides a typedef[22m
 function hiddenTypedefParam(colorScheme)
                             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m88:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m93:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @typedef colorScheme, typedef
          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m103:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'window' hides a predefined global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m108:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'window' hides a predefined global[22m
 var window = null;
     [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m111:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides a function parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m116:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides a function parameter[22m
     var one = 7,
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m108:25[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m113:25[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 function testParameters(one, two)
                         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m112:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides a function parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m117:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides a function parameter[22m
         two = 13;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m108:30[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m113:30[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 function testParameters(one, two)
                              [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m120:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'first' hides a method parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m125:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'first' hides a method parameter[22m
     var first = 7,
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m117:35[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m122:35[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 - (void)testMethodParameters:(int)first two:(int)second
                                   [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m121:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'second' hides a method parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m126:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'second' hides a method parameter[22m
         second = 13;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m117:50[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m122:50[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 - (void)testMethodParameters:(int)first two:(int)second
                                                  [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m141:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of 'self' hides implicit method parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m129:53[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'param' hides a method parameter[22m
+- (void)testDuplicateParameters:(int)param two:(int)param
+                                                    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m129:38[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+- (void)testDuplicateParameters:(int)param two:(int)param
+                                     [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m150:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of 'self' hides implicit method parameter[22m
     var self = 7,
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m142:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of '_cmd' hides implicit method parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m151:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of '_cmd' hides implicit method parameter[22m
         _cmd = 13;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m147:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of 'self' hides implicit method parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m156:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of 'self' hides implicit method parameter[22m
         var self = 27,
             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m148:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of '_cmd' hides implicit method parameter[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m157:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mlocal declaration of '_cmd' hides implicit method parameter[22m
             _cmd = 31;
             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m163:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to local variable 'two' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m172:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to local variable 'two' hides an instance variable[22m
     two = 13;
     [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m164:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to local variable 'two' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m173:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to local variable 'two' hides an instance variable[22m
     two = 4 / 13/ 1964;
     [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m167:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m176:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides an instance variable[22m
     var two = one + 27;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m157:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m166:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int two;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m167:15[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to local variable 'one' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m176:15[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to local variable 'one' hides an instance variable[22m
     var two = one + 27;
               [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m170:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m179:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides an instance variable[22m
     var one = 7;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m156:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m165:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int one;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m174:18[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'one' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m183:18[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'one' hides an instance variable[22m
 - (int)test:(int)one and:(int)two
                  [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m156:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m165:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int one;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m174:31[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'two' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m183:31[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'two' hides an instance variable[22m
 - (int)test:(int)one and:(int)two
                               [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m157:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m166:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int two;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m183:25[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'one' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m192:25[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'one' hides an instance variable[22m
     function nestParams(one, two)
                         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m156:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m165:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int one;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m183:30[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'two' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m192:30[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'two' hides an instance variable[22m
     function nestParams(one, two)
                              [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m157:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m166:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int two;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m190:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m199:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides an instance variable[22m
         var one,
             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m156:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m165:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int one;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m191:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides an instance variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m200:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides an instance variable[22m
             two;
             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m157:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m166:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     int two;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m205:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'x' hides a file variable[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m214:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'x' hides a file variable[22m
 - (void)testFileVar:(int)x
                          [32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m1:5[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 var x = 7;
     [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m206:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'ActualGlobal' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m215:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'ActualGlobal' hides a global[22m
        actualGlobal:(int)ActualGlobal
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m31:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m36:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 ActualGlobal = 31;
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m207:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'foo' hides a global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m216:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'foo' hides a global[22m
     globalStatement:(int)foo
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m30:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m35:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @global foo
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m208:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'someClass' hides a class[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m217:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'someClass' hides a class[22m
      classStatement:(int)someClass
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m47:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m52:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @class someClass
        [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m209:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'Test' hides a class[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m218:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'Test' hides a class[22m
    classDeclaration:(int)Test
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m60:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m65:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @implementation Test
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m210:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'TestProtocol' hides a protocol[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m219:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'TestProtocol' hides a protocol[22m
            protocol:(int)TestProtocol
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m74:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m79:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @protocol TestProtocol
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m211:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'colorScheme' hides a typedef[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m220:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'colorScheme' hides a typedef[22m
             typedef:(int)colorScheme
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m88:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m93:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @typedef colorScheme, typedef
          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m212:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'typedef' hides a typedef[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m221:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'typedef' hides a typedef[22m
            typedef2:(int)typedef
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m88:23[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m93:23[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
 @typedef colorScheme, typedef
                       [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m214:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'event' hides a predefined global[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m223:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod parameter 'event' hides a predefined global[22m
               event:(int)event
                          [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m228:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides a variable in a containing closure[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m237:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'one' hides a variable in a containing closure[22m
         var one = 27,
             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m222:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m231:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
     var one = 7,
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m229:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides a variable in a containing closure[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m238:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'two' hides a variable in a containing closure[22m
             two = 31;
             [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m223:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m232:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
         two = 13;
         [32m[1m^[22m[39m
 
-43 warnings and 4 errors generated.
+45 warnings and 4 errors generated.

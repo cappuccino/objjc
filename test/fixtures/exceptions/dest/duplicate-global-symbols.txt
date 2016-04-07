@@ -1,0 +1,69 @@
+
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m5:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mduplicate definition of class 'First'[22m
+@implementation First
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m1:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@implementation First
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m12:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mduplicate definition of category 'First (Category)'[22m
+@implementation First (Category)
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m8:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@implementation First (Category)
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m16:8[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate class definition 'First' is ignored[22m
+@class First
+       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m1:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@implementation First
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m18:16[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1m@class definition 'Second' is unnecessary[22m
+@class Before, Second
+               [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m21:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1msuperceded by this definition[22m
+@implementation Second
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m25:15[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate class definition 'Second' is ignored[22m
+@class Third, Second
+              [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m21:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@implementation Second
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m28:16[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate class definition 'Third' is ignored[22m
+@class Fourth, Third
+               [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m25:8[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@class Third, Second
+       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m34:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate protocol definition 'Protocol' is ignored[22m
+@protocol Protocol
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m30:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@protocol Protocol
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m40:21[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate typedef definition 'colorScheme' is ignored[22m
+@typedef something, colorScheme
+                    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m37:10[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@typedef colorScheme
+         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m45:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate global definition 'Bar' is ignored[22m
+@global Bar
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m42:14[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+@global Foo, Bar
+             [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m50:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate global definition 'SomeGlobal' is ignored[22m
+@global SomeGlobal
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m47:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
+SomeGlobal = 7;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m53:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate predefined global definition 'Node' is ignored[22m
+@global Node
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m56:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreserved word used as a variable name[22m
+var NaN = 7;
+    [32m[1m^[22m[39m
+
+10 warnings and 2 errors generated.

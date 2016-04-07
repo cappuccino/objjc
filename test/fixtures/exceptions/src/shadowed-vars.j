@@ -11,6 +11,11 @@ function hiddenFileVarParam(x)
 {
 }
 
+// function parameter 'arg' hides a function parameter
+function duplicateArgs(arg, arg2, arg)
+{
+}
+
 function implicitGlobal()
 {
     // This generates an implicit global warning which is removed
@@ -119,6 +124,10 @@ function testParameters(one, two)
     // local declaration hides a method parameter
     var first = 7,
         second = 13;
+}
+
+- (void)testDuplicateParameters:(int)param two:(int)param
+{
 }
 
 @end

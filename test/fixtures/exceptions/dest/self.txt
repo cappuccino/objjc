@@ -1,0 +1,27 @@
+
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m66:2[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'self'[22m
+[self doSomethingWith:self];
+ [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m66:23[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'self'[22m
+[self doSomethingWith:self];
+                      [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m69:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'self'[22m
+var x = self;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m74:14[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'self'[22m
+    var me = self;
+             [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m77:6[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'self'[22m
+    [self doSomething:[self somethingElse]];
+     [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m77:24[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'self'[22m
+    [self doSomething:[self somethingElse]];
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m83:19[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'self' used as a method parameter[22m
+- (void)test:(int)self
+                  [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/self.j[22m[39m[2m:[22m90:33[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'self' used as a function parameter within a method[22m
+    function selfTest(one, two, self)
+                                [32m[1m^[22m[39m
+
+6 warnings and 2 errors generated.

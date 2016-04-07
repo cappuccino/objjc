@@ -1,0 +1,6 @@
+
+[36m[1mtest/fixtures/exceptions/src/super-outside.j[22m[39m[2m:[22m2:2[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'super' outside of function or class[22m
+[super doSomething];
+ [32m[1m^[22m[39m
+
+1 error generated.

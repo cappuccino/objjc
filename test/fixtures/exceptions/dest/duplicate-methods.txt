@@ -1,0 +1,33 @@
+
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m12:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mduplicate definition of method 'one'[22m
+- (void)one
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m3:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1moriginal definition is here:[22m
+- (void)one
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m22:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mduplicate definition of method 'one'[22m
++ (void)one
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m17:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1moriginal definition is here:[22m
++ (void)one
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m34:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate declaration of method 'one' ignored[22m
+- (void)one;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m30:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mfirst declaration is here:[22m
+- (void)one;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m37:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate declaration of method 'one' ignored[22m
+- (void)one;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m30:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mfirst declaration is here:[22m
+- (void)one;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m42:1[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate declaration of method 'class1' ignored[22m
++ (void)class1;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/duplicate-methods.j[22m[39m[2m:[22m39:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mfirst declaration is here:[22m
++ (void)class1;
+[32m[1m^[22m[39m
+
+3 warnings and 2 errors generated.

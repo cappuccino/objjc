@@ -12,15 +12,13 @@ function makeTest(prefix, file, destExtension, options)
         srcName = path.basename(file),
         baseName = path.basename(file, path.extname(file)),
         fixture = `${prefix}/src/${srcName}`,
-        dest = `${prefix}/dest/${baseName}${destExtension}`,
-        output = `test/fixtures/${prefix}/dest`;
+        dest = `${prefix}/dest/${baseName}${destExtension}`;
 
     it(baseName.replace(/-/g, " "), () =>
     {
         const
             baseOptions = {
                 ignoreWarnings: !prefix.startsWith("warnings"),
-                output
             },
             compileOptions = Object.assign({}, baseOptions, utils.setCompilerOptions(options, srcName)),
             code = utils.compiledFixture(fixture, compileOptions).code;

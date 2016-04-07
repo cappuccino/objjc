@@ -87,8 +87,8 @@ test = function test()
 };
 // @end: @implementation Statements
 
-// @implementation Methods
-var $the_class = objj_allocateClassPair(Nil, "Methods");
+// @implementation Methods : Statements
+var $the_class = objj_allocateClassPair(Statements, "Methods");
 objj_registerClassPair($the_class);
 var initialized = false,
     initCount = 0;
@@ -123,4 +123,4 @@ class_addMethods($the_class.isa,
     // argument types
     ["void"]),
 ]);
-// @end: @implementation Methods
+// @end: @implementation Methods : Statements

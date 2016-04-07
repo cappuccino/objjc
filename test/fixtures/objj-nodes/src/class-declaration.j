@@ -43,7 +43,7 @@ function test()
 
 @end
 
-@implementation Methods
+@implementation Methods : Statements
 
 var initialized = false,
     initCount = 0;

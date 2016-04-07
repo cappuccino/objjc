@@ -1,5 +1,10 @@
-// @implementation Test
-var $the_class = objj_allocateClassPair(Nil, "Test");
+// @implementation CPObject
+var $the_class = objj_allocateClassPair(Nil, "CPObject");
+objj_registerClassPair($the_class);
+// @end: @implementation CPObject
+
+// @implementation Test : CPObject
+var $the_class = objj_allocateClassPair(CPObject, "Test");
 objj_registerClassPair($the_class);
 
 // Instance methods
@@ -21,4 +26,4 @@ class_addMethods($the_class,
     // argument types
     ["void"]),
 ]);
-// @end: @implementation Test
+// @end: @implementation Test : CPObject

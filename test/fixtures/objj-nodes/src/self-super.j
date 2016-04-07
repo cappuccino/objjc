@@ -1,4 +1,7 @@
-@implementation Test
+@implementation CPObject
+@end
+
+@implementation Test : CPObject
 
 - (void)test
 {

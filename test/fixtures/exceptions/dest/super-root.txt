@@ -1,0 +1,6 @@
+
+[36m[1mtest/fixtures/exceptions/src/super-root.j[22m[39m[2m:[22m6:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'Test' class cannot use 'super' because it is a root class[22m
+    return [super init];
+            [32m[1m^[22m[39m
+
+1 error generated.

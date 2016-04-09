@@ -1,0 +1,45 @@
+
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:24[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'required4' in protocol 'Two' not implemented[22m
+@implementation Class <Two, Three>
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m22:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'required4' declared here[22m
+- (void)required4;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:24[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'classRequired3' in protocol 'Two' not implemented[22m
+@implementation Class <Two, Three>
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m23:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'classRequired3' declared here[22m
++ (void)classRequired3;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:24[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'required1' in protocol 'Two' not implemented[22m
+@implementation Class <Two, Three>
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m4:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'required1' declared here[22m
+- (void)required1;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:24[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'required2' in protocol 'Two' not implemented[22m
+@implementation Class <Two, Three>
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m8:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'required2' declared here[22m
+- (void)required2;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:24[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'classRequired2' in protocol 'Two' not implemented[22m
+@implementation Class <Two, Three>
+                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m10:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'classRequired2' declared here[22m
++ (void)classRequired2;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:29[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'required5' in protocol 'Three' not implemented[22m
+@implementation Class <Two, Three>
+                            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m34:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'required5' declared here[22m
+- (void)required5;
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m45:29[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mmethod 'classRequired5' in protocol 'Three' not implemented[22m
+@implementation Class <Two, Three>
+                            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m35:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'classRequired5' declared here[22m
++ (void)classRequired5;
+[32m[1m^[22m[39m
+
+7 warnings generated.

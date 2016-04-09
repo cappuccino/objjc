@@ -12,13 +12,14 @@ const data = [ // jscs: ignore requireMultipleVarDecl
     ["duplicate-methods", "duplicate method declarations should generate an exception"],
     ["method-types", "conflicting/unknown method return/parameter types should generate a warning"],
     ["missing-dependencies", "missing class/protocol dependencies should generate an exception"],
+    ["protocol-conformance", "unimplemented required protocol methods should generate a warning"],
     ["read-only-globals", "assigning to a read-only predefined global should generate a warning"],
     ["reserved-words", "using a reserved word as a variable name should generate a warning"],
     ["self", "using 'self' outside of a method or as a method/function parameter should generate an exception"],
     ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"],
     ["super-outside", "using 'super' outside of a method should generate an error"],
     ["super-root", "using 'super' in a root class should generate an error"],
-    ["symbol-redefinition", "redefining a global symbol as a different type should generate an error"]
+    ["symbol-redefinition", "redefining a global symbol as a different type should generate an error"],
 ];
 
 function makeTest(should, filename)

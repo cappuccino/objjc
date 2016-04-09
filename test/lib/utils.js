@@ -7,6 +7,7 @@ const
     fs = require("fs"),
     issueHandler = require("acorn-issue-handler"),
     path = require("path"),
+    pathExists = require("path-exists").sync,
     Runner = require("../../lib/runner");
 
 exports.readFixture = name =>
@@ -89,6 +90,9 @@ exports.compiledFixture = (file, options) =>
 
     if (!path.isAbsolute(file))
         sourcePath = path.resolve(path.join("test", "fixtures", file));
+
+    if (!pathExists(sourcePath))
+        throw new Error("No such fixture: " + sourcePath);
 
     return compiledSourceOrFixture("", sourcePath, options);
 };

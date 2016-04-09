@@ -1,0 +1,111 @@
+
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m27:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1munknown type 'UnknownType'[22m
+- (UnknownType)unknownType:(AnotherUnknownType)type another:(KnownType)another
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m27:29[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1munknown type 'AnotherUnknownType'[22m
+- (UnknownType)unknownType:(AnotherUnknownType)type another:(KnownType)another
+                            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m36:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'makeSomethingWith:': 'void' vs 'id'[22m
++ (id)makeSomethingWith:(CPTimeInterval)number
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m6:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
++ (void)makeSomethingWith:(CPInteger)number
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m36:26[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'makeSomethingWith:': 'CPInteger' vs 'CPTimeInterval'[22m
++ (id)makeSomethingWith:(CPTimeInterval)number
+                         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m6:28[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
++ (void)makeSomethingWith:(CPInteger)number
+                           [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m41:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'returnType': 'void' vs 'int'[22m
+- (int)returnType
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m10:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)returnType
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m51:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'returnPOD': 'id' vs 'int'[22m
+- (int)returnPOD
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m18:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (id)returnPOD
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m56:25[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'parameterTypes:two:three:': 'int' vs 'CPString'[22m
+- (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+                        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m22:25[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)parameterTypes:(int)one two:(double)two three:(CPString)three
+                        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m56:43[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'parameterTypes:two:three:': 'double' vs 'int'[22m
+- (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+                                          [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m22:38[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)parameterTypes:(int)one two:(double)two three:(CPString)three
+                                     [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m56:58[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'parameterTypes:two:three:': 'CPString' vs 'double'[22m
+- (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+                                                         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m22:56[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)parameterTypes:(int)one two:(double)two three:(CPString)three
+                                                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m68:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'returnPOD': 'int' vs 'id'[22m
+- (id)returnPOD
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m51:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (int)returnPOD
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m73:25[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'parameterTypes:two:three:': 'CPString' vs 'int'[22m
+- (void)parameterTypes:(int)one two:(double)two three:(CPString)three
+                        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m56:25[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+                        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m73:38[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'parameterTypes:two:three:': 'int' vs 'double'[22m
+- (void)parameterTypes:(int)one two:(double)two three:(CPString)three
+                                     [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m56:43[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+                                          [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m73:56[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'parameterTypes:two:three:': 'double' vs 'CPString'[22m
+- (void)parameterTypes:(int)one two:(double)two three:(CPString)three
+                                                       [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m56:58[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+                                                         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m85:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'one:': 'void' vs 'int'[22m
+- (int)one:(double)first;
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m80:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)one:(int)first;
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m85:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'one:': 'int' vs 'double'[22m
+- (int)one:(double)first;
+            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m80:14[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)one:(int)first;
+             [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m91:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'one:': 'int' vs 'void'[22m
+- (void)one:(int)first;
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m85:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (int)one:(double)first;
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m91:14[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'one:': 'double' vs 'int'[22m
+- (void)one:(int)first;
+             [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m85:13[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (int)one:(double)first;
+            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m97:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'one:': 'void' vs 'int'[22m
+- (int)one:(double)first
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m91:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)one:(int)first;
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m97:13[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting parameter type in declaration of 'one:': 'int' vs 'double'[22m
+- (int)one:(double)first
+            [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/method-types.j[22m[39m[2m:[22m91:14[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
+- (void)one:(int)first;
+             [32m[1m^[22m[39m
+
+19 warnings generated.

@@ -26,9 +26,9 @@
 [36m[1mtest/fixtures/exceptions/src/missing-dependencies.j[22m[39m[2m:[22m18:7[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mcannot find protocol declaration for 'Two'[22m
 - (id<Two>)two:(id<One>)protocol
       [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/missing-dependencies.j[22m[39m[2m:[22m21:13[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mcannot find protocol declaration for 'Foo'[22m
+[36m[1mtest/fixtures/exceptions/src/missing-dependencies.j[22m[39m[2m:[22m21:23[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mcannot find protocol declaration for 'Foo'[22m
     var p = @protocol(Foo);
-            [32m[1m^[22m[39m
+                      [32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/missing-dependencies.j[22m[39m[2m:[22m27:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mcannot find implementation declaration for 'SomeClass'[22m
 @implementation SomeClass (SomeCategory)
 [32m[1m^[22m[39m

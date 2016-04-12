@@ -11,6 +11,7 @@ const data = [ // jscs: ignore requireMultipleVarDecl
     ["dereference", "@deref whose ref is not a simple identifier should generate a warning"],
     ["duplicate-global-symbols", "duplicate global symbol definitions should generate a warning"],
     ["duplicate-methods", "duplicate method declarations should generate an exception"],
+    ["identifiers", "references to unknown identifiers and implicit globals should generate a warning"],
     ["method-types", "conflicting/unknown method return/parameter types should generate a warning"],
     ["missing-dependencies", "missing class/protocol dependencies should generate an exception"],
     ["protocol-conformance", "unimplemented required protocol methods should generate a warning"],

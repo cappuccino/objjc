@@ -1,13 +1,16 @@
 
 @implementation Reference
 
-- (void)mungeRef:(intRef)ref
+- (void)mungeRef:(@ref<int>)ref
 {
     var i = ++@deref(ref);
+
     i = @deref(ref)++;
     i = --@deref(ref);
     i = @deref(ref)--;
-    @deref(ref) += 1;
+    @deref(ref) = 27;
+    @deref(ref) += 4;
+    @deref(ref) = @deref(ref) - 4;
 }
 
 - (void)test

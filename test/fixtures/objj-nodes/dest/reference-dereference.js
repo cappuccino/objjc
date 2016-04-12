@@ -9,15 +9,17 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("mungeRef:"),
     function $Reference__mungeRef_(self, _cmd, ref)
     {
-        var i = /* ++@deref(ref) */(ref)(ref() + 1);
+        var i = /* ++@deref(ref) */ (ref)(ref() + 1);
 
-        i = /* @deref(ref)++ */((ref)(ref() + 1) - 1);
-        i = /* --@deref(ref) */(ref)(ref() - 1);
-        i = /* @deref(ref)-- */((ref)(ref() - 1) + 1);
-        (ref)(ref() + 1);
+        i = /* @deref(ref)++ */ ((ref)(ref() + 1) - 1);
+        i = /* --@deref(ref) */ (ref)(ref() - 1);
+        i = /* @deref(ref)-- */ ((ref)(ref() - 1) + 1);
+        /* @deref(ref) = 27 */ (ref)(27);
+        /* @deref(ref) += 4 */ (ref)(ref() + 4);
+        /* @deref(ref) = @deref(ref) - 4 */ (ref)(ref() - 4);
     },
     // argument types
-    ["void", "intRef"]),
+    ["void", "@ref"]),
 
     // -test
     new objj_method(sel_getUid("test"),
@@ -28,6 +30,6 @@ class_addMethods($the_class,
         /* [self mungeRef:@ref(i)] */ self.isa.objj_msgSend1(self, "mungeRef:", /* @ref(i) */ function $at_ref(__value) { return arguments.length ? i = __value : i; });
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 // @end: @implementation Reference

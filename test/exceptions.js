@@ -8,6 +8,7 @@ const
 
 const data = [ // jscs: ignore requireMultipleVarDecl
     ["debugger", "debugger statements should generate a warning"],
+    ["dereference", "@deref whose ref is not a simple identifier should generate a warning"],
     ["duplicate-global-symbols", "duplicate global symbol definitions should generate a warning"],
     ["duplicate-methods", "duplicate method declarations should generate an exception"],
     ["method-types", "conflicting/unknown method return/parameter types should generate a warning"],

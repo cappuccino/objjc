@@ -25,6 +25,6 @@ class_addMethods($the_class,
         return type === self.color;
     },
     // argument types
-    ["BOOL", "ColorType"]),
+    ["BOOL", "ColorType"])
 ]);
 // @end: @implementation Test

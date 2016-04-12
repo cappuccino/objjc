@@ -30,7 +30,7 @@ class_addMethods($the_class,
     {
     },
     // argument types
-    ["void", "int", "int", "int", "int"]),
+    ["void", "int", "int", "int", "int"])
 ]);
 // @end: @implementation Super
 
@@ -106,7 +106,7 @@ class_addMethods($the_class,
         /* [super manyArgs:1 two:2 three:3 four:4] */ objj_msgSendSuper({ receiver: self, super_class: objj_getClass("Test").super_class }, "manyArgs:two:three:four:", 1, 2, 3, 4);
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 
 // Class methods
@@ -128,7 +128,7 @@ class_addMethods($the_class.isa,
     {
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 // @end: @implementation Test : Super
 

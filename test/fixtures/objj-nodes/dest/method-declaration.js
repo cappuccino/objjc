@@ -81,6 +81,6 @@ class_addMethods($the_class,
     {
     },
     // argument types
-    ["void", "int"]),
+    ["void", "int"])
 ]);
 // @end: @implementation Methods

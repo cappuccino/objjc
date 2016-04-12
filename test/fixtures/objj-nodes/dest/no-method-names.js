@@ -11,7 +11,7 @@ class_addMethods($the_class,
     {
     },
     // argument types
-    ["int", "id"]),
+    ["int", "id"])
 ]);
 
 // Class methods
@@ -23,6 +23,6 @@ class_addMethods($the_class.isa,
     {
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 // @end: @implementation NoMethodNames

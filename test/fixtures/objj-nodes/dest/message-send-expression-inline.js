@@ -93,7 +93,7 @@ class_addMethods($the_class,
         /* [self doSomething:@"bold" withNumber:7 and:@"something else" andAlso:27] */ (self.isa.method_msgSend["doSomething:withNumber:and:andAlso:"] || _objj_forward)(self, "doSomething:withNumber:and:andAlso:", "bold", 7, "something else", 27);
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 
 // Class methods
@@ -115,7 +115,7 @@ class_addMethods($the_class.isa,
     {
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 // @end: @implementation Test : Super
 

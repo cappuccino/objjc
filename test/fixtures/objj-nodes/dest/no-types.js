@@ -16,5 +16,11 @@ class_addMethods($the_class,
     function $NoTypes__methodOne_(self, _cmd, param)
     {
     }),
+
+    // -methodTwo:
+    new objj_method(sel_getUid("methodTwo:"),
+    function $NoTypes__methodTwo_(self, _cmd, param)
+    {
+    })
 ]);
 // @end: @implementation NoTypes

@@ -8,4 +8,8 @@
 {
 }
 
+- (void)methodTwo:(int)param
+{
+}
+
 @end

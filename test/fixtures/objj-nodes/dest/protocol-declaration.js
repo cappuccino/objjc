@@ -13,15 +13,16 @@ protocol_addMethodDescriptions($the_protocol,
     // -two
     new objj_method(sel_getUid("two"), null,
     // argument types
-    ["int"]),
+    ["int"])
 ],
 true, true);
+
 protocol_addMethodDescriptions($the_protocol,
 [
     // +classMethod
     new objj_method(sel_getUid("classMethod"), null,
     // argument types
-    ["void"]),
+    ["void"])
 ],
 true, false);
 // @end: @protocol Parent
@@ -48,7 +49,7 @@ protocol_addMethodDescriptions($the_protocol,
     // -required
     new objj_method(sel_getUid("required"), null,
     // argument types
-    ["id"]),
+    ["id"])
 ],
 true, true);
 // @end: @protocol Child <Parent>

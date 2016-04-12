@@ -108,7 +108,7 @@ class_addMethods($the_class,
         return self;
     },
     // argument types
-    ["id"]),
+    ["id"])
 ]);
 
 // Class methods
@@ -121,6 +121,6 @@ class_addMethods($the_class.isa,
         initialized = true;
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 // @end: @implementation Methods : Statements

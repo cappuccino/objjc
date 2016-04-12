@@ -24,6 +24,6 @@ class_addMethods($the_class,
         }
     },
     // argument types
-    ["void"]),
+    ["void"])
 ]);
 // @end: @implementation Test : CPObject

@@ -13,8 +13,8 @@ var str = [CPString stringWithFormat:@"%s cool", @"way"];
 
 - (void)test
 {
-    var one = 7; // Oops, this should have been a comma, the next three assignments create implicit globals
-        two = 13,
+    var one = 7,
+        two = 13; // Oops, this should have been a comma, the next three assignments create implicit globals
         three = 27,
         four = 31,
         x = @"foo";
@@ -38,13 +38,12 @@ function test()
     // Even though the 'two' and 'three' assignments are made to known implicit globals from the 'test'
     // method above, we warn again because we assume they are mistaken implicit globals in this scope.
 
-    var one = 7; // Oops, this should have been a comma, the next two assignments warn about implicit globals
-        two = 1931,
-        three = 1964;
+    var one = 7; // Oops, this should have been a comma, the next assignment warns about implicit global
+        two = 1931;
 
     // This will not warn because 'two' is already an implicit global in this scope
     two = 2;
 
-    // This will warn because 'x' is an implicit global in another scope
-    x = "bar";
+    // This will warn because 'four' is an implicit global in another scope
+    four = "bar";
 }

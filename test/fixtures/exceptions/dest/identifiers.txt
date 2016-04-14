@@ -5,26 +5,29 @@ var foo = bar;
 [36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m5:12[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'CPString'[22m
 var str = [CPString stringWithFormat:@"%s cool", @"way"];
            [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m17:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the method 'test'; did you mean to use 'var two'?[22m
-        two = 13,
-        [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m18:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the method 'test'; did you mean to use 'var three'?[22m
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m18:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the method 'test' three[22m
         three = 27,
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m19:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the method 'test'; did you mean to use 'var four'?[22m
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m17:17[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdid you mean to use a comma here?[22m
+        two = 13; // Oops, this should have been a comma, the next three assignments create implicit globals
+                [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m19:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the method 'test' four[22m
         four = 31,
         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m17:17[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdid you mean to use a comma here?[22m
+        two = 13; // Oops, this should have been a comma, the next three assignments create implicit globals
+                [32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m26:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'unknownVar'[22m
     x = unknownVar;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m42:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the function 'test'; did you mean to use 'var two'?[22m
-        two = 1931,
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m42:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the function 'test' two[22m
+        two = 1931;
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m43:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the function 'test'; did you mean to use 'var three'?[22m
-        three = 1964;
-        [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m49:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the function 'test'; did you mean to use 'var x'?[22m
-    x = "bar";
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m41:16[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdid you mean to use a comma here?[22m
+    var one = 7; // Oops, this should have been a comma, the next assignment warns about implicit global
+               [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/identifiers.j[22m[39m[2m:[22m48:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the function 'test'; did you mean to use 'var four'?[22m
+    four = "bar";
     [32m[1m^[22m[39m
 
-9 warnings generated.
+7 warnings generated.

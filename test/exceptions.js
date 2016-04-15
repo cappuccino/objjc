@@ -19,6 +19,7 @@ const data = [ // jscs: ignore requireMultipleVarDecl
     ["reserved-words", "using a reserved word as a variable name should generate a warning"],
     ["self", "using 'self' outside of a method or as a method/function parameter should generate an exception"],
     ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"],
+    ["suggestions", "unknown names that differ from known names only in capitalization should give a suggestion"],
     ["super-outside", "using 'super' outside of a method should generate an error"],
     ["super-root", "using 'super' in a root class should generate an error"],
     ["symbol-redefinition", "redefining a global symbol as a different type should generate an error"],

@@ -1,0 +1,18 @@
+
+[36m[1mtest/fixtures/exceptions/src/suggestions.j[22m[39m[2m:[22m4:12[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'CPstring'; did you mean 'CPString'?[22m
+var str = [CPstring stringWithFormat:@"%s cool", @"way"];
+           [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/suggestions.j[22m[39m[2m:[22m12:27[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mcannot find protocol declaration for 'CPcopying'; did you mean 'CPCopying'?[22m
+@implementation MyObject <CPcopying>
+                          [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/suggestions.j[22m[39m[2m:[22m15:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1munknown type 'Colorscheme'; did you mean 'ColorScheme'?[22m
+- (Colorscheme)getSchemeWithName:(CPString)name
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/suggestions.j[22m[39m[2m:[22m20:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1munknown type 'Int'; did you mean 'int'?[22m
+- (Int)count
+   [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/suggestions.j[22m[39m[2m:[22m25:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1munknown type 'Myobject'; did you mean 'MyObject'?[22m
+- (Myobject)copy:(MyObject)other
+   [32m[1m^[22m[39m
+
+4 warnings and 1 error generated.

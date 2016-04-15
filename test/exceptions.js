@@ -7,6 +7,7 @@ const
     utils = require("./lib/utils.js");
 
 const testData = [ // jscs: ignore requireMultipleVarDecl
+    ["accessors", "problems with accessor attributes should generate an error"],
     ["debugger", "debugger statements should generate a warning"],
     ["dereference", "@deref whose ref is not a simple identifier should generate a warning"],
     ["duplicate-global-symbols", "duplicate global symbol definitions should generate a warning"],

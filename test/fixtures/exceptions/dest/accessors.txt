@@ -1,0 +1,12 @@
+
+[36m[1mtest/fixtures/exceptions/src/accessors.j[22m[39m[2m:[22m11:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1msetter method 'setTwo:' cannot be defined for the readonly ivar 'two'[22m
+- (void)setTwo:(double)newValue
+[32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/accessors.j[22m[39m[2m:[22m5:12[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mivar declaration is here[22m
+    double two @accessors(readonly);
+           [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/accessors.j[22m[39m[2m:[22m4:41[2m:[22m [31m[1merror[22m[39m[2m:[22m [1msetter cannot be specified for a readonly ivar[22m
+    int one @accessors(readonly, setter=setMe);
+                                        [32m[1m^[22m[39m
+
+2 errors generated.

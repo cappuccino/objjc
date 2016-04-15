@@ -6,10 +6,11 @@ const
     expect = require("code").expect,
     utils = require("./lib/utils.js");
 
-const data = [ // jscs: ignore requireMultipleVarDecl
+const testData = [ // jscs: ignore requireMultipleVarDecl
     ["debugger", "debugger statements should generate a warning"],
     ["dereference", "@deref whose ref is not a simple identifier should generate a warning"],
     ["duplicate-global-symbols", "duplicate global symbol definitions should generate a warning"],
+    ["duplicate-ivars", "duplicate ivar definitions should generate an error"],
     ["duplicate-methods", "duplicate method declarations should generate an exception"],
     ["identifiers", "references to unknown identifiers and implicit globals should generate a warning"],
     ["method-types", "conflicting/unknown method return/parameter types should generate a warning"],
@@ -39,7 +40,7 @@ function makeTest(should, filename)
 
 describe("Exceptions", () =>
 {
-    for (const info of data)
+    for (const info of testData)
     {
         const
             should = info[1],

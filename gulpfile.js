@@ -172,10 +172,17 @@ gulp.task("regenerate-fixtures", cb => runSequence("clean:fixtures", "generate-f
 
 // Testing
 
-gulp.task("mocha", () =>
-    gulp.src(paths.test)
-        .pipe($.mocha({ reporter: "dot" }))
-);
+function mochaTask(reporter)
+{
+    return function()
+    {
+        return gulp.src(paths.test)
+            .pipe($.mocha({ reporter: reporter || "spec" }));
+    };
+}
+
+gulp.task("mocha", mochaTask("spec"));
+gulp.task("mocha-dot", mochaTask("dot"));
 
 gulp.task("test", cb => runSequence("lint", "generate-fixtures", "mocha", cb));
 gulp.task("default", ["test"]);

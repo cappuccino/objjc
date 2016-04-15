@@ -266,5 +266,20 @@ ActualGlobal = 31;
 [36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m232:9[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
         two = 13;
         [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m245:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mimplicitly creating a global variable in the function 'implicitGlobal'; did you mean to use 'var implicit'?[22m
+    implicit = 7;
+    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m249:30[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mfunction parameter 'implicit' hides an implicitly declared global[22m
+function implicitGlobalParam(implicit)
+                             [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m245:5[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+    implicit = 7;
+    [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m256:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mlocal declaration of 'implicit' hides an implicitly declared global[22m
+    var implicit = 13;
+        [32m[1m^[22m[39m
+[36m[1mtest/fixtures/exceptions/src/shadowed-vars.j[22m[39m[2m:[22m245:5[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mhidden declaration is here[22m
+    implicit = 7;
+    [32m[1m^[22m[39m
 
-45 warnings and 4 errors generated.
+48 warnings and 4 errors generated.

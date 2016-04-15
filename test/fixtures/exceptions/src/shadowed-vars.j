@@ -238,3 +238,20 @@ function nestingTest()
             two = 31;
     }
 }
+
+function implicitGlobal()
+{
+    // Create an implicit global
+    implicit = 7;
+}
+
+// function parameter hides an implicit global
+function implicitGlobalParam(implicit)
+{
+}
+
+function implicitGlobalVar()
+{
+    // local declaration hides an implicit global
+    var implicit = 13;
+}

@@ -133,8 +133,8 @@ exports.makeDescribes = (data, pathPrefix) =>
 };
 
 const compilerOptions = {
-    "no-types": { generateTypeSignatures: false },
-    "no-method-names": { generateMethodNames: false }
+    "no-types": { typeSignatures: false },
+    "no-method-names": { methodNames: false }
 };
 
 exports.setCompilerOptions = (options, file) =>

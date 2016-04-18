@@ -132,29 +132,25 @@ exports.makeDescribes = (data, pathPrefix) =>
     }
 };
 
+const compilerOptions = {
+    "no-types": { generateTypeSignatures: false },
+    "no-method-names": { generateMethodNames: false }
+};
+
 exports.setCompilerOptions = (options, file) =>
 {
     options = Object.assign({}, options);
 
     const filename = path.basename(file, path.extname(file));
+    let specialOptions = compilerOptions[filename];
 
-    switch (filename)
+    if (!specialOptions)
     {
-        case "no-types":
-            options.generateTypeSignatures = false;
-            break;
-
-        case "no-method-names":
-            options.generateMethodNames = false;
-            break;
-
-        default:
-            options.inlineMsgSend = filename.startsWith("inline-") || filename.endsWith("-inline");
-            break;
-
+        if (filename.startsWith("inline-") || filename.endsWith("-inline"))
+            specialOptions = { inlineMsgSend: true };
     }
 
-    return options;
+    return Object.assign(options, specialOptions);
 };
 
 exports.convertToPosixPaths = text => text.replace(/^\s*[^:]+/gm, match => match.replace(/\\/g, "/"));

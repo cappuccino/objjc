@@ -25,9 +25,7 @@ const // jscs: ignore requireMultipleVarDecl
 
 // Cleaning
 
-gulp.task("clean:build", () => del("build/*"));
-gulp.task("clean:fixtures", () => del("test/fixtures/**/dest/*.{js,txt,map}"));
-gulp.task("clean", cb => runSequence("clean:build", "clean:fixtures", cb));
+gulp.task("clean", () => del("test/fixtures/**/dest/*.{js,txt,map}"));
 
 // Linting
 

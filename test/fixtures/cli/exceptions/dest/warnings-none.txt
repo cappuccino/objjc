@@ -1,0 +1,55 @@
+debugger;
+
+var i = 13;
+
+// @implementation One
+var $the_class = objj_allocateClassPair(Nil, "One");
+objj_registerClassPair($the_class);
+
+// Instance methods
+class_addMethods($the_class,
+[
+    // -test:
+    new objj_method(sel_getUid("test:"),
+    function $One__test_(self, _cmd, i)
+    {
+        x = 7;
+    },
+    // argument types
+    ["void", "int"]),
+
+    // -foo:
+    new objj_method(sel_getUid("foo:"),
+    function $One__foo_(self, _cmd, bar)
+    {
+        var y = boo;
+    },
+    // argument types
+    ["Foo", "int"])
+]);
+// @end: @implementation One
+
+// @implementation Two : One
+var $the_class = objj_allocateClassPair(One, "Two");
+objj_registerClassPair($the_class);
+
+// Instance methods
+class_addMethods($the_class,
+[
+    // -foo:
+    new objj_method(sel_getUid("foo:"),
+    function $Two__foo_(self, _cmd, bar)
+    {
+        var NaN = "yo";
+    },
+    // argument types
+    ["void", "double"])
+]);
+// @end: @implementation Two : One
+
+
+test/fixtures/cli/exceptions/src/warnings-none.j:30:9: warning: reserved word used as a variable name
+    var NaN = "yo";
+        ^
+
+1 warning generated.

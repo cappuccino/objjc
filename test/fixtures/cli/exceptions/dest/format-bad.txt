@@ -1,0 +1,2 @@
+objjc: error: no such format 'foo'
+Available formats: cappuccino

@@ -1,0 +1,10 @@
+"use strict";
+
+var x = 7;
+
+function test()
+{
+}
+//# sourceMappingURL=source-map.js.map
+
+{"version":3,"sources":["source-map.txt"],"names":[],"mappings":"AAAA;;AAEA,IAAI,IAAI;;AAER","sourceRoot":"."}

@@ -1,0 +1,6 @@
+
+test/fixtures/cli/exceptions/src/module.js:3:5: error: unexpected token
+var export;
+    ^
+
+1 error generated.

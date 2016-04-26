@@ -1,0 +1,6 @@
+
+test/fixtures/cli/exceptions/src/strict-semicolons.js:1:10: error: expected a semicolon
+var x = 7
+         ^
+
+1 error generated.

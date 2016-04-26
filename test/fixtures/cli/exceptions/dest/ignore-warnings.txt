@@ -1,0 +1,6 @@
+
+test/fixtures/cli/exceptions/src/ignore-warnings.j:5:23: error: cannot find implementation declaration for 'Bar', superclass of 'Foo'
+@implementation Foo : Bar
+                      ^
+
+1 error generated.

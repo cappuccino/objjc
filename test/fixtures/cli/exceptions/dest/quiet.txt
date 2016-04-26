@@ -1,0 +1,6 @@
+
+test/fixtures/cli/exceptions/src/quiet.j:2:9: warning: reference to unknown identifier 'y'
+var x = y;
+        ^
+
+1 warning generated.

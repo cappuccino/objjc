@@ -1,0 +1,11 @@
+
+test/fixtures/cli/exceptions/src/max-errors-1.j:2:23: error: cannot find implementation declaration for 'Bar', superclass of 'Foo'
+@implementation Foo : Bar
+                      ^
+test/fixtures/cli/exceptions/src/max-errors-1.j:6:23: error: cannot find implementation declaration for 'Two', superclass of 'One'
+@implementation One : Two
+                      ^
+
+2 errors generated.
+
+objjc: error: compilation aborted, too many errors (>1)

@@ -2,13 +2,29 @@
 
 const
     captureStream = require("capture-stream"),
+    cli = require("../../lib/cli.js"),
     exists = require("path-exists").sync,
     expect = require("code").expect,
     fs = require("fs"),
     issueHandler = require("acorn-issue-handler"),
     path = require("path"),
     pathExists = require("path-exists").sync,
-    Runner = require("../../lib/runner");
+    Runner = require("../../lib/runner"),
+    stripColor = require("chalk").stripColor;
+
+exports.run = function(args, options)
+{
+    options = options || {};
+    options.parseOptions = Object.assign({}, options.parseOptions, { slice: 0 });
+
+    const
+        restoreStdout = captureStream(process.stdout),
+        restoreStderr = captureStream(process.stderr),
+        exitCode = cli.run(args, options),
+        output = stripColor(restoreStderr(true) + restoreStdout(true));
+
+    return { exitCode, output };
+};
 
 exports.readFixture = name =>
 {
@@ -20,7 +36,7 @@ exports.readFixture = name =>
         parsed.ext = ".js.map";
     }
 
-    const fixturePath = path.join("test", "fixtures", parsed.dir, parsed.base);
+    const fixturePath = path.join("test/fixtures", parsed.dir, parsed.base);
 
     expect(exists(fixturePath)).to.be.true();
 
@@ -98,6 +114,70 @@ exports.compiledFixture = (file, options) =>
 };
 
 exports.compiledSource = (source, options) => compiledSourceOrFixture(source, "", options);
+
+// This maps fixture names to options passed to the cli
+const cliFixtureArgs = {
+    "environment-browser.js": ["--environment", "browser"],
+    "environment-node.js": ["--environment", "node"],
+    "max-errors-1.j": ["--max-errors", "1"],
+    "max-errors-0.j": ["--max-errors", "0"],
+    "warnings-all.j": ["--warnings", "all"],
+    "warnings-none.j": ["--warnings", "none"],
+    "warnings-enable-disable.j": ["--warnings", "+parameter-types,no-implicit-globals"],
+    "warnings-list.j": ["--warnings", "debugger,unknown-types"],
+    "warnings-mixed.j": ["--warnings", "debugger,+shadowed-vars"],
+    "warnings-unknown.j": ["--warnings", "debugger,shadowed-var"],
+    "format-name.js": ["--format", "cappuccino"],
+    "format-path.js": ["--format", "formats/cappuccino.json"],
+    "format-bad.js": ["--format", "foo"],
+    "objj-scope.j": ["--objj-scope", "false"],
+    "quiet.j": ["--source-map", "--quiet"]
+};
+
+exports.compiledCliFixture = function(filePath)
+{
+    const filename = path.basename(filePath);
+    let args = cliFixtureArgs[filename];
+
+    if (!args)
+    {
+        // Use the filename without extension as the arg
+        const arg = path.basename(filename, path.extname(filename));
+
+        args = ["--" + arg];
+    }
+    else if (!Array.isArray(args))
+        args = [args];
+
+    args.push(filePath);
+
+    const result = exports.run(args);
+
+    if (filePath.includes("/exceptions/"))
+        result.output = exports.convertToPosixPaths(result.output);
+
+    return result;
+};
+
+exports.compiledMiscCliFixture = function(test, alwaysCompile)
+{
+    let args = ["--" + test];
+
+    const dest = `test/fixtures/cli/misc/${test}.txt`;
+
+    if (alwaysCompile || !pathExists(dest))
+    {
+        const result = exports.run(args);
+
+        return {
+            exitCode: result.exitCode,
+            output: result.output,
+            dest
+        };
+    }
+
+    return null;
+};
 
 function makeDescribe(description, should, fixture)
 {

@@ -1,0 +1,7 @@
+"use strict";
+
+var x = 7;
+
+function test()
+{
+}

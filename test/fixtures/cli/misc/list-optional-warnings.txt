@@ -1,0 +1,6 @@
++debugger
++implicit-globals
+-parameter-types
++shadowed-vars
++unknown-identifiers
+-unknown-types

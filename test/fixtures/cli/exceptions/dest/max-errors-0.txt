@@ -1,0 +1,129 @@
+
+test/fixtures/cli/exceptions/src/max-errors-0.j:5:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:6:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:7:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:8:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:9:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:10:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:11:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:12:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:13:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:14:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:15:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:16:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:17:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:18:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:19:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:20:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:21:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:22:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:23:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:24:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:25:9: error: redeclaration of instance variable 'a' in class 'Foo'
+    int a; // 21st error
+        ^
+test/fixtures/cli/exceptions/src/max-errors-0.j:4:9: note: previous declaration is here, in class 'Foo'
+    int a;
+        ^
+
+21 errors generated.

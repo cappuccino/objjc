@@ -3,6 +3,20 @@ language: node_js
 # Use container-based infrastructure
 sudo: false
 
+# For the reason why this section is included, see:
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
+compiler: clang-3.6
+env:
+  - CXX=clang-3.6
+addons:
+  apt:
+    sources:
+      - llvm-toolchain-precise-3.6
+      - ubuntu-toolchain-r-test
+    packages:
+      - clang-3.6
+      - g++-4.8
+
 # node versions to test
 node_js:
   - "5"  # Minimum version

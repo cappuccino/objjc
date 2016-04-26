@@ -260,7 +260,6 @@ gulp.task("mocha-dot", mochaTask("dot"));
 
 gulp.task("test", cb => runSequence(
     "lint",
-    "generate-fixtures",
     "mocha-dot",
     cb
 ));

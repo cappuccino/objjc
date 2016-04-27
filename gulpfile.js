@@ -22,7 +22,7 @@ const // jscs: ignore requireMultipleVarDecl
             "test/lib/*.js"
         ],
         fixturesBase: "test/fixtures",
-        test: ["test/cli.js", "test/code.js", "test/exceptions.js"]
+        test: ["test/*.js"]
     };
 
 // Cleaning
@@ -237,7 +237,6 @@ gulp.task("generate-fixtures", cb =>
         "generate-fixtures:objj",
         "generate-fixtures:exceptions",
         "generate-fixtures:cli",
-        // "generate-fixtures:source-maps",
         cb
     );
 });

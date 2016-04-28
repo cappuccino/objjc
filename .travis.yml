@@ -17,9 +17,14 @@ addons:
       - clang-3.6
       - g++-4.8
 
+# Don't build commits in the queue if a new commit arrives
+git:
+  depth: 1
+
 # node versions to test
 node_js:
   - "5"  # Minimum version
+  - "6"  # Latest version
 
 # If any version fails, cancel the others
 matrix:

@@ -78,11 +78,11 @@ function compiledSourceOrFixture(source, file, options)
         else
             stdout = "";
 
-        const compiler = runner.getCompiler();
+        const compiler = runner.compiler;
 
         return {
-            code: compiler ? compiler.getCode() : "",
-            map: (compiler && options.sourceMap) ? compiler.getSourceMap() : "",
+            code: compiler ? compiler.code : "",
+            map: (compiler && options.sourceMap) ? compiler.sourceMap : "",
             stdout
         };
     }

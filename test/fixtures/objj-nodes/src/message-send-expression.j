@@ -9,7 +9,10 @@
 
 @class CPArray
 
-var fileVar = [[CPApplication sharedApplication] mainWindow];
+var fileVar = [
+    [CPApplication sharedApplication]
+    mainWindow
+];
 
 @implementation Super
 
@@ -52,12 +55,18 @@ var fileVar = [[CPApplication sharedApplication] mainWindow];
     }
 
     field = [[CPTextField alloc] init];
-    [field setTitle:[CPString stringWithFormat:@"Count: %d", count]];
+    [field setTitle:
+        [CPString stringWithFormat:@"Count: %d", count]];
 }
 
 - (CPArray)subviews
 {
-    return [[[[CPApplication sharedApplication] mainWindow] contentView] subviews];
+    // We're using funky indentation here to test source map generation
+    return [[[
+        [CPApplication sharedApplication]
+            mainWindow]
+                contentView]
+                    subviews];
 }
 
 - (void)doSomething:(CPString)something withNumber:(int)number and:(CPString)and andAlso:(int)also
@@ -67,8 +76,14 @@ var fileVar = [[CPApplication sharedApplication] mainWindow];
 
 - (void)bigSelector
 {
-    [self doSomething:@"bold" withNumber:7 and:@"something else" andAlso:27];
-    [super manyArgs:1 two:2 three:3 four:4];
+    [self doSomething:@"bold"
+           withNumber:7
+                  and:@"something else"
+              andAlso:27];
+    [super manyArgs:1
+                two:2
+              three:3
+               four:4];
 }
 
 @end

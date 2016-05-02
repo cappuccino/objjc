@@ -15,7 +15,10 @@ objj_registerClassPair($the_class);
 
 // @class CPArray;
 
-var fileVar = /* [[CPApplication sharedApplication] mainWindow] */ ((___r1 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "mainWindow"));
+var fileVar = /* [
+    [CPApplication sharedApplication]
+    mainWindow
+] */ ((___r1 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "mainWindow"));
 
 // @implementation Super
 var $the_class = objj_allocateClassPair(Nil, "Super");
@@ -69,7 +72,8 @@ class_addMethods($the_class,
         }
 
         self.field = /* [[CPTextField alloc] init] */ ((___r1 = CPTextField.isa.objj_msgSend0(CPTextField, "alloc")), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "init"));
-        /* [field setTitle:[CPString stringWithFormat:@"Count: %d", count]] */ ((___r1 = self.field), ___r1 == null ? null : ___r1.isa.objj_msgSend1(___r1, "setTitle:", CPString.isa.objj_msgSend2(CPString, "stringWithFormat:", "Count: %d", count)));
+        /* [field setTitle:
+        [CPString stringWithFormat:@"Count: %d", count]] */ ((___r1 = self.field), ___r1 == null ? null : ___r1.isa.objj_msgSend1(___r1, "setTitle:", CPString.isa.objj_msgSend2(CPString, "stringWithFormat:", "Count: %d", count)));
 
         // Generated receiver temp variables
         var ___r1;
@@ -81,7 +85,11 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("subviews"),
     function $Test__subviews(self, _cmd)
     {
-        return /* [[[[CPApplication sharedApplication] mainWindow] contentView] subviews] */ ((___r1 = ((___r2 = ((___r3 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r3 == null ? null : ___r3.isa.objj_msgSend0(___r3, "mainWindow"))), ___r2 == null ? null : ___r2.isa.objj_msgSend0(___r2, "contentView"))), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "subviews"));
+        return /* [[[
+        [CPApplication sharedApplication]
+            mainWindow]
+                contentView]
+                    subviews] */ ((___r1 = ((___r2 = ((___r3 = CPApplication.isa.objj_msgSend0(CPApplication, "sharedApplication")), ___r3 == null ? null : ___r3.isa.objj_msgSend0(___r3, "mainWindow"))), ___r2 == null ? null : ___r2.isa.objj_msgSend0(___r2, "contentView"))), ___r1 == null ? null : ___r1.isa.objj_msgSend0(___r1, "subviews"));
 
         // Generated receiver temp variables
         var ___r1, ___r2, ___r3;
@@ -102,8 +110,14 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("bigSelector"),
     function $Test__bigSelector(self, _cmd)
     {
-        /* [self doSomething:@"bold" withNumber:7 and:@"something else" andAlso:27] */ self.isa.objj_msgSend(self, "doSomething:withNumber:and:andAlso:", "bold", 7, "something else", 27);
-        /* [super manyArgs:1 two:2 three:3 four:4] */ objj_msgSendSuper({ receiver: self, super_class: objj_getClass("Test").super_class }, "manyArgs:two:three:four:", 1, 2, 3, 4);
+        /* [self doSomething:@"bold"
+           withNumber:7
+                  and:@"something else"
+              andAlso:27] */ self.isa.objj_msgSend(self, "doSomething:withNumber:and:andAlso:", "bold", 7, "something else", 27);
+        /* [super manyArgs:1
+                two:2
+              three:3
+               four:4] */ objj_msgSendSuper({ receiver: self, super_class: objj_getClass("Test").super_class }, "manyArgs:two:three:four:", 1, 2, 3, 4);
     },
     // argument types
     ["void"])

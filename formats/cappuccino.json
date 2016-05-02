@@ -33,7 +33,8 @@
                 "null": {
                     "*": "\n",
                     "$parent": {
-                        "lambda": " "
+                        "lambda": " ",
+                        "program": ""
                     }
                 },
                 "var": "\n\n"
@@ -64,7 +65,8 @@
                 "null": {
                     "*": "\n",
                     "$parent": {
-                        "lambda": " "
+                        "lambda": " ",
+                        "program": ""
                     }
                 },
                 "var": {
@@ -207,7 +209,12 @@
         "before": {
             "*": "\n\n",
             "$previous": {
-                "label": "\n"
+                "label": "\n",
+                "null": {
+                    "$parent": {
+                        "program": ""
+                    }
+                }
             }
         },
         "after-colon": ""
@@ -250,7 +257,13 @@
     "return": {
         "before": {
             "$previous": {
-                "null": "\n"
+                "null": {
+                    "$parent": {
+                        "program": "",
+                        "*": "\n"
+                    }
+                },
+                "*": "\n\n"
             },
             "*": "\n\n"
         }
@@ -281,7 +294,8 @@
                     "*": "\n",
                     "$parent": {
                         "for": "",
-                        "for in": ""
+                        "for in": "",
+                        "program": ""
                     }
                 }
             }

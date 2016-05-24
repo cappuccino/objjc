@@ -33,7 +33,7 @@ function makeTest(should, filename)
     {
         const
             output = utils.compiledFixture(`exceptions/src/${filename}`, { captureStdout: true }),
-            text = utils.convertToPosixPaths(output.stdout);
+            text = utils.convertIssuePathsToPosix(output.stdout);
 
         expect(text).to.equal(utils.readFixture(`exceptions/dest/${filename}.txt`));
     });

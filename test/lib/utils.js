@@ -117,6 +117,8 @@ exports.compiledSource = (source, options) => compiledSourceOrFixture(source, ""
 
 // This maps fixture names to options passed to the cli
 const cliFixtureArgs = {
+    "ast-0.txt": ["--ast", "0"],
+    "ast-2.txt": ["--ast", "2"],
     "environment-browser.js": ["--environment", "browser"],
     "environment-node.js": ["--environment", "node"],
     "max-errors-1.j": ["--max-errors", "1"],
@@ -133,6 +135,20 @@ const cliFixtureArgs = {
     "objj-scope.j": ["--objj-scope", "false"],
     "quiet.j": ["--source-map", "--quiet"]
 };
+
+exports.convertIssuePathsToPosix = text => text.replace(
+    /^\s*[^:]+/gm,
+    match => match.replace(/\\/g, "/")
+);
+
+function convertASTPathsToPosix(result)
+{
+    result.output = result.output.replace(
+        /("sourceFile":\s*)"([^"]+)"/g,
+        // Because the AST is JSON, paths are quoted and thus backslashes are doubled
+        (match, key, filePath) => key + "\"" + filePath.replace(/\\\\/g, "/") + "\""
+    );
+}
 
 exports.compiledCliFixture = function(filePath)
 {
@@ -154,7 +170,9 @@ exports.compiledCliFixture = function(filePath)
     const result = exports.run(args);
 
     if (filePath.includes("/exceptions/"))
-        result.output = exports.convertToPosixPaths(result.output);
+        result.output = exports.convertIssuePathsToPosix(result.output);
+    else if (filename.startsWith("ast-"))
+        convertASTPathsToPosix(result);
 
     return result;
 };
@@ -232,5 +250,3 @@ exports.setCompilerOptions = (options, file) =>
 
     return Object.assign(options, specialOptions);
 };
-
-exports.convertToPosixPaths = text => text.replace(/^\s*[^:]+/gm, match => match.replace(/\\/g, "/"));

@@ -114,6 +114,16 @@ describe("cli", () =>
                 rimraf("test_out", {}, () => done());
             }
         });
+
+        it("'--ast 0' should output a compressed AST", () =>
+        {
+            compareWithFixture("code/src/ast-0.txt");
+        });
+
+        it("'--ast 2' should output a formatted AST", () =>
+        {
+            compareWithFixture("code/src/ast-2.txt");
+        });
     });
 
     describe("exceptions", () =>

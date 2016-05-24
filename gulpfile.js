@@ -2,12 +2,13 @@
 
 const
     del = require("del"),
+    exec = require("child_process").exec,
     fs = require("fs"),
     gulp = require("gulp"),
     loadPlugins = require("gulp-load-plugins"),
     mkdirp = require("mkdirp"),
     path = require("path"),
-    pathExists = require("path-exists").sync,
+    PluginError = require("gulp-util").PluginError,
     runSequence = require("run-sequence"),
     through = require("through2").obj,
     utils = require("./test/lib/utils.js");
@@ -173,10 +174,7 @@ gulp.task("generate-fixtures:cli:exceptions", () =>
 
 gulp.task("generate-fixtures:cli:misc", cb =>
 {
-    const destDir = path.join(paths.fixturesBase, "cli/misc");
-
-    if (!pathExists(destDir))
-        mkdirp(destDir);
+    mkdirp(path.join(paths.fixturesBase, "cli/misc"));
 
     for (const test of ["list-formats", "list-optional-warnings"])
     {
@@ -257,10 +255,67 @@ function mochaTask(reporter)
 gulp.task("mocha", mochaTask("spec"));
 gulp.task("mocha-dot", mochaTask("dot"));
 
-gulp.task("test", cb => runSequence(
-    "lint",
-    "mocha-dot",
-    cb
-));
+let coverResults = "";
 
+function istanbulExecArgs()
+{
+    return "node node_modules/istanbul/lib/cli.js";
+}
+
+gulp.task("cover", cb =>
+{
+    // Add --colors to force colorizing, normally chalk won't because
+    // it doesn't think it is writing to a terminal.
+    exec(
+        `${istanbulExecArgs()} cover --colors node_modules/mocha/bin/_mocha -- --reporter dot --colors`,
+        (error, stdout) =>
+        {
+            if (error)
+            {
+                error = new PluginError(
+                    "istanbul cover",
+                    {
+                        message: error.message,
+                        showStack: false
+                    }
+                );
+
+                return cb(error);
+            }
+
+            coverResults = stdout;
+
+            return cb();
+        }
+    );
+});
+
+gulp.task("show-cover", ["cover"], cb =>
+{
+    console.log(coverResults);
+    cb();
+});
+
+gulp.task("check-cover", ["cover"], cb =>
+{
+    exec(`${istanbulExecArgs()} check-cover`, error =>
+    {
+        if (error)
+        {
+            error = new PluginError(
+                "istanbul check-cover",
+                {
+                    message: "Coverage did not meet the thresholds",
+                    showStack: false
+                }
+            );
+
+            return cb(error);
+        }
+
+        return cb();
+    });
+});
+
+gulp.task("test", cb => runSequence("lint", "check-cover", cb));
 gulp.task("default", ["test"]);

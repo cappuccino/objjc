@@ -124,6 +124,11 @@ describe("cli", () =>
         {
             compareWithFixture("code/src/ast-2.txt");
         });
+
+        it("- as an argument should take input from stdin", () =>
+        {
+            compareWithFixture("code/src/stdin.js");
+        });
     });
 
     describe("exceptions", () =>

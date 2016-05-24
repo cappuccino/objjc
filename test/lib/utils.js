@@ -8,7 +8,6 @@ const
     fs = require("fs"),
     issueHandler = require("acorn-issue-handler"),
     path = require("path"),
-    pathExists = require("path-exists").sync,
     Runner = require("../../lib/runner"),
     stripColor = require("chalk").stripColor;
 
@@ -107,7 +106,7 @@ exports.compiledFixture = (file, options) =>
     if (!path.isAbsolute(file))
         sourcePath = path.resolve(path.join("test", "fixtures", file));
 
-    if (!pathExists(sourcePath))
+    if (!exists(sourcePath))
         throw new Error("No such fixture: " + sourcePath);
 
     return compiledSourceOrFixture("", sourcePath, options);
@@ -133,7 +132,8 @@ const cliFixtureArgs = {
     "format-path.js": ["--format", "formats/cappuccino.json"],
     "format-bad.js": ["--format", "foo"],
     "objj-scope.j": ["--objj-scope", "false"],
-    "quiet.j": ["--source-map", "--quiet"]
+    "quiet.j": ["--source-map", "--quiet"],
+    "stdin.js": "-"
 };
 
 exports.convertIssuePathsToPosix = text => text.replace(
@@ -165,9 +165,18 @@ exports.compiledCliFixture = function(filePath)
     else if (!Array.isArray(args))
         args = [args];
 
-    args.push(filePath);
+    let options,
+        result;
 
-    const result = exports.run(args);
+    if (filename.startsWith("stdin."))
+    {
+        result = fs.readFileSync(filePath, "utf-8");
+        options = { stdin: result };
+    }
+    else
+        args.push(filePath);
+
+    result = exports.run(args, options);
 
     if (filePath.includes("/exceptions/"))
         result.output = exports.convertIssuePathsToPosix(result.output);
@@ -183,7 +192,7 @@ exports.compiledMiscCliFixture = function(test, alwaysCompile)
 
     const dest = `test/fixtures/cli/misc/${test}.txt`;
 
-    if (alwaysCompile || !pathExists(dest))
+    if (alwaysCompile || !exists(dest))
     {
         const result = exports.run(args);
 

@@ -4,7 +4,8 @@ const
     expect = require("code").expect,
     fs = require("fs"),
     path = require("path"),
-    rimraf = require("rimraf"),
+    pathExists = require("path-exists").sync,
+    rimraf = require("rimraf").sync,
     utils = require("./lib/utils.js");
 
 /* eslint-disable max-len, max-nested-callbacks */
@@ -92,27 +93,32 @@ describe("cli", () =>
             compareWithFixture("code/src/source-map.txt");
         });
 
-        it("--output should cause generated code & source map to go into the given directory", done =>
+        it("--output should cause generated code & source map to go into the given directory", () =>
         {
-            const result = utils.run(["--output", "test_out", "--source-map", "test/fixtures/cli/code/src/source-map.txt"]);
+            const result = utils.run(["--output", "test_out", dir + "code/src/source-map.txt"]);
 
             expect(result.exitCode).to.equal(0);
 
-            let stats = fs.statSync("test_out"),
-                outputDirectoryExists = stats.isDirectory();
+            let dirExists = pathExists("test_out");
 
-            try
+            if (dirExists)
+                dirExists = fs.statSync("test_out").isDirectory();
+
+            expect(dirExists).to.be.true();
+
+            if (dirExists)
             {
-                expect(outputDirectoryExists).to.be.true();
-                stats = fs.statSync("test_out/source-map.js");
-                expect(stats.isFile()).to.be.true();
-                stats = fs.statSync("test_out/source-map.js.map");
-                expect(stats.isFile()).to.be.true();
+                for (const file of ["source-map.js", "source-map.js.map"])
+                {
+                    const
+                        filePath = path.join("test_out", file),
+                        isFile = pathExists(filePath) && fs.statSync(filePath).isFile();
+
+                    expect(isFile).to.be.true();
+                }
             }
-            finally
-            {
-                rimraf("test_out", {}, () => done());
-            }
+
+            rimraf("test_out", {});
         });
 
         it("'--ast 0' should output a compressed AST", () =>
@@ -133,6 +139,14 @@ describe("cli", () =>
 
     describe("exceptions", () =>
     {
+        it("an error should be generated if no input files are given", () =>
+        {
+            const result = utils.run([]);
+
+            expect(result.output).to.be.match(/error: no input files/);
+            expect(result.exitCode).to.equal(2);
+        });
+
         it("an error should be generated if an unknown format is used with --format", () =>
         {
             compareWithFixture("exceptions/src/format-bad.js", 2);

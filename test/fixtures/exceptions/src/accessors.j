@@ -5,6 +5,13 @@
     double two @accessors(readonly);
     BOOL three;
     id four @accessors;
+    int prop @accessors(readonly, property=foo);
+}
+
+// Ordinarily this would trigger an error, but since the ivar 'one' is readonly
+// and specifies a setter, that error obviates making this an error.
+- (void)setMe:(int)newValue
+{
 }
 
 // setter method cannot be specified for a readonly ivar
@@ -27,13 +34,18 @@
 {
 }
 
-// Not a potential setter method
+// Not a potential setter method since 'two' ivar is readonly
 - (void)setTwo
 {
 }
 
 // Doesn't match any ivars
 - (void)setToo:(double)newValue
+{
+}
+
+// setter method cannot be specified for a readonly ivar, make sure we check against the property name
+- (void)setFoo:(int)newValue
 {
 }
 

@@ -4,6 +4,10 @@ debugger;
 var i = 13;
 
 @implementation One
+{
+    // unknown type warning
+    CPString title;
+}
 
 // shadowed var warning
 - (void)test:(int)i

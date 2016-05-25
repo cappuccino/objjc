@@ -49,6 +49,11 @@ SomeGlobal = 7;
 // duplicate definition is ignored
 @global SomeGlobal
 
+@global AnotherGlobal
+
+// no warning, it replaces the @global
+AnotherGlobal = 7;
+
 // duplicate predefined global definition is ignored
 @global Node
 

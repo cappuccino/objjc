@@ -1,3 +1,9 @@
+@protocol Person
+
+- (void)eat;
+
+@end
+
 @protocol Parent
 
 - (void)one;
@@ -6,7 +12,7 @@
 
 @end
 
-@protocol Child <Parent>
+@protocol Child <Parent, Person>
 
 - (float)three;
 

@@ -27,3 +27,10 @@ class_addMethods($the_class,
     ["void"])
 ]);
 // @end: @implementation Test : CPObject
+
+test = function test()
+{
+    var self = 7;
+
+    self = 13;
+};

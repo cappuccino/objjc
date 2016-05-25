@@ -16,3 +16,10 @@
 }
 
 @end
+
+function test()
+{
+    var self = 7;
+
+    self = 13;
+}

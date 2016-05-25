@@ -2,7 +2,7 @@ var anonymous = function()
     {
     };
 
-var test = function(one, two, three)
+var test = function test(one, two, three)
     {
     };
 

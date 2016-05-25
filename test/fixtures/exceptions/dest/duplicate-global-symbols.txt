@@ -59,10 +59,10 @@
 [36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m47:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious definition is here[22m
 SomeGlobal = 7;
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m53:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate predefined global definition 'Node' is ignored[22m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m58:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mduplicate predefined global definition 'Node' is ignored[22m
 @global Node
         [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m56:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreserved word used as a variable name[22m
+[36m[1mtest/fixtures/exceptions/src/duplicate-global-symbols.j[22m[39m[2m:[22m61:5[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreserved word used as a variable name[22m
 var NaN = 7;
     [32m[1m^[22m[39m
 

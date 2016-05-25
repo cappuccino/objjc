@@ -12,3 +12,13 @@ function test2()
         last: "Tolmasky"
     };
 }
+
+function test3()
+{
+    doSomething();
+
+    if (test())
+        return;
+
+    doSomethingElse();
+}

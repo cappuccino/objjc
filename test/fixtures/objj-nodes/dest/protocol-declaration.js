@@ -1,3 +1,18 @@
+// @protocol Person
+var $the_protocol = objj_allocateProtocol("Person");
+
+objj_registerProtocol($the_protocol);
+
+protocol_addMethodDescriptions($the_protocol,
+[
+    // -eat
+    new objj_method(sel_getUid("eat"), null,
+    // argument types
+    ["void"])
+],
+true, true);
+// @end: @protocol Person
+
 // @protocol Parent
 var $the_protocol = objj_allocateProtocol("Parent");
 
@@ -27,13 +42,20 @@ protocol_addMethodDescriptions($the_protocol,
 true, false);
 // @end: @protocol Parent
 
-// @protocol Child <Parent>
+// @protocol Child <Parent, Person>
 var $the_protocol = objj_allocateProtocol("Child");
 
 var $the_inherited_protocol = objj_getProtocol("Parent");
 
 if (!$the_inherited_protocol)
     throw new ReferenceError("Cannot find protocol declaration for 'Parent'");
+
+protocol_addProtocol($the_protocol, $the_inherited_protocol);
+
+$the_inherited_protocol = objj_getProtocol("Person");
+
+if (!$the_inherited_protocol)
+    throw new ReferenceError("Cannot find protocol declaration for 'Person'");
 
 protocol_addProtocol($the_protocol, $the_inherited_protocol);
 
@@ -52,4 +74,4 @@ protocol_addMethodDescriptions($the_protocol,
     ["id"])
 ],
 true, true);
-// @end: @protocol Child <Parent>
+// @end: @protocol Child <Parent, Person>

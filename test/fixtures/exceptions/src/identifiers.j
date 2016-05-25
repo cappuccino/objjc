@@ -33,6 +33,10 @@ var str = [CPString stringWithFormat:@"%s cool", @"way"];
 
 @end
 
+function doSomething()
+{
+}
+
 function test()
 {
     // Even though the 'two' and 'three' assignments are made to known implicit globals from the 'test'
@@ -46,4 +50,25 @@ function test()
 
     // This will warn because 'four' is an implicit global in another scope
     four = "bar";
+
+    // implicit global warning
+    for (i = 0, j = 0; j < 7; ++j, jj = 13)
+        console.log(j);
+
+    // implicit global warning
+    while (k = doSomething())
+        console.log(k);
+
+    // implicit global warning
+    if (l = doSomething())
+        console.log(l);
+
+    // implicit global warning
+    console.log(z || (z = "foo"));
+
+    var a = [];
+
+    a[x || (x = 7)];
+
+    q += 1;
 }

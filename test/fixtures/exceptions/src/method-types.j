@@ -23,8 +23,46 @@
 {
 }
 
+- (id)thisIsOkay:(int)ok
+{
+}
+
 // warnings for UnknownType and AnotherUnknownType
 - (UnknownType)unknownType:(AnotherUnknownType)type another:(KnownType)another
+{
+}
+
+// @action resolves to return type void
+- (@action)test1
+{
+}
+
+- (int)test2
+{
+}
+
+// no return type resolves to id
+- test3
+{
+}
+
+- (int)test4
+{
+}
+
+- (void)idVsClassParam:(id)one
+{
+}
+
+- (void)idVsPODParam:(id)one
+{
+}
+
+- (void)implicitIdParam1:(int)one
+{
+}
+
+- (void)implicitIdParam2:one
 {
 }
 
@@ -54,6 +92,51 @@
 
 // warnings for all parameter types
 - (void)parameterTypes:(CPString)one two:(int)two three:(double)three
+{
+}
+
+// no warning, same types
+- (id)thisIsOkay:(int)ok
+{
+}
+
+// warning: void vs. int return type
+- (int)test1
+{
+}
+
+// warning: int vs. void return type
+- (@action)test2
+{
+}
+
+// warning: id vs. int return type
+- (int)test3
+{
+}
+
+// warning: int vs. id return type
+- test4
+{
+}
+
+// no warning, it's okay to use id in a superclass and a non-POD type in a subclass
+- (void)idVsClassParam:(CPString)one
+{
+}
+
+// warning: id vs. int
+- (void)idVsPODParam:(int)one
+{
+}
+
+// warning: int vs. id
+- (void)implicitIdParam1:one
+{
+}
+
+// warning: id vs. int
+- (void)implicitIdParam2:(int)one
 {
 }
 

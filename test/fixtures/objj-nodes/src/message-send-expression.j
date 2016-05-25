@@ -86,4 +86,13 @@ var fileVar = [
                four:4];
 }
 
+- (void)emptySelector:(int)one :(double)two :(CPArray)three
+{
+}
+
+- (void)testEmptySelector
+{
+    [self emptySelector:1 :2 :[3]];
+}
+
 @end

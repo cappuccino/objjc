@@ -9,6 +9,7 @@
     int getterSetter @accessors(getter=getMe, setter=setIt);
     int hasGetter @accessors;
     int hasSetter @accessors;
+    int _underscore @accessors; // _ is stripped from accessor names
 }
 
 - (int)hasGetter

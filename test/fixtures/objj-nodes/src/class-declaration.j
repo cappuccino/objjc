@@ -1,4 +1,6 @@
 @implementation Empty
+{
+}
 @end
 
 @implementation Empty (Category)

@@ -55,6 +55,7 @@ class_addMethods($the_class,
     new objj_method(sel_getUid("selectorWith:"),
     function $Methods__selectorWith_(self, _cmd, one)
     {
+        eval("doSomething()");
     },
     // argument types
     ["void", "int"]),

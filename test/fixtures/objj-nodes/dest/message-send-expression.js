@@ -120,6 +120,23 @@ class_addMethods($the_class,
                four:4] */ objj_msgSendSuper({ receiver: self, super_class: objj_getClass("Test").super_class }, "manyArgs:two:three:four:", 1, 2, 3, 4);
     },
     // argument types
+    ["void"]),
+
+    // -emptySelector:::
+    new objj_method(sel_getUid("emptySelector:::"),
+    function $Test__emptySelector___(self, _cmd, one, two, three)
+    {
+    },
+    // argument types
+    ["void", "int", "double", "CPArray"]),
+
+    // -testEmptySelector
+    new objj_method(sel_getUid("testEmptySelector"),
+    function $Test__testEmptySelector(self, _cmd)
+    {
+        /* [self emptySelector:1 :2 :[3]] */ self.isa.objj_msgSend3(self, "emptySelector:::", 1, 2, [3]);
+    },
+    // argument types
     ["void"])
 ]);
 

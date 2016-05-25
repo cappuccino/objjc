@@ -12,7 +12,8 @@ class_addIvars($the_class,
     new objj_ivar("setter", "int"),
     new objj_ivar("getterSetter", "int"),
     new objj_ivar("hasGetter", "int"),
-    new objj_ivar("hasSetter", "int")
+    new objj_ivar("hasSetter", "int"),
+    new objj_ivar("_underscore", "int")
 ]);
 
 // Instance methods
@@ -185,6 +186,26 @@ class_addMethods($the_class,
         return self.hasSetter;
     },
     // argument types
-    ["int"])
+    ["int"]),
+
+    // _underscore @accessors [getter]
+    // - (int)underscore
+    new objj_method(sel_getUid("underscore"),
+    function $Accessors__underscore(self, _cmd)
+    {
+        return self._underscore;
+    },
+    // argument types
+    ["int"]),
+
+    // _underscore @accessors [setter]
+    // - (void)setUnderscore:(int)newValue
+    new objj_method(sel_getUid("setUnderscore:"),
+    function $Accessors__setUnderscore_(self, _cmd, newValue)
+    {
+        self._underscore = newValue;
+    },
+    // argument types
+    ["void", "int"])
 ]);
 // @end: @implementation Accessors

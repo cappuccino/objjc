@@ -27,6 +27,8 @@
 
 - (void)selectorWith:(int)one
 {
+    // eval within a method marks self as mutated
+    eval("doSomething()");
 }
 
 - (void)selectorWith:(int)one two:(double)two

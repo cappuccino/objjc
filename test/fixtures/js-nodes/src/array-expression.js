@@ -4,7 +4,7 @@ var a = [],
     d = [
         1,
         2,
-        3,
+         , // element is undefined
         4,
         5
     ];

@@ -61,7 +61,7 @@ function compileFixture(options, file, encoding, cb)
     let text = options.captureStdout ? output.stdout : output.code;
 
     if (file.path.includes("/exceptions/"))
-        text = utils.convertToPosixPaths(text);
+        text = utils.convertIssuePathsToPosix(text);
 
     file.contents = new Buffer(text);
 

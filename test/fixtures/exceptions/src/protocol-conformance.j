@@ -1,62 +1,99 @@
 @protocol One
 
 // implicitly required
-- (void)required1;
-+ (void)classRequired1;
+- (void)oneRequired1;
++ (void)oneClassRequired1;
 
 @required
-- (void)required2;
-- (void)required3;
-+ (void)classRequired2;
+- (void)oneRequired2;
+- (void)oneRequired3;
+- (void)override;
++ (void)oneClassRequired2;
 
 @optional
-- (void)optional1;
-- (void)optional2;
-- (void)classOptional1;
+- (void)oneOptional1;
+- (void)oneOptional2;
+- (void)oneClassOptional1;
 
 @end
 
 @protocol Two <One>
 
 @required
-- (void)required4;
-+ (void)classRequired3;
+- (void)twoRequired1;
+- (int)override;
++ (void)twoClassRequired1;
 
 @optional
-- (void)optional3;
-+ (void)classRequired4;
+- (void)twoOptional1;
++ (void)twoClassOptional1;
 
 @end
 
 @protocol Three
 
 // implicitly required
-- (void)required5;
-+ (void)classRequired5;
+- (void)threeRequired1;
++ (void)threeClassRequired1;
 
 @optional
-- (void)optional4;
+- (void)threeOptional1;
 
 @end
 
+// Warnings:
+// oneRequired1, oneRequired2, oneClassRequired2, override
+// twoRequired1, twoClassRequired1, override
+// threeRequired1
+@implementation Class1 <Two, Three>
 
-// required1/2/4/5 unimplemented
-// classequired2/3/5 unimplemented
-@implementation Class <Two, Three>
-
-+ (void)classRequired1
++ (void)oneClassRequired1
 {
 }
 
-+ (void)classRequired4
++ (void)threeClassRequired1
 {
 }
 
-- (void)required3
+- (void)oneRequired3
 {
 }
 
-- (void)optional2
+- (void)oneOptional2
+{
+}
+
+@end
+
+// Protocol conformance is assumed in inherited classes,
+// so there should be no warnings for this class.
+@implementation Class2 : Class1
+@end
+
+// Warnings:
+// oneRequired3, oneClassRequired2, override
+@implementation Class3 <One>
+
+- (void)oneRequired1
+{
+}
+
++ (void)oneClassRequired1
+{
+}
+
+- (void)oneRequired2
+{
+}
+
+@end
+
+// <Two> adopts <One>, but because protocol conformance is assumed in inherited classes,
+// and Class3 adopts <One>, this class will only warn about methods from <Two> itself,
+// override and twoClassRequired1.
+@implementation Class4: Class3 <Two>
+
+- (void)override
 {
 }
 

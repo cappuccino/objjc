@@ -1,5 +1,5 @@
 
-[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m24:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'override': 'void' vs. 'int'[22m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m24:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'override': 'int' vs. 'void'[22m
 - (int)override;
    [32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m10:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m
@@ -71,7 +71,7 @@
 [36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m11:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mmethod 'oneClassRequired2' declared here[22m
 + (void)oneClassRequired2;
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m96:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'override': 'int' vs. 'void'[22m
+[36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m96:4[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mconflicting return type in declaration of 'override': 'void' vs. 'int'[22m
 - (void)override
    [32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/protocol-conformance.j[22m[39m[2m:[22m24:4[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mprevious declaration is here[22m

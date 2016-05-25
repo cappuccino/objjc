@@ -77,13 +77,13 @@ test/fixtures/cli/exceptions/src/warnings-all.j:20:4: warning: unknown type 'Foo
 test/fixtures/cli/exceptions/src/warnings-all.j:34:9: warning: reserved word used as a variable name
     var NaN = "yo";
         ^
-test/fixtures/cli/exceptions/src/warnings-all.j:31:4: warning: conflicting return type in declaration of 'foo:': 'Foo' vs. 'void'
+test/fixtures/cli/exceptions/src/warnings-all.j:31:4: warning: conflicting return type in declaration of 'foo:': 'void' vs. 'Foo'
 - (void)foo:(double)bar
    ^
 test/fixtures/cli/exceptions/src/warnings-all.j:20:4: note: previous declaration is here
 - (Foo)foo:(int)bar
    ^
-test/fixtures/cli/exceptions/src/warnings-all.j:31:14: warning: conflicting parameter type in declaration of 'foo:': 'int' vs. 'double'
+test/fixtures/cli/exceptions/src/warnings-all.j:31:14: warning: conflicting parameter type in declaration of 'foo:': 'double' vs. 'int'
 - (void)foo:(double)bar
              ^
 test/fixtures/cli/exceptions/src/warnings-all.j:20:13: note: previous declaration is here

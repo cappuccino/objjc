@@ -19,7 +19,7 @@ class_addIvars($the_class,
 // Instance methods
 class_addMethods($the_class,
 [
-    // -hasGetter
+    // - (int)hasGetter
     new objj_method(sel_getUid("hasGetter"),
     function $Accessors__hasGetter(self, _cmd)
     {
@@ -28,7 +28,7 @@ class_addMethods($the_class,
     // argument types
     ["int"]),
 
-    // -setHasSetter:
+    // - (void)setHasSetter:
     new objj_method(sel_getUid("setHasSetter:"),
     function $Accessors__setHasSetter_(self, _cmd, newValue)
     {

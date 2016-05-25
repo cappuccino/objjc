@@ -10,7 +10,7 @@ objj_registerClassPair($the_class);
 // Instance methods
 class_addMethods($the_class,
 [
-    // -test
+    // - (void)test
     new objj_method(sel_getUid("test"),
     function $Test__test(self, _cmd)
     {

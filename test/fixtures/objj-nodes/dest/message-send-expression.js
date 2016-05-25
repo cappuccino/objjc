@@ -27,7 +27,7 @@ objj_registerClassPair($the_class);
 // Instance methods
 class_addMethods($the_class,
 [
-    // -manyArgs:two:three:four:
+    // - (void)manyArgs:two:three:four:
     new objj_method(sel_getUid("manyArgs:two:three:four:"),
     function $Super__manyArgs_two_three_four_(self, _cmd, one, two, three, four)
     {
@@ -49,7 +49,7 @@ class_addIvars($the_class,
 // Instance methods
 class_addMethods($the_class,
 [
-    // -init
+    // - (id)init
     new objj_method(sel_getUid("init"),
     function $Test__init(self, _cmd)
     {
@@ -63,7 +63,7 @@ class_addMethods($the_class,
     // argument types
     ["id"]),
 
-    // -foo
+    // - (void)foo
     new objj_method(sel_getUid("foo"),
     function $Test__foo(self, _cmd)
     {
@@ -81,7 +81,7 @@ class_addMethods($the_class,
     // argument types
     ["void"]),
 
-    // -subviews
+    // - (CPArray)subviews
     new objj_method(sel_getUid("subviews"),
     function $Test__subviews(self, _cmd)
     {
@@ -97,7 +97,7 @@ class_addMethods($the_class,
     // argument types
     ["CPArray"]),
 
-    // -doSomething:withNumber:and:andAlso:
+    // - (void)doSomething:withNumber:and:andAlso:
     new objj_method(sel_getUid("doSomething:withNumber:and:andAlso:"),
     function $Test__doSomething_withNumber_and_andAlso_(self, _cmd, something, number, and, also)
     {
@@ -106,7 +106,7 @@ class_addMethods($the_class,
     // argument types
     ["void", "CPString", "int", "CPString", "int"]),
 
-    // -bigSelector
+    // - (void)bigSelector
     new objj_method(sel_getUid("bigSelector"),
     function $Test__bigSelector(self, _cmd)
     {
@@ -122,7 +122,7 @@ class_addMethods($the_class,
     // argument types
     ["void"]),
 
-    // -emptySelector:::
+    // - (void)emptySelector:::
     new objj_method(sel_getUid("emptySelector:::"),
     function $Test__emptySelector___(self, _cmd, one, two, three)
     {
@@ -130,7 +130,7 @@ class_addMethods($the_class,
     // argument types
     ["void", "int", "double", "CPArray"]),
 
-    // -testEmptySelector
+    // - (void)testEmptySelector
     new objj_method(sel_getUid("testEmptySelector"),
     function $Test__testEmptySelector(self, _cmd)
     {
@@ -143,7 +143,7 @@ class_addMethods($the_class,
 // Class methods
 class_addMethods($the_class.isa,
 [
-    // +initialize
+    // + (void)initialize
     new objj_method(sel_getUid("initialize"),
     function $Test__initialize(self, _cmd)
     {
@@ -153,7 +153,7 @@ class_addMethods($the_class.isa,
     // argument types
     ["void"]),
 
-    // +classInit
+    // + (void)classInit
     new objj_method(sel_getUid("classInit"),
     function $Test__classInit(self, _cmd)
     {

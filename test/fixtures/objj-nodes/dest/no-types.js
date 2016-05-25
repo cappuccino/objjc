@@ -11,13 +11,13 @@ class_addIvars($the_class,
 // Instance methods
 class_addMethods($the_class,
 [
-    // -methodOne:
+    // - (int)methodOne:
     new objj_method(sel_getUid("methodOne:"),
     function $NoTypes__methodOne_(self, _cmd, param)
     {
     }),
 
-    // -methodTwo:
+    // - (void)methodTwo:
     new objj_method(sel_getUid("methodTwo:"),
     function $NoTypes__methodTwo_(self, _cmd, param)
     {

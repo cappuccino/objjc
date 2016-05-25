@@ -14,7 +14,7 @@ class_addIvars($the_class,
 // Instance methods
 class_addMethods($the_class,
 [
-    // -test:
+    // - (void)test:
     new objj_method(sel_getUid("test:"),
     function $One__test_(self, _cmd, i)
     {
@@ -23,7 +23,7 @@ class_addMethods($the_class,
     // argument types
     ["void", "int"]),
 
-    // -foo:
+    // - (Foo)foo:
     new objj_method(sel_getUid("foo:"),
     function $One__foo_(self, _cmd, bar)
     {
@@ -41,7 +41,7 @@ objj_registerClassPair($the_class);
 // Instance methods
 class_addMethods($the_class,
 [
-    // -foo:
+    // - (void)foo:
     new objj_method(sel_getUid("foo:"),
     function $Two__foo_(self, _cmd, bar)
     {

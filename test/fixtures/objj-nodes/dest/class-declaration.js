@@ -96,7 +96,7 @@ var initialized = false,
 // Instance methods
 class_addMethods($the_class,
 [
-    // -init
+    // - (id)init
     new objj_method(sel_getUid("init"),
     function $Methods__init(self, _cmd)
     {
@@ -114,7 +114,7 @@ class_addMethods($the_class,
 // Class methods
 class_addMethods($the_class.isa,
 [
-    // +initialize
+    // + (void)initialize
     new objj_method(sel_getUid("initialize"),
     function $Methods__initialize(self, _cmd)
     {

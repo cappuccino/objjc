@@ -18,7 +18,7 @@ class_addIvars($the_class,
 // Instance methods
 class_addMethods($the_class,
 [
-    // -hasColorOfType:
+    // - (BOOL)hasColorOfType:
     new objj_method(sel_getUid("hasColorOfType:"),
     function $Test__hasColorOfType_(self, _cmd, type)
     {

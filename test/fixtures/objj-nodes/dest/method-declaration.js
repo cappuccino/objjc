@@ -19,7 +19,7 @@ objj_registerClassPair($the_class);
 // Instance methods
 class_addMethods($the_class,
 [
-    // -defaultType
+    // - (id)defaultType
     new objj_method(sel_getUid("defaultType"),
     function $Methods__defaultType(self, _cmd)
     {
@@ -27,7 +27,7 @@ class_addMethods($the_class,
     // argument types
     ["id"]),
 
-    // -action1
+    // - (void)action1
     new objj_method(sel_getUid("action1"),
     function $Methods__action1(self, _cmd)
     {
@@ -35,7 +35,7 @@ class_addMethods($the_class,
     // argument types
     ["void"]),
 
-    // -action2
+    // - (void)action2
     new objj_method(sel_getUid("action2"),
     function $Methods__action2(self, _cmd)
     {
@@ -43,7 +43,7 @@ class_addMethods($the_class,
     // argument types
     ["void"]),
 
-    // -returnProtocols
+    // - (id)returnProtocols
     new objj_method(sel_getUid("returnProtocols"),
     function $Methods__returnProtocols(self, _cmd)
     {
@@ -51,7 +51,7 @@ class_addMethods($the_class,
     // argument types
     ["id"]),
 
-    // -selectorWith:
+    // - (void)selectorWith:
     new objj_method(sel_getUid("selectorWith:"),
     function $Methods__selectorWith_(self, _cmd, one)
     {
@@ -60,7 +60,7 @@ class_addMethods($the_class,
     // argument types
     ["void", "int"]),
 
-    // -selectorWith:two:
+    // - (void)selectorWith:two:
     new objj_method(sel_getUid("selectorWith:two:"),
     function $Methods__selectorWith_two_(self, _cmd, one, two)
     {
@@ -68,7 +68,7 @@ class_addMethods($the_class,
     // argument types
     ["void", "int", "double"]),
 
-    // -selectorWithProtocols:
+    // - (void)selectorWithProtocols:
     new objj_method(sel_getUid("selectorWithProtocols:"),
     function $Methods__selectorWithProtocols_(self, _cmd, protocols)
     {
@@ -76,7 +76,7 @@ class_addMethods($the_class,
     // argument types
     ["void", "id"]),
 
-    // -varArgs:
+    // - (void)varArgs:
     new objj_method(sel_getUid("varArgs:"),
     function $Methods__varArgs_(self, _cmd, count)
     {

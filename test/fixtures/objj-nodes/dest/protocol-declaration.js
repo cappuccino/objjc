@@ -5,7 +5,7 @@ objj_registerProtocol($the_protocol);
 
 protocol_addMethodDescriptions($the_protocol,
 [
-    // -eat
+    // - (void)eat
     new objj_method(sel_getUid("eat"), null,
     // argument types
     ["void"])
@@ -20,12 +20,12 @@ objj_registerProtocol($the_protocol);
 
 protocol_addMethodDescriptions($the_protocol,
 [
-    // -one
+    // - (void)one
     new objj_method(sel_getUid("one"), null,
     // argument types
     ["void"]),
 
-    // -two
+    // - (int)two
     new objj_method(sel_getUid("two"), null,
     // argument types
     ["int"])
@@ -34,7 +34,7 @@ true, true);
 
 protocol_addMethodDescriptions($the_protocol,
 [
-    // +classMethod
+    // + (void)classMethod
     new objj_method(sel_getUid("classMethod"), null,
     // argument types
     ["void"])
@@ -63,12 +63,12 @@ objj_registerProtocol($the_protocol);
 
 protocol_addMethodDescriptions($the_protocol,
 [
-    // -three
+    // - (float)three
     new objj_method(sel_getUid("three"), null,
     // argument types
     ["float"]),
 
-    // -required
+    // - (id)required
     new objj_method(sel_getUid("required"), null,
     // argument types
     ["id"])

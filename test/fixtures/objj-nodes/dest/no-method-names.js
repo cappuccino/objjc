@@ -5,7 +5,7 @@ objj_registerClassPair($the_class);
 // Instance methods
 class_addMethods($the_class,
 [
-    // -methodOne:
+    // - (int)methodOne:
     new objj_method(sel_getUid("methodOne:"),
     function(self, _cmd, param)
     {
@@ -17,7 +17,7 @@ class_addMethods($the_class,
 // Class methods
 class_addMethods($the_class.isa,
 [
-    // +initialize
+    // + (void)initialize
     new objj_method(sel_getUid("initialize"),
     function(self, _cmd)
     {

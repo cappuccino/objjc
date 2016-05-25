@@ -45,19 +45,19 @@ true, false);
 // @protocol Child <Parent, Person>
 var $the_protocol = objj_allocateProtocol("Child");
 
-var $the_inherited_protocol = objj_getProtocol("Parent");
+var $the_incorporated_protocol = objj_getProtocol("Parent");
 
-if (!$the_inherited_protocol)
+if (!$the_incorporated_protocol)
     throw new ReferenceError("Cannot find protocol declaration for 'Parent'");
 
-protocol_addProtocol($the_protocol, $the_inherited_protocol);
+protocol_addProtocol($the_protocol, $the_incorporated_protocol);
 
-$the_inherited_protocol = objj_getProtocol("Person");
+$the_incorporated_protocol = objj_getProtocol("Person");
 
-if (!$the_inherited_protocol)
+if (!$the_incorporated_protocol)
     throw new ReferenceError("Cannot find protocol declaration for 'Person'");
 
-protocol_addProtocol($the_protocol, $the_inherited_protocol);
+protocol_addProtocol($the_protocol, $the_incorporated_protocol);
 
 objj_registerProtocol($the_protocol);
 

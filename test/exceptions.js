@@ -27,9 +27,9 @@ const testData = [ // jscs: ignore requireMultipleVarDecl
     ["symbol-redefinition", "redefining a global symbol as a different type should generate an error"],
 ];
 
-function makeTest(should, filename)
+function makeTest(description, filename)
 {
-    it(should, () =>
+    specify(description, () =>
     {
         const
             output = utils.compiledFixture(`exceptions/src/${filename}`, { captureStdout: true }),
@@ -39,7 +39,7 @@ function makeTest(should, filename)
     });
 }
 
-describe("Exceptions", () =>
+context("Warnings and errors", () =>
 {
     for (const info of testData)
     {

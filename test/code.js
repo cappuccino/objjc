@@ -14,7 +14,7 @@ function makeTest(prefix, file, destExtension, options)
         fixture = `${prefix}/src/${srcName}`,
         dest = `${prefix}/dest/${baseName}${destExtension}`;
 
-    it(baseName.replace(/-/g, " "), () =>
+    specify(baseName.replace(/-/g, " "), () =>
     {
         const
             baseOptions = {
@@ -29,7 +29,7 @@ function makeTest(prefix, file, destExtension, options)
 
 function makeDescribe(title, prefix, destExtension, options)
 {
-    describe(title, () =>
+    context(title, () =>
     {
         const files = fs.readdirSync(`test/fixtures/${prefix}/src`);
 
@@ -38,5 +38,8 @@ function makeDescribe(title, prefix, destExtension, options)
     });
 }
 
-makeDescribe("Javascript code generation", "js-nodes", ".js");
-makeDescribe("Objective-J code generation", "objj-nodes", ".js");
+context("Code generation", () =>
+{
+    makeDescribe("Javascript nodes", "js-nodes", ".js");
+    makeDescribe("Objective-J nodes", "objj-nodes", ".js");
+});

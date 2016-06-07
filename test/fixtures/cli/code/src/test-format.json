@@ -1,0 +1,321 @@
+{
+    "*": {
+        "indent-string": " ",
+        "indent-width": 4,
+        "single-line-array-limit": 4,
+        "before-comma": "",
+        "after-comma": " ",
+        "before-operator": " ",
+        "after-operator": " ",
+        "after-left-parens": "",
+        "before-left-parens": ""
+    },
+    "*control": {
+        "nodes": [
+            "@implementation",
+            "@protocol",
+            "do while",
+            "if",
+            "for",
+            "for in",
+            "function",
+            "switch",
+            "try",
+            "while",
+            "with"
+        ],
+        "before": {
+            "*": "\n\n",
+            "$previous": {
+                "*control": "\n\n",
+                "*statement": "\n\n",
+                "label": "\n",
+                "null": {
+                    "*": "\n",
+                    "$parent": {
+                        "lambda": " ",
+                        "program": ""
+                    }
+                },
+                "var": "\n\n"
+            }
+        },
+        "before-left-parens": " ",
+        "after-left-parens": ""
+    },
+    "*statement": {
+        "nodes": [
+            "@class",
+            "@global",
+            "@typedef",
+            "break",
+            "continue",
+            "debugger",
+            "empty statement",
+            "expression statement",
+            "return",
+            "throw"
+        ],
+        "before": {
+            "*": "\n",
+            "$previous": {
+                "*control": "\n\n",
+                "{}": "\n\n",
+                "function expression": "\n\n",
+                "null": {
+                    "*": "\n",
+                    "$parent": {
+                        "lambda": " ",
+                        "program": ""
+                    }
+                },
+                "var": {
+                    "*": "\n\n",
+                    "$parent": {
+                        "for": "\n",
+                        "for in": "\n"
+                    }
+                }
+            }
+        },
+        "after": ";"
+    },
+    "?:": {},
+    "@[]": {},
+    "@class": {
+        "before": "",
+        "after": ""
+    },
+    "@deref": {},
+    "@global": {
+        "before": "",
+        "after": ""
+    },
+    "@import": {},
+    "@implementation": {},
+    "@protocol": {},
+    "@protocol()": {},
+    "@ref": {},
+    "@selector": {},
+    "@typedef": {
+        "before": "",
+        "after": ""
+    },
+    "@{}": {},
+    ",": {},
+    "{}": {
+        "before-left-brace": {
+            "$parent": {
+                "function expression": {
+                    "$parent": {
+                        "var": "\n    "
+                    }
+                },
+                "*control": "\n"
+            },
+            "*": {
+                "$previous": {
+                    "null": "\n",
+                    "*": "\n\n"
+                }
+            }
+        },
+        "after-left-brace": {
+            "*": "|1",
+            "$parent": {
+                "function expression": {
+                    "$parent": {
+                        "var": "|2"
+                    }
+                }
+            }
+        },
+        "before-right-brace": {
+            "*": "\n|-1",
+            "$parent": {
+                "function expression": {
+                    "$parent": {
+                        "var": "\n    |-2"
+                    }
+                }
+            }
+        }
+    },
+    "array": {
+        "after-left-bracket": {
+            "*": "\n|1",
+            "$parent": {
+                "var": "\n    |1"
+            }
+        },
+        "after-comma": {
+            "*": "\n",
+            "$parent": {
+                "var": "\n    "
+            }
+        },
+        "after-single-comma": " ",
+        "before-right-bracket": {
+            "*": "\n|-1",
+            "$parent": {
+                "var": "\n    |-1"
+            }
+        }
+    },
+    "assignment": {},
+    "binary expression": {},
+    "break": {
+        "before-label": " "
+    },
+    "continue": {
+        "before-label": " "
+    },
+    "do while": {
+        "before-do-while": "\n",
+        "after-do-while": "",
+        "after": ";"
+    },
+    "debugger": {
+    },
+    "else": {
+        "before": ""
+    },
+    "else if": {
+        "before": " ",
+        "before-left-parens": " ",
+        "before-else": "\n",
+        "after-else": ""
+    },
+    "for": {
+        "after-init-expression": "",
+        "after-init-semicolon": " "
+    },
+    "for in": {
+        "before-in": " ",
+        "after-in": " "
+    },
+    "function": {
+        "before-left-parens": ""
+    },
+    "function call": {},
+    "function expression": {},
+    "identifier": {},
+    "identifier name": {},
+    "if": {
+        "before-else": "\n",
+        "after-else": ""
+    },
+    "label": {
+        "before": {
+            "*": "\n\n",
+            "$previous": {
+                "label": "\n",
+                "null": {
+                    "$parent": {
+                        "program": ""
+                    }
+                }
+            }
+        },
+        "after-colon": ""
+    },
+    "lambda": {
+        "before-left-brace": " ",
+        "after-left-brace": "",
+        "before-right-brace": " "
+    },
+    "literal": {},
+    "logical expression": {},
+    "member": {},
+    "message send": {},
+    "method": {},
+    "new": {},
+    "object": {
+        "after-left-brace": {
+            "*": "|1",
+            "$parent": {
+                "var": "|2"
+            }
+        },
+        "before-right-brace": {
+            "*": "\n|-1",
+            "$parent": {
+                "var": "\n|-1"
+            }
+        },
+        "after-right-brace": {
+            "$parent": {
+                "var": "|-1"
+            }
+        },
+        "before-property": "\n",
+        "before-colon": "",
+        "after-colon": " ",
+        "after-comma": ""
+    },
+    "objective-j type": {},
+    "return": {
+        "before": {
+            "$previous": {
+                "null": {
+                    "$parent": {
+                        "program": "",
+                        "*": "\n"
+                    }
+                },
+                "*": "\n\n"
+            },
+            "*": "\n\n"
+        }
+    },
+    "switch": {
+        "before-left-brace": "\n",
+        "after-left-brace": "|1",
+        "before-case": "\n",
+        "after-case": " ",
+        "before-colon": "",
+        "after-colon": "",
+        "between-case-blocks": "\n|0",
+        "before-right-brace": "\n|-1"
+    },
+    "this": {},
+    "throw": {},
+    "try": {
+        "before-catch": "\n",
+        "before-finally": "\n"
+    },
+    "unary expression": {},
+    "update expression": {},
+    "var": {
+        "before": {
+            "*": "\n\n",
+            "$previous": {
+                "null": {
+                    "*": "\n",
+                    "$parent": {
+                        "for": "",
+                        "for in": "",
+                        "program": ""
+                    }
+                }
+            }
+        },
+        "before-assign": " ",
+        "after-assign": " ",
+        "after-comma": {
+            "*": "\n    ",
+            "$parent": {
+                "for": " "
+            }
+        },
+        "after": {
+            "*": ";",
+            "$parent": {
+                "for": "",
+                "for in": ""
+            }
+        }
+    },
+    "while": {},
+    "with": {}
+}

@@ -39,6 +39,41 @@ function compareWithFixture(filePath, exitCode)
         expect(result.exitCode).to.equal(exitCode);
 }
 
+function testOutputOption(sourcePath, outputPath, extraArgs, expectedOutput, options)
+{
+    const args = ["--output", outputPath];
+
+    if (extraArgs)
+        args.push(...extraArgs);
+
+    args.push(sourcePath);
+
+    const result = utils.run(args, options);
+
+    expect(result.exitCode).to.equal(0);
+
+    let dirExists = pathExists("test_out");
+
+    if (dirExists)
+        dirExists = fs.statSync("test_out").isDirectory();
+
+    expect(dirExists).to.be.true();
+
+    if (dirExists)
+    {
+        for (const file of expectedOutput)
+        {
+            const
+                filePath = path.join("test_out", file),
+                isFile = pathExists(filePath) && fs.statSync(filePath).isFile();
+
+            expect(isFile).to.be.true();
+        }
+    }
+
+    rimraf("test_out", {});
+}
+
 describe("cli", () =>
 {
     describe("code", () =>
@@ -61,6 +96,16 @@ describe("cli", () =>
         it("a named format should be used with '--format name'", () =>
         {
             compareWithFixture("code/src/format-name.js");
+        });
+
+        it("a named format should be used given '--format name.json'", () =>
+        {
+            compareWithFixture("code/src/format-name.json.js");
+        });
+
+        it("the format at a path should be used given '--format path/to/format.json'", () =>
+        {
+            compareWithFixture("code/src/format-path.js");
         });
 
         it("inline message sends should be generated with '--inline-msg-send'", () =>
@@ -95,30 +140,12 @@ describe("cli", () =>
 
         it("--output should cause generated code & source map to go into the given directory", () =>
         {
-            const result = utils.run(["--output", "test_out", dir + "code/src/source-map.txt"]);
+            testOutputOption(dir + "code/src/source-map.txt", "test_out", ["--source-map"], ["source-map.js", "source-map.js.map"]);
+        });
 
-            expect(result.exitCode).to.equal(0);
-
-            let dirExists = pathExists("test_out");
-
-            if (dirExists)
-                dirExists = fs.statSync("test_out").isDirectory();
-
-            expect(dirExists).to.be.true();
-
-            if (dirExists)
-            {
-                for (const file of ["source-map.js", "source-map.js.map"])
-                {
-                    const
-                        filePath = path.join("test_out", file),
-                        isFile = pathExists(filePath) && fs.statSync(filePath).isFile();
-
-                    expect(isFile).to.be.true();
-                }
-            }
-
-            rimraf("test_out", {});
+        it("should save generated code at the given path when using stdin with --output", () =>
+        {
+            testOutputOption("-", path.join("test_out", "bar.js"), null, ["bar.js"], { stdin: "var x = 7;" });
         });
 
         it("'--ast 0' should output a compressed AST", () =>
@@ -131,9 +158,25 @@ describe("cli", () =>
             compareWithFixture("code/src/ast-2.txt");
         });
 
+        it("'--ast with --quiet' should output nothing", () =>
+        {
+            const result = utils.run(["--ast", "2", "--quiet", dir + "code/src/ast-2.txt"]);
+
+            expect(result.output).to.be.empty();
+        });
+
         it("- as an argument should take input from stdin", () =>
         {
             compareWithFixture("code/src/stdin.js");
+        });
+
+        it("no output should be generated with --silent", () =>
+        {
+            const result = utils.run(["--output", "test_out", "--silent", dir + "code/src/stdin.js"]);
+
+            expect(result.output).to.be.empty();
+            expect(result.exitCode).to.equal(0);
+            rimraf("test_out", {});
         });
     });
 
@@ -143,13 +186,48 @@ describe("cli", () =>
         {
             const result = utils.run([]);
 
-            expect(result.output).to.be.match(/error: no input files/);
+            expect(result.output).to.match(/^objjc: error: no input files/);
             expect(result.exitCode).to.equal(2);
         });
 
-        it("an error should be generated if an unknown format is used with --format", () =>
+        it("an error should be generated if an input file does not exist", () =>
         {
-            compareWithFixture("exceptions/src/format-bad.js", 2);
+            const result = utils.run(["foo.j"]);
+
+            expect(result.output).to.match(/^objjc: error: no such file '.+foo.j'/);
+            expect(result.exitCode).to.equal(2);
+        });
+
+        it("an error should be generated if an input file is a directory", () =>
+        {
+            const result = utils.run(["test"]);
+
+            expect(result.output).to.match(/^objjc: error: '.+test' is a directory/);
+            expect(result.exitCode).to.equal(2);
+        });
+
+        it("an error should be generated if --format is given an unknown standard format name", () =>
+        {
+            const result = utils.run(["--format", "foo", dir + "code/src/format-name.js"]);
+
+            expect(result.output).to.match(/^objjc: error: no such format 'foo'\nAvailable formats: /);
+            expect(result.exitCode).to.equal(2);
+        });
+
+        it("an error should be generated if --format is given a path to a non-existent format", () =>
+        {
+            const result = utils.run(["--format", "foo/bar.json", dir + "code/src/format-name.js"]);
+
+            expect(result.output).to.match(/^objjc: error: no such format '.+?foo\/bar\.json'/);
+            expect(result.exitCode).to.equal(2);
+        });
+
+        it("an error should be generated if a format has invalid JSON", () =>
+        {
+            const result = utils.run(["--format", dir + "exceptions/src/format-invalid.json", dir + "code/src/format-name.js"]);
+
+            expect(result.output).to.match(/^objjc: error: invalid JSON in format file '.+?'/);
+            expect(result.exitCode).to.equal(2);
         });
 
         it("all warnings should be ignored with --ignore-warnings", () =>
@@ -184,7 +262,7 @@ describe("cli", () =>
 
         it("no output should be generated but a non-zero exit code should be returned with --silent", () =>
         {
-            const result = utils.run(["--silent", dir + "exceptions/src/ignore-warnings.j"]);
+            const result = utils.run(["--silent", "-"], { stdin: "var x;\nx ==== 7;" });
 
             expect(result.output).to.be.empty();
             expect(result.exitCode).to.equal(2);
@@ -207,17 +285,51 @@ describe("cli", () =>
 
         it("enabled/disabled optional warnings mixed with a list should complain, e.g. '--warnings debugger,+shadowed-vars'", () =>
         {
-            compareWithFixture("exceptions/src/warnings-mixed.j", 1);
+            const mixedWarning = /^objjc: warning: listing specific compiler warnings may not be mixed with inclusive\/exclusive warnings/;
+
+            let result = utils.run([
+                "--warnings",
+                "debugger,+shadowed-vars",
+                dir + "exceptions/src/warnings-all.j"
+            ]);
+
+            expect(result.output).to.match(mixedWarning);
+
+            result = utils.run([
+                "--warnings",
+                "debugger,no-shadowed-vars",
+                dir + "exceptions/src/warnings-all.j"
+            ]);
+
+            expect(result.output).to.match(mixedWarning);
+
+            result = utils.run([
+                "--warnings",
+                "no-shadowed-vars, debugger",
+                dir + "exceptions/src/warnings-all.j"
+            ]);
+
+            expect(result.output).to.match(mixedWarning);
         });
 
         it("an unknown optional warning should complain, e.g. '--warnings debugger,shadowed-var'", () =>
         {
-            compareWithFixture("exceptions/src/warnings-unknown.j", 1);
+            const result = utils.run(["--warnings", "debugger,shadowed-var", dir + "exceptions/src/warnings-all.j"]);
+
+            expect(result.output).to.match(/^objjc: warning: unknown compiler warning 'shadowed-var'/);
         });
 
         it("no optional warnings should be generated with '--warnings none'", () =>
         {
             compareWithFixture("exceptions/src/warnings-none.j", 1);
+        });
+
+        it("a stack trace should be printed if an error occurs and --stack-trace is passed", () =>
+        {
+            const result = utils.run(["--stack-trace", "--format", "foo", dir + "code/src/format-name.js"]);
+
+            expect(result.output).to.match(/^objjc: error: (no such format 'foo'\nAvailable formats: .+?)\n\nError: \1\n\s+at \w+/);
+            expect(result.exitCode).to.equal(2);
         });
     });
 
@@ -227,7 +339,7 @@ describe("cli", () =>
         {
             const result = utils.run(["--environment", "foo", "foo"]);
 
-            expect(result.output).to.match(/error: environment must be /);
+            expect(result.output).to.match(/^objjc: error: environment must be /);
         });
 
         it("--list-formats should display a list of available formats", () =>
@@ -244,14 +356,14 @@ describe("cli", () =>
         {
             let result = utils.run(["--source-map", "-"]);
 
-            expect(result.output).to.match(/error: --source-map and --source-map-only may not be used with stdin/);
+            expect(result.output).to.match(/^objjc: error: --source-map and --source-map-only may not be used with stdin/);
         });
 
         it("--source-map-only along with stdin should complain", () =>
         {
             let result = utils.run(["--source-map-only", "-"]);
 
-            expect(result.output).to.match(/error: --source-map and --source-map-only may not be used with stdin/);
+            expect(result.output).to.match(/^objjc: error: --source-map and --source-map-only may not be used with stdin/);
         });
 
         it("--version should display the objjc, acorn-objj and acorn versions ", () =>

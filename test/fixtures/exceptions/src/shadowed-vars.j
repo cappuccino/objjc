@@ -164,6 +164,7 @@ function outer()
 {
     int one;
     int two;
+    int three;
 }
 
 - (void)test
@@ -188,16 +189,34 @@ function outer()
 
 - (void)nested
 {
+    // for coverage
+    one = 7;
+    two = 13;
+
     // function parameter hides instance variable
     function nestParams(one, two)
     {
     }
 
+    // cover case where nested scope has a parent scope with ivar refs
     function nestVars()
     {
         // local declaration hides instance variable
         var one,
             two;
+
+        // test ivar refs within functions
+        three = 31;
+    }
+}
+
+// for coverage
+- (void)moreNesting
+{
+    // cover case where nested scope has a parent scope without ivar refs
+    function nested()
+    {
+        console.log(one + two);
     }
 }
 

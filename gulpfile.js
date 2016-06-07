@@ -97,7 +97,7 @@ function generateFixtures(fixturesDir, renameSpec, options)
         compileFunc = fixturesDir.startsWith("cli") ? cliCompileFixture : compileFixture;
 
     // Since we only need paths for the compiler, no need to read the file source.
-    return gulp.src("./*", { cwd: srcDir, base: srcDir, read: false })
+    return gulp.src("./*{.js,.j}", { cwd: srcDir, base: srcDir, read: false })
 
         // Only generate fixtures whose source has changed
         .pipe($.newer(makeNewerOptions(srcDir, renameSpec)))

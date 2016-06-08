@@ -256,7 +256,7 @@ context("CLI", () =>
             {
                 const result = utils.run(["--format", "foo/bar.json", dir + "code/src/format-name.js"]);
 
-                expect(result.output).to.match(/^objjc: error: no such format '.+?foo\/bar\.json'/);
+                expect(result.output).to.match(/^objjc: error: no such format '.+?foo[/\\]bar\.json'/);
                 expect(result.exitCode).to.equal(2);
             });
 

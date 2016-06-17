@@ -47,6 +47,7 @@
         "nodes": [
             "@class",
             "@global",
+            "@import",
             "@typedef",
             "break",
             "continue",
@@ -83,22 +84,21 @@
     "?:": {},
     "@[]": {},
     "@class": {
-        "before": "",
         "after": ""
     },
     "@deref": {},
     "@global": {
-        "before": "",
         "after": ""
     },
-    "@import": {},
+    "@import": {
+        "after": ""
+    },
     "@implementation": {},
     "@protocol": {},
     "@protocol()": {},
     "@ref": {},
     "@selector": {},
     "@typedef": {
-        "before": "",
         "after": ""
     },
     "@{}": {},
@@ -111,7 +111,8 @@
                         "var": "\n    "
                     }
                 },
-                "*control": "\n"
+                "*control": "\n",
+                "program": "\n"
             },
             "*": {
                 "$previous": {

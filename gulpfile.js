@@ -79,6 +79,7 @@ function cliCompileFixture(options, file, encoding, cb)
 {
     const result = utils.compiledCliFixture(file.path);
 
+    console.log(path.basename(file.path));
     file.contents = new Buffer(result.output);
     cb(null, file);
 }
@@ -97,7 +98,7 @@ function generateFixtures(fixturesDir, renameSpec, options)
         compileFunc = fixturesDir.startsWith("cli") ? cliCompileFixture : compileFixture;
 
     // Since we only need paths for the compiler, no need to read the file source.
-    return gulp.src("./*{.js,.j}", { cwd: srcDir, base: srcDir, read: false })
+    return gulp.src("./*{.js,.j,.txt}", { cwd: srcDir, base: srcDir, read: false })
 
         // Only generate fixtures whose source has changed
         .pipe($.newer(makeNewerOptions(srcDir, renameSpec)))
@@ -231,10 +232,10 @@ gulp.task("generate-fixtures:source-maps", () =>
 gulp.task("generate-fixtures", cb =>
 {
     runSequence(
+        "generate-fixtures:cli",
         "generate-fixtures:js",
         "generate-fixtures:objj",
         "generate-fixtures:exceptions",
-        "generate-fixtures:cli",
         cb
     );
 });

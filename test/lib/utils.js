@@ -140,12 +140,21 @@ exports.convertIssuePathsToPosix = text => text.replace(
     match => match.replace(/\\/g, "/")
 );
 
-function convertASTPathsToPosix(result)
+/*
+ * Strip out all but the filename from the 'sourceFile' property of AST nodes.
+ */
+function stripASTPaths(result)
 {
     result.output = result.output.replace(
         /("sourceFile":\s*)"([^"]+)"/g,
         // Because the AST is JSON, paths are quoted and thus backslashes are doubled
-        (match, key, filePath) => key + "\"" + filePath.replace(/\\\\/g, "/") + "\""
+        (match, key, filePath) =>
+        {
+            // First convert paths to Posix
+            filePath = filePath.replace(/\\\\/g, "/");
+
+            return `${key}"${path.basename(filePath)}"`;
+        }
     );
 }
 
@@ -180,7 +189,7 @@ exports.compiledCliFixture = function(filePath)
     if (filePath.includes("/exceptions/"))
         result.output = exports.convertIssuePathsToPosix(result.output);
     else if (filename.startsWith("ast-"))
-        convertASTPathsToPosix(result);
+        stripASTPaths(result);
 
     return result;
 };

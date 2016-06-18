@@ -1,51 +1,54 @@
-debugger;
+(function()
+{
+    debugger;
 
-var i = 13;
+    var i = 13;
 
-// @implementation One
-var $the_class = objj_allocateClassPair(Nil, "One");
-objj_registerClassPair($the_class);
+    // @implementation One
+    var $the_class = objj_allocateClassPair(Nil, "One");
+    objj_registerClassPair($the_class);
 
-// Instance methods
-class_addMethods($the_class,
-[
-    // - (void)test:
-    new objj_method(sel_getUid("test:"),
-    function $One__test_(self, _cmd, i)
-    {
-        x = 7;
-    },
-    // argument types
-    ["void", "int"]),
+    // Instance methods
+    class_addMethods($the_class,
+    [
+        // - (void)test:
+        new objj_method(sel_getUid("test:"),
+        function $One__test_(self, _cmd, i)
+        {
+            x = 7;
+        },
+        // argument types
+        ["void", "int"]),
 
-    // - (Foo)foo:
-    new objj_method(sel_getUid("foo:"),
-    function $One__foo_(self, _cmd, bar)
-    {
-        var y = boo;
-    },
-    // argument types
-    ["Foo", "int"])
-]);
-// @end: @implementation One
+        // - (Foo)foo:
+        new objj_method(sel_getUid("foo:"),
+        function $One__foo_(self, _cmd, bar)
+        {
+            var y = boo;
+        },
+        // argument types
+        ["Foo", "int"])
+    ]);
+    // @end: @implementation One
 
-// @implementation Two : One
-var $the_class = objj_allocateClassPair(One, "Two");
-objj_registerClassPair($the_class);
+    // @implementation Two : One
+    var $the_class = objj_allocateClassPair(One, "Two");
+    objj_registerClassPair($the_class);
 
-// Instance methods
-class_addMethods($the_class,
-[
-    // - (void)foo:
-    new objj_method(sel_getUid("foo:"),
-    function $Two__foo_(self, _cmd, bar)
-    {
-        var NaN = "yo";
-    },
-    // argument types
-    ["void", "double"])
-]);
-// @end: @implementation Two : One
+    // Instance methods
+    class_addMethods($the_class,
+    [
+        // - (void)foo:
+        new objj_method(sel_getUid("foo:"),
+        function $Two__foo_(self, _cmd, bar)
+        {
+            var NaN = "yo";
+        },
+        // argument types
+        ["void", "double"])
+    ]);
+    // @end: @implementation Two : One
+})();
 
 
 test/fixtures/cli/exceptions/src/warnings-list.j:2:1: warning: debugger statement

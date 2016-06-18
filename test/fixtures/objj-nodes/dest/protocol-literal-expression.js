@@ -1,8 +1,11 @@
-// @protocol SomeProtocol
-var $the_protocol = objj_allocateProtocol("SomeProtocol");
+(function()
+{
+    // @protocol SomeProtocol
+    var $the_protocol = objj_allocateProtocol("SomeProtocol");
 
-objj_registerProtocol($the_protocol);
+    objj_registerProtocol($the_protocol);
 
-// @end: @protocol SomeProtocol
+    // @end: @protocol SomeProtocol
 
-var p = objj_getProtocol("SomeProtocol");
+    var p = objj_getProtocol("SomeProtocol");
+})();

@@ -1,6 +1,9 @@
-// @global Foo;
-// @global Bar, Foobar;
+(function()
+{
+    // @global Foo
+    // @global Bar, Foobar
 
-var foo = Foo,
-    bar = Bar,
-    foobar = Foobar;
+    var foo = Foo,
+        bar = Bar,
+        foobar = Foobar;
+})();

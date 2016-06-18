@@ -4,3 +4,5 @@
  [32m[1m^[22m[39m
 
 1 error generated.
+
+objjc: error: compilation aborted, fatal error

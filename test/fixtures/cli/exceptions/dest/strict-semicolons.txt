@@ -4,3 +4,5 @@ var x = 7
          ^
 
 1 error generated.
+
+objjc: error: compilation aborted, fatal error

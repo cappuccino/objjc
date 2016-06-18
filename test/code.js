@@ -18,7 +18,7 @@ function makeTest(prefix, file, destExtension, options)
     {
         const
             baseOptions = {
-                ignoreWarnings: !prefix.startsWith("warnings"),
+                ignoreWarnings: !prefix.startsWith("warnings")
             },
             compileOptions = Object.assign({}, baseOptions, utils.setCompilerOptions(options, srcName)),
             code = utils.compiledFixture(fixture, compileOptions).code;

@@ -6,13 +6,13 @@ const
     path = require("path"),
     utils = require("./lib/utils.js");
 
-function makeTest(prefix, file, destExtension, options)
+function makeTest(prefix, file)
 {
     const
         srcName = path.basename(file),
         baseName = path.basename(file, path.extname(file)),
         fixture = `${prefix}/src/${srcName}`,
-        dest = `${prefix}/dest/${baseName}${destExtension}`;
+        dest = `${prefix}/dest/${baseName}.js`;
 
     specify(baseName.replace(/-/g, " "), () =>
     {
@@ -20,26 +20,31 @@ function makeTest(prefix, file, destExtension, options)
             baseOptions = {
                 ignoreWarnings: !prefix.startsWith("warnings")
             },
-            compileOptions = Object.assign({}, baseOptions, utils.setCompilerOptions(options, srcName)),
+            compileOptions = Object.assign({}, baseOptions, utils.setCompilerOptions({}, srcName)),
             code = utils.compiledFixture(fixture, compileOptions).code;
 
         expect(code).to.equal(utils.readFixture(dest));
     });
 }
 
-function makeDescribe(title, prefix, destExtension, options)
+function makeContext(title, prefix)
 {
     context(title, () =>
     {
         const files = fs.readdirSync(`test/fixtures/${prefix}/src`);
 
         for (let file of files)
-            makeTest(prefix, file, destExtension, options);
+        {
+            const st = fs.statSync(filePath);
+
+            if (st.isFile())
+                makeTest(prefix, file);
+        }
     });
 }
 
 context("Code generation", () =>
 {
-    makeDescribe("Javascript nodes", "js-nodes", ".js");
-    makeDescribe("Objective-J nodes", "objj-nodes", ".js");
+    makeContext("Javascript nodes", "js-nodes");
+    makeContext("Objective-J nodes", "objj-nodes");
 });

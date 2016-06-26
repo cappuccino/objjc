@@ -23,3 +23,13 @@
 - (void)optional
 
 @end
+
+// It's legal to have a class with the same name as a protocol
+@implementation Person <Person>
+
+- (void)eat
+{
+    console.log("Yum!");
+}
+
+@end

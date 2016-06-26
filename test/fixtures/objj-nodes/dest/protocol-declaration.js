@@ -77,4 +77,28 @@
     ],
     true, true);
     // @end: @protocol Child <Parent, Person>
+
+    // @implementation Person <Person>
+    var $the_class = objj_allocateClassPair(Nil, "Person");
+    var $the_protocol = objj_getProtocol("Person");
+
+    if (!$the_protocol)
+        throw new ReferenceError("Cannot find protocol declaration for 'Person'");
+
+    class_addProtocol($the_class, $the_protocol);
+    objj_registerClassPair($the_class);
+
+    // Instance methods
+    class_addMethods($the_class,
+    [
+        // - (void)eat
+        new objj_method(sel_getUid("eat"),
+        function $Person__eat(self, _cmd)
+        {
+            console.log("Yum!");
+        },
+        // argument types
+        ["void"])
+    ]);
+    // @end: @implementation Person <Person>
 })();

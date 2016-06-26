@@ -11,12 +11,6 @@
 [36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m4:20[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdefinition is here[22m
 @class Have, Some, Class
                    [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m10:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'Class' previously defined as a class[22m
-@protocol Class
-[32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m4:20[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdefinition is here[22m
-@class Have, Some, Class
-                   [32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m13:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'Class' previously defined as a class[22m
 Class = "class";
 [32m[1m^[22m[39m
@@ -131,12 +125,6 @@ WooHoo = 7;
 [36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m85:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdefinition is here[22m
 @implementation WooHoo
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m94:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'WooHoo' previously defined as a class[22m
-@protocol WooHoo
-[32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m85:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdefinition is here[22m
-@implementation WooHoo
-[32m[1m^[22m[39m
 [36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m105:9[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'Protocol' previously defined as a protocol[22m
 @global Protocol
         [32m[1m^[22m[39m
@@ -155,11 +143,5 @@ Protocol = 7;
 [36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m101:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdefinition is here[22m
 @protocol Protocol
 [32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m110:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1m'Protocol' previously defined as a protocol[22m
-@implementation Protocol
-[32m[1m^[22m[39m
-[36m[1mtest/fixtures/exceptions/src/symbol-redefinition.j[22m[39m[2m:[22m101:1[2m:[22m [33m[1mnote[22m[39m[2m:[22m [1mdefinition is here[22m
-@protocol Protocol
-[32m[1m^[22m[39m
 
-29 errors generated.
+26 errors generated.

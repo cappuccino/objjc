@@ -39,7 +39,7 @@ exports.readFixture = name =>
 
     expect(exists(fixturePath)).to.be.true();
 
-    return fs.readFileSync(fixturePath, { encoding: "utf8" });
+    return fs.readFileSync(fixturePath, "utf8");
 };
 
 function compiledSourceOrFixture(source, file, options)

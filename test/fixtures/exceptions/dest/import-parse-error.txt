@@ -1,0 +1,9 @@
+
+In file imported from 'test/fixtures/exceptions/src/import-parse-error.j':1
+[36m[1mtest/fixtures/exceptions/src/imports/acorn-error.j[22m[39m[2m:[22m4:10[2m:[22m [31m[1merror[22m[39m[2m:[22m [1munexpected token[22m
+if (x ==== 7)
+         [32m[1m^[22m[39m
+
+1 error generated.
+
+objjc: error: compilation aborted, fatal error

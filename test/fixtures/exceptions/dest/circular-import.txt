@@ -1,0 +1,7 @@
+
+In file imported from 'test/fixtures/exceptions/src/circular-import.j':1
+[36m[1mtest/fixtures/exceptions/src/imports/circular.j[22m[39m[2m:[22m1:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mcircular import[22m
+@import "../circular-import.j"
+[32m[1m^[22m[39m
+
+1 error generated.

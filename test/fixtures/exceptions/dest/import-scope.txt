@@ -1,0 +1,6 @@
+
+[36m[1mtest/fixtures/exceptions/src/import-scope.j[22m[39m[2m:[22m4:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'x'[22m
+var a = x;
+        [32m[1m^[22m[39m
+
+1 warning generated.

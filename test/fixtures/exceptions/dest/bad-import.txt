@@ -1,0 +1,6 @@
+
+[36m[1mtest/fixtures/exceptions/src/bad-import.j[22m[39m[2m:[22m2:1[2m:[22m [31m[1merror[22m[39m[2m:[22m [1mno such file '/Users/aparajita/Developer/cappuccino/objjc/test/fixtures/exceptions/src/foo.j'[22m
+@import "foo.j"
+[32m[1m^[22m[39m
+
+1 error generated.

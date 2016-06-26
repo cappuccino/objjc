@@ -91,8 +91,9 @@ function cliCompileFixture(options, file, encoding, cb)
     cb(null, file);
 }
 
-function generateFixtures(fixturesDir, renameSpec, options)
+function generateFixtures(fixturesDir, renameSpec, options, filenamePattern)
 {
+    filenamePattern = filenamePattern || "*{.js,.j,.txt}";
     options = options || {};
     options.ignoreWarnings = fixturesDir !== "exceptions";
 
@@ -105,7 +106,7 @@ function generateFixtures(fixturesDir, renameSpec, options)
         compileFunc = fixturesDir.startsWith("cli") ? cliCompileFixture : compileFixture;
 
     // Since we only need paths for the compiler, no need to read the file source.
-    return gulp.src("./*{.js,.j,.txt}", { cwd: srcDir, base: srcDir, read: false })
+    return gulp.src("./" + filenamePattern, { cwd: srcDir, base: srcDir, read: false })
 
         // Only generate fixtures whose source has changed
         .pipe($.newer(makeNewerOptions(srcDir, renameSpec)))
@@ -153,10 +154,12 @@ function makeNewerOptions(sourceDir, renameSpec)
                 extension = (renameSpec.suffix || "") + renameSpec.extname;
 
             // Strip the source filename extension, then add the destination suffix + extension
+            const extraDir = path.dirname(filename);
+
             filename = path.basename(filename, path.extname(filename)) + extension;
 
             // Return an absolute path to the destination file to compare against
-            return path.join(process.cwd(), destDir, filename);
+            return path.join(process.cwd(), destDir, extraDir, filename);
         }
     };
 }
@@ -219,7 +222,14 @@ gulp.task("generate-fixtures:objj", () =>
 {
     const renameSpec = { extname: ".js" };
 
-    return generateFixtures("objj-nodes", renameSpec);
+    generateFixtures("objj-nodes", renameSpec);
+
+    const renameImport = function(spec)
+    {
+        spec.extname = ".js";
+    };
+
+    return generateFixtures("objj-nodes", renameImport, null, "import-statement/**/import-*.j");
 });
 
 gulp.task("generate-fixtures:exceptions", () =>

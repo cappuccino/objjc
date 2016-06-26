@@ -21,21 +21,39 @@ const testData = [ // jscs: ignore requireMultipleVarDecl
     ["reserved-words", "using a reserved word as a variable name should generate a warning"],
     ["self", "using 'self' outside of a method or as a method/function parameter should generate an exception"],
     ["shadowed-vars", "var declarations that shadow names in outer scopes should generate a warning"],
+    ["stdin", "issues generated from stdin should show the filename as '<stdin>'"],
     ["suggestions", "unknown names that differ from known names only in capitalization should give a suggestion"],
     ["super-outside", "using 'super' outside of a method should generate an error"],
     ["super-root", "using 'super' in a root class should generate an error"],
     ["symbol-redefinition", "redefining a global symbol as a different type should generate an error"],
 ];
 
+
+/*
+ * Strip out all but the filename from the 'sourceFile' property of AST nodes.
+ */
+function stripPaths(str)
+{
+    return str.replace(
+        /no such file '.+[/\\](.+)'/g,
+        (match, filename) => filename
+    );
+}
+
 function makeTest(description, filename)
 {
     specify(description, () =>
     {
-        const
-            output = utils.compiledFixture(`exceptions/src/${filename}`, { captureStdout: true }),
-            text = utils.convertIssuePathsToPosix(output.stdout);
+        let options = { captureStdout: true };
 
-        expect(text).to.equal(utils.readFixture(`exceptions/dest/${filename}.txt`));
+        if (filename === "stdin")
+            options.stdin = true;
+
+        const
+            output = utils.compiledFixture(`exceptions/src/${filename}`, options),
+            text = stripPaths(utils.convertIssuePathsToPosix(output.stdout));
+
+        expect(text).to.equal(stripPaths(utils.readFixture(`exceptions/dest/${filename}.txt`)));
     });
 }
 

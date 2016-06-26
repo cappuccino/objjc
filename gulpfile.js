@@ -55,9 +55,16 @@ gulp.task("lint", cb => runSequence("lint:eslint", "lint:jscs", cb));
 
 function compileFixture(options, file, encoding, cb)
 {
-    console.log(path.basename(file.path));
+    let filePath = file.path;
 
-    const output = utils.compiledFixture(file.path, utils.setCompilerOptions(options, file.path));
+    console.log(path.basename(filePath));
+    options = utils.setCompilerOptions(options, filePath);
+
+    if (path.basename(filePath) === "stdin.j")
+        options.stdin = true;
+
+    const output = utils.compiledFixture(filePath, options);
+
     let text = options.captureStdout ? output.stdout : output.code;
 
     if (file.path.includes("/exceptions/"))

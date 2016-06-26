@@ -109,7 +109,16 @@ exports.compiledFixture = (file, options) =>
     if (!exists(sourcePath))
         throw new Error("No such fixture: " + sourcePath);
 
-    return compiledSourceOrFixture("", sourcePath, options);
+    let source = "";
+
+    if (options && options.stdin)
+    {
+        source = fs.readFileSync(sourcePath, "utf8");
+        sourcePath = "<stdin>";
+        delete options.stdin;
+    }
+
+    return compiledSourceOrFixture(source, sourcePath, options);
 };
 
 exports.compiledSource = (source, options) => compiledSourceOrFixture(source, "", options);

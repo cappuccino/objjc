@@ -1,0 +1,6 @@
+
+[36m[1m<stdin>[22m[39m[2m:[22m1:9[2m:[22m [35m[1mwarning[22m[39m[2m:[22m [1mreference to unknown identifier 'y'[22m
+var x = y;
+        [32m[1m^[22m[39m
+
+1 warning generated.

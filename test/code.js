@@ -52,8 +52,8 @@ function testImports()
 {
     const
         baseDir = "objj-nodes",
-        srcDir = `${baseDir}/src/import-statement`,
-        destDir = `${baseDir}/dest/import-statement`,
+        srcDir = `${baseDir}/src/import`,
+        destDir = `${baseDir}/dest/import`,
         fileInfo = [
             ["import-local", "@import \"foo.j\" should import the global symbols from 'foo.j'"],
             ["import-chain", "Imported files may themselves import other files"],
@@ -61,7 +61,7 @@ function testImports()
             ["import-cache", "Only the first import of a file parses its symbols, subsequent imports are ignored"]
         ];
 
-    context("import-statement", () =>
+    context("import", () =>
     {
         for (const info of fileInfo)
         {

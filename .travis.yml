@@ -18,6 +18,6 @@ matrix:
   fast_finish: true
 
 before_script:
-  - npm install -g gulp-cli istanbul mocha
+  - npm install -g gulp-cli
 
 script: gulp

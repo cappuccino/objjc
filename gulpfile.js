@@ -28,7 +28,7 @@ const // jscs: ignore requireMultipleVarDecl
 
 // Cleaning
 
-gulp.task("clean", () => del("test/fixtures/**/{dest,misc}/*.{js,txt,map}"));
+gulp.task("clean", () => del("test/fixtures/**/{dest,misc}/*"));
 
 // Linting
 
@@ -218,18 +218,30 @@ gulp.task("generate-fixtures:js", () =>
     return generateFixtures("js-nodes", renameSpec);
 });
 
-gulp.task("generate-fixtures:objj", () =>
+gulp.task("generate-fixtures:objj", cb =>
+{
+    runSequence(
+        "generate-fixtures:objj:nodes",
+        "generate-fixtures:objj:import",
+        cb
+    );
+});
+
+gulp.task("generate-fixtures:objj:nodes", () =>
 {
     const renameSpec = { extname: ".js" };
 
-    generateFixtures("objj-nodes", renameSpec);
+    return generateFixtures("objj-nodes", renameSpec);
+});
 
+gulp.task("generate-fixtures:objj:import", () =>
+{
     const renameImport = function(spec)
     {
         spec.extname = ".js";
     };
 
-    return generateFixtures("objj-nodes", renameImport, null, "import-statement/**/import-*.j");
+    return generateFixtures("objj-nodes", renameImport, null, "import/**/import-*.j");
 });
 
 gulp.task("generate-fixtures:exceptions", () =>

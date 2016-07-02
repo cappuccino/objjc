@@ -421,7 +421,7 @@ context("CLI", () =>
         {
             const result = utils.run(["--version"]);
 
-            expect(result.output).to.match(/^objjc v\d+\.\d+\.\d+ \(acorn-objj v\d+\.\d+\.\d+\, acorn v\d+\.\d+\.\d+\)/);
+            expect(result.output).to.match(/^objjc v\d+\.\d+\.\d+(-(alpha|beta)\.\d+)? \(acorn-objj v\d+\.\d+\.\d+(-(alpha|beta)\.\d+)?, acorn v\d+\.\d+\.\d+\)/);
         });
     });
 });

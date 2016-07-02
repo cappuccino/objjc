@@ -1,5 +1,5 @@
 {
-  "name": "cappuccino.objjc",
+  "name": "cappuccino.compiler",
   "version": "1.0.0-beta.1",
   "description": "JavaScript (ECMAScript) and Objective-J compiler",
   "homepage": "https://github.com/cappuccino/objjc",
